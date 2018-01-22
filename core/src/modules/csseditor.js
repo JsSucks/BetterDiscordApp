@@ -27,6 +27,7 @@ class CSSEditor extends Module {
 
         this.editor = new BrowserWindow(this.options);
         this.editor.loadURL(`file://${this.editorPath}/index.html`);
+        this.editor.webContents.toggleDevTools();
         this.editor.open = true;
         this.editor.setSheetOffset(33);
 
@@ -58,6 +59,7 @@ class CSSEditor extends Module {
 
     //TODO Currently uses a development path
     get editorPath() {
+        return path.resolve(__dirname, '..', '..', '..', 'csseditor', 'dist');
         return path.resolve(__dirname, '..', '..', '..', 'tests', 'csseditor');
     }
 

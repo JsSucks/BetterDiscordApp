@@ -35,10 +35,11 @@
     "pump": "^2.0.0",
     "gulp-plumber": "^1.2.0",
     "gulp-watch": "^5.0.0",
-    "codemirror": "^5.23.0"
+    "codemirror": "^5.23.0",
+    "vue-codemirror": "^4.0.3"
   },
   "scripts": {
-    "build": "cd ./client && npm run build && cd ../core && npm run build",
+    "build": "cd ./client && npm run build && cd ../core && npm run build && cd ../csseditor && npm run build",
     "watch_client": "cd ./client && npm run watch",
     "watch_core": "cd ./core && npm run watch",
     "test": "npm run build"
