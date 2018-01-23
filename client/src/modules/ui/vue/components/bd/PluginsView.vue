@@ -61,6 +61,7 @@
 
     .bd-pluginsView .bd-button {
         display: flex;
+        position: relative;
     }
 
     .bd-pluginsView .bd-button h3 {
@@ -81,6 +82,8 @@
         justify-content: center;
         width: 30px;
         height: 30px;
+        position: absolute;
+        right: 10px;
     }
 
     .bd-pluginsView .bd-button {
@@ -93,6 +96,6 @@
     }
 
     .bd-material-button:hover {
-        background: #2d2f34;
+        background: #29569a;
     }
 </style>
