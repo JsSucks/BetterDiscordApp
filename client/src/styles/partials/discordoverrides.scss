@@ -1,5 +1,9 @@
 .guilds-wrapper {
     padding-top: 50px !important;
+
+    .platform-osx & {
+        margin-top: 26px;
+    }
 }
 
 [class*="guilds-wrapper"] + [class*="flex"] {
@@ -8,4 +12,8 @@
 
 .unread-mentions-indicator-top {
     top: 45px;
+
+    .platform-osx & {
+        top: 50px;
+    }
 }
