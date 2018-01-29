@@ -9,3 +9,4 @@ export { SocketProxy } from './core/discordsocket';
 export { CssEditor } from './core/csseditor';
 export { Settings } from './core/settings';
 export { Vendor } from './core/vendor';
+export { ProfileBadges } from './core/profilebadges';

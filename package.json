@@ -30,6 +30,7 @@
     "gulp-babel": "^7.0.0",
     "gulp-plumber": "^1.2.0",
     "gulp-watch": "^5.0.0",
+    "injectorkit": "^1.1.0",
     "jquery": "^3.2.1",
     "node-sass": "^4.7.2",
     "pump": "^2.0.0",
