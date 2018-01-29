@@ -8,7 +8,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const {WebpackModules} = require('./webpackmodules');
+const { WebpackModules } = require('./webpackmodules');
 const jQuery = require('jquery');
 
 class Vendor {
@@ -27,4 +27,4 @@ class Vendor {
 
 }
 
-module.exports = {Vendor};
+module.exports = { Vendor };
