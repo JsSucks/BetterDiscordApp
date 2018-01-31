@@ -35,7 +35,7 @@
     },
     {
         "id": "ui",
-        "text":  "UI", 
+        "text": "UI",
         "settings": [
 
         ]
@@ -50,6 +50,6 @@
         "text": "Security",
         "settings": [
 
-        ] 
+        ]
     }
 ]

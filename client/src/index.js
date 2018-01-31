@@ -1,54 +1,40 @@
 /**
  * BetterDiscord Client Core
- * Copyright (c) 2015-present JsSucks - https://github.com/JsSucks
+ * Copyright (c) 2015-present Jiiks/JsSucks - https://github.com/Jiiks / https://github.com/JsSucks
  * All rights reserved.
- * https://github.com/JsSucks - https://betterdiscord.net
+ * https://betterdiscord.net
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
 */
 
-'use strict';
-
-const styles = require('./styles/index.scss');
-const { Global, Logger, Utils, PluginManager, BDIpc, WebpackModules, SocketProxy, Events, Vendor } = require('./modules');
-//const { UI } = require('./modules/ui/index.jsx');
+import { DOM, BdUI } from 'ui';
+import BdCss from './styles/index.scss';
+import { Events, CssEditor, Globals, PluginManager, ThemeManager } from 'modules';
 
 class BetterDiscord {
-
     constructor() {
-        window.bdUtils = Utils;
-        window.wpm = WebpackModules;
-        Events.on('global-ready', e => {
-            const { UI } = require('./modules/ui/vueui.js');
-            this.ui = new UI();
-            this.init();
-        });
-
-        //Inject styles to head for now
-        const style = document.createElement('style');
-        style.id = 'bd-main';
-        style.type = 'text/css';
-        style.appendChild(document.createTextNode(styles));
-        document.head.appendChild(style);
-
-        this.init();
+        window.pom = PluginManager;
+        DOM.injectStyle(BdCss, 'bdmain');
+        Events.on('global-ready', this.globalReady.bind(this));
     }
 
     async init() {
-        try {
-            await PluginManager.loadAllPlugins();
-        } catch (err) {
-        }
-
+        await PluginManager.loadAllPlugins();
+        await ThemeManager.loadAllThemes();
         Events.emit('ready');
     }
 
+    globalReady() {
+        this.vueInstance = BdUI.injectUi();
+        (async () => {
+            this.init();
+        })();
+    }
 }
 
 if (window.BetterDiscord) {
     Logger.log('main', 'Attempting to inject again?');
 } else {
     let bdInstance = new BetterDiscord();
-    window.BetterDiscord = {'vendor': Vendor};
 }
