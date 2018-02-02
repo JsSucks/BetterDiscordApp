@@ -47,10 +47,14 @@
         align-items: flex-end;
         overflow: hidden;
 
-        span {
+        a {
             color: #414245;
             font-weight: 700;
             font-size: 12px;
+
+            &:hover {
+                color: lighten(#414245, 25%);
+            }
         }
     }
 

@@ -18,7 +18,7 @@
                 </div>
                 <SidebarItem v-for="item in sidebarItems" :item="item" :key="item.id" :onClick="itemOnClick" />
                 <div class="bd-info">
-                    <span>v2.0.0a by Jiiks/JsSucks</span>
+                    <a href="https://github.com/JsSucks/BetterDiscordApp" @click="openLink">v2.0.0a by Jiiks/JsSucks</a>
                 </div>
             </Sidebar>
             <ContentColumn slot="content">
@@ -47,6 +47,7 @@
     import { SidebarView, Sidebar, SidebarItem, ContentColumn } from './sidebar';
     import { CoreSettings, UISettings, EmoteSettings, CssEditorView, PluginsView } from './bd';
     import { SvgX } from './common';
+    import { shell } from 'electron';
 
     // Constants
     const sidebarItems = [
@@ -121,6 +122,9 @@
                     case 'core':
                         return this.coreSettings.find(setting => setting.id === id).enabled = false;
                 }
+            },
+            openLink(e) {
+                shell.openExternal(e.target.href);
             }
         }
     }
