@@ -1,0 +1,70 @@
+@import './plugincard.scss';
+
+.bd-spinner-container {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    .bd-spinner-2 {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+.bd-pluginsView {
+    .bd-button {
+        text-align: center;
+        background: transparent;
+        display: flex;
+        border-bottom: 2px solid #2b2d31;
+        align-items: center;
+
+        h3 {
+            -webkit-user-select: none;
+            user-select: none;
+            display: block;
+            font-size: 1.17em;
+            margin: 10px 10px 10px 40px;
+            font-weight: bold;
+            flex-grow: 1;
+        }
+
+        &:hover,
+        &.bd-active {
+            color: #fff;
+            background: transparent;
+            border-bottom: 2px solid #3e82e5;
+        }
+
+        &.bd-active {
+            cursor: default;
+        }
+
+        .material-design-icon {
+            display: flex;
+            align-items: center;
+            fill: #FFF;
+        }
+    }
+}
+
+.bd-material-button {
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+    > span {
+        display: flex;
+    }
+
+    &:hover {
+        background: #2d2f34;
+    }
+}

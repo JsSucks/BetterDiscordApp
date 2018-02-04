@@ -1,0 +1,106 @@
+.bd-setting-switch {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+
+    .bd-switch-wrapper {
+        flex: 0 0 auto;
+        user-select: none;
+        position: relative;
+        width: 44px;
+        height: 24px;
+        display: block;
+
+        input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .bd-switch {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: #72767d;
+            border-radius: 14px;
+            transition: background .15s ease-in-out, box-shadow .15s ease-in-out, border .15s ease-in-out;
+
+            &::before {
+                content: "";
+                display: block;
+                width: 18px;
+                height: 18px;
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                bottom: 3px;
+                background: #f6f6f7;
+                border-radius: 10px;
+                transition: all .15s ease;
+                box-shadow: 0 3px 1px 0 rgba(0,0,0,.05), 0 2px 2px 0 rgba(0,0,0,.1), 0 3px 3px 0 rgba(0,0,0,.05);
+            }
+
+            &.bd-checked {
+                background: $colbdblue;
+                &::before {
+                    transform: translateX(20px);
+                }
+            }
+        }
+    }
+
+    .bd-title {
+        display: flex;
+        justify-content: flex-start;
+        -webkit-box-align: stretch;
+        align-items: stretch;
+        -webkit-box-direction: normal;
+        -webkit-box-orient: horizontal;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+
+        h3 {
+            font-weight: 500;
+            color: #f6f6f7;
+            flex: 1;
+            line-height: 24px;
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+    }
+
+    .bd-hint {
+        flex: 1 1 auto;
+        color: #72767d;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 15px;
+        line-height: 30px;
+        border-bottom: 0px solid hsla(218,5%,47%,.1);
+    }
+
+    + .bd-form-divider {
+        margin: 0 0 15px 0;
+    }
+
+    &.bd-disabled {
+        input {
+            cursor: not-allowed;
+        }
+        .bd-switch::before {
+            background: #888888;
+        }
+    }
+}

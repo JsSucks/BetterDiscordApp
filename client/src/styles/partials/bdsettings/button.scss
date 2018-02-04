@@ -45,9 +45,18 @@
             width: 130px;
             height: 80px;
             background-size: 100% 100%;
-            margin-left: 20px;
+            margin-left: 25px;
             cursor: default;
         }
+    }
+
+    .platform-darwin & {
+        top: 26px;
+        padding-bottom: 2px;
+    }
+
+    .platform-linux & {
+        top: 0;
     }
 }
 
