@@ -43,6 +43,37 @@
     &.bd-modal-out {
         animation: bd-modal-out 0.22s ease;
     }
+
+    .bd-modal-header .bd-modal-icon .bd-material-design-icon {
+        margin-right: 5px;
+    }
+
+    &.bd-err {
+        .bd-modal-header .bd-modal-icon svg {
+            fill: $colerr;
+        }
+    }
+
+    .bd-modal-body .bd-scroller-wrap .bd-scroller {
+        color: #FFF;
+    }
+
+    .bd-modal-controls {
+        display: flex;
+        padding: 15px;
+        border-top: 1px solid #4a4a4a;
+
+        .bd-modal-tip {
+            flex-grow: 1;
+            line-height: 26px;
+            color: #FFF;
+        }
+
+        .bd-button {
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+    }
 }
 
 .bd-modal .bd-modal-inner {

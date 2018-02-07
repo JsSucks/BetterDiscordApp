@@ -1,4 +1,4 @@
-module.exports = (Plugin, Api, Vendor) => {
+module.exports = (Plugin, Api, Vendor) => 
 
     const { $, moment } = Vendor;
     const { Events } = Api;

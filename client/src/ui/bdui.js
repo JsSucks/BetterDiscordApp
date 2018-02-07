@@ -11,6 +11,7 @@
 import DOM from './dom';
 import Vue from './vue';
 import { BdSettingsWrapper } from './components';
+import BdModals from './components/bd/BdModals.vue';
 import { Events, WebpackModules } from 'modules';
 import { Utils } from 'common';
 
@@ -27,7 +28,6 @@ export default class {
                 });
             });
         }, 100);
-        
     }
 
     static get profilePopupModule() {
@@ -37,6 +37,14 @@ export default class {
     static injectUi() {
         DOM.createElement('bdtooltips').appendTo(DOM.bdBody);
         DOM.createElement('div', null, 'bd-settings').appendTo(DOM.bdBody);
+        DOM.createElement('div', null, 'bd-modals').appendTo(DOM.bdModals);
+
+        const modals = new Vue({
+            el: '#bd-modals',
+            components: { BdModals },
+            template: '<BdModals/>'
+        });
+
         const vueInstance = new Vue({
             el: '#bd-settings',
             components: { BdSettingsWrapper },
