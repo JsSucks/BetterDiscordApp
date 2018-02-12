@@ -33,11 +33,11 @@
                     "text": "Dropdown Test Setting",
                     "hint": "Dropdown Test Setting Hint",
                     "options": [
-                        {"value": "opt1", "text": "Option 1"},
-                        {"value": "opt2", "text": "Option 2"},
-                        {"value": "opt3", "text": "Option 3"},
-                        {"value": "opt4", "text": "Option 4"},
-                        {"value": "opt5", "text": "Option 5"}
+                        {"id": "opt1", "value": "opt1", "text": "Option 1"},
+                        {"id": "opt2", "value": "opt2", "text": "Option 2"},
+                        {"id": "opt3", "value": "opt3", "text": "Option 3"},
+                        {"id": "opt4", "value": "opt4", "text": "Option 4"},
+                        {"id": "opt5", "value": "opt5", "text": "Option 5"}
                     ]
                 },
                 {
@@ -47,11 +47,11 @@
                     "text": "Radio Test Setting",
                     "hint": "Radio Test Setting Hint",
                     "options": [
-                        {"value": "opt1", "text": "Option 1"},
-                        {"value": "opt2", "text": "Option 2"},
-                        {"value": "opt3", "text": "Option 3"},
-                        {"value": "opt4", "text": "Option 4"},
-                        {"value": "opt5", "text": "Option 5"}
+                        {"id": "opt1", "value": "opt1", "text": "Option 1"},
+                        {"id": "opt2", "value": "opt2", "text": "Option 2"},
+                        {"id": "opt3", "value": "opt3", "text": "Option 3"},
+                        {"id": "opt4", "value": "opt4", "text": "Option 4"},
+                        {"id": "opt5", "value": "opt5", "text": "Option 5"}
                     ]
                 },
                 {

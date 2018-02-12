@@ -191,7 +191,7 @@ export default class ThemeManager extends ContentManager {
         }
 
         if (type === 'dropdown' || type === 'radio') {
-            return `$${name}: ${setting.options.find(opt => opt.value === value).text};`;
+            return `$${name}: ${setting.options.find(opt => opt.id === value).value};`;
         }
 
         if (typeof value === 'boolean' || typeof value === 'number') {

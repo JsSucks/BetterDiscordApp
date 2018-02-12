@@ -20,7 +20,7 @@
                     </span>
                 </div>
                 <div class="bd-dropdown-options bd-flex bd-flex-col" ref="options" v-if="active">
-                    <div class="bd-dropdown-option" v-for="option in setting.options" :class="{'bd-dropdown-option-selected': setting.value === option.value}" @click="selectOption(option)">{{option.text}}</div>
+                    <div class="bd-dropdown-option" v-for="option in setting.options" :class="{'bd-dropdown-option-selected': setting.value === option.id}" @click="selectOption(option)">{{option.text}}</div>
                 </div>
             </div>
         </div>
@@ -37,13 +37,13 @@
         },
         methods: {
             getOptionText(value) {
-                let matching = this.setting.options.filter(opt => opt.value == value);
+                let matching = this.setting.options.filter(opt => opt.id === value);
                 if (matching.length == 0) return "";
                 else return matching[0].text;
             },
             selectOption(option) {
                 this.active = false;
-                this.change(this.setting.id, option.value);
+                this.change(this.setting.id, option.id);
             }
         },
         mounted() {

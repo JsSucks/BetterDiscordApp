@@ -47,24 +47,24 @@
                     "hint": "Dropdown Test Setting Hint",
                     "options": [
                         {
-                            "value": "opt1",
-                            "text": "8px"
+                            "id": "opt1",
+                            "text": "small", 
+                            "value": "8px"
                         },
                         {
-                            "value": "opt2",
-                            "text": "12px"
+                            "id": "opt2",
+                            "text": "medium", 
+                            "value": "12px"
                         },
                         {
-                            "value": "opt3",
-                            "text": "16px"
+                            "id": "opt3",
+                            "text": "high", 
+                            "value": "16px"
                         },
                         {
-                            "value": "opt4",
-                            "text": "20px"
-                        },
-                        {
-                            "value": "opt5",
-                            "text": "30px"
+                            "id": "opt4",
+                            "text": "ultra",
+                            "value": "20px"
                         }
                     ]
                 },
@@ -76,24 +76,29 @@
                     "hint": "Radio Test Setting Hint",
                     "options": [
                         {
-                            "value": "opt1",
-                            "text": "red"
+                            "id": "opt1",
+                            "text": "red",
+                            "value": "red" 
                         },
                         {
-                            "value": "opt2",
-                            "text": "green"
+                            "id": "opt2",
+                            "text": "green",
+                            "value": "green" 
                         },
                         {
-                            "value": "opt3",
-                            "text": "blue"
+                            "id": "opt3",
+                            "text": "blue",
+                            "value": "blue" 
                         },
                         {
-                            "value": "opt4",
-                            "text": "orange"
+                            "id": "opt4",
+                            "text": "orange",
+                            "value": "orange" 
                         },
                         {
-                            "value": "opt5",
-                            "text": "white"
+                            "id": "opt5",
+                            "text": "white",
+                            "value": "white" 
                         }
                     ]
                 },
