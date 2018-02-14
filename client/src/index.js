@@ -16,6 +16,7 @@ import { ClientLogger as Logger, ClientIPC } from 'common';
 class BetterDiscord {
 
     constructor() {
+        window.bdglobals = Globals;
         window.ClientIPC = ClientIPC;
         window.css = CssEditor;
         window.pm = PluginManager;

@@ -13,9 +13,9 @@
         top: 27px;
     }
 
-	.platform-linux & {
-		top: 0;
-	}
+    .platform-linux & {
+        top: 0;
+    }
 
     .bd-settings-button-btn {
         background-image: $logoSmallBw;
@@ -37,6 +37,11 @@
 
         &.bd-loading {
             animation: bd-settings-button-pulse 1.5s infinite;
+        }
+
+        &.bd-updates {
+            filter: hue-rotate(250deg) !important;
+            opacity: 1 !important;
         }
     }
 

@@ -12,6 +12,8 @@ import WebpackModules from './webpackmodules';
 import jQuery from 'jquery';
 import lodash from 'lodash';
 
+export { jQuery as $ };
+
 export default class {
 
     static get jQuery() {
