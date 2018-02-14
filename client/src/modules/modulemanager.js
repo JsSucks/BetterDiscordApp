@@ -12,6 +12,7 @@
 
 import { Events, SocketProxy, EventHook, CssEditor } from 'modules';
 import { ProfileBadges } from 'ui';
+import Updater from './updater';
 
 export default class {
 
@@ -20,7 +21,8 @@ export default class {
             new ProfileBadges(),
             new SocketProxy(),
             new EventHook(),
-            CssEditor
+            CssEditor,
+            new Updater()
         ]);
     }
 

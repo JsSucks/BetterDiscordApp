@@ -11,7 +11,9 @@
 <template>
     <div class="bd-settings-wrapper" :class="[{active: active}, 'platform-' + this.platform]">
         <div class="bd-settings-button" :class="{'bd-active': active}" @click="showSettings">
-            <div class="bd-settings-button-btn" :class="[{'bd-loading': !loaded}]"></div>
+            <div v-if="updating === 0" v-tooltip.right="'Checking for updates'" class="bd-settings-button-btn bd-loading"></div>
+            <div v-else-if="updating === 2" v-tooltip.right="'Updates available!'" class="bd-settings-button-btn bd-updates"></div>
+            <div v-else class="bd-settings-button-btn" :class="[{'bd-loading': !loaded}]"></div>
         </div>
         <BdSettings :active="active" :close="hideSettings" />
     </div>
@@ -25,6 +27,7 @@
         data() {
             return {
                 loaded: false,
+                updating: false,
                 active: false,
                 platform: global.process.platform
             }
@@ -49,6 +52,9 @@
         },
         created() {
             Events.on('ready', e => this.loaded = true);
+            Events.on('update-check-start', e => this.updating = 0);
+            Events.on('update-check-end', e => this.updating = 1);
+            Events.on('updates-available', e => this.updating = 2);
             window.addEventListener('keyup', this.keyupListener);
         },
         destroyed() {
