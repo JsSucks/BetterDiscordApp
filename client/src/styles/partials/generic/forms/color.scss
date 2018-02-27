@@ -1,0 +1,40 @@
+.bd-form-colorinput {
+    h3 {
+        + .bd-colorinput-wrapper {
+            width: 180px;
+        }
+    }
+
+    .bd-colorinput-wrapper {
+        margin-left: 15px;
+    }
+
+    input[type="color"] {
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid rgba(114, 118, 126, 0.3);
+        outline: none;
+        width: 100%;
+
+    }
+
+    .bd-form-item-fullwidth & {
+        .bd-title {
+            flex-direction: column;
+        }
+
+        .bd-colorinput-wrapper {
+            width: 100%;
+            margin-top: 10px;
+            margin-left: 0;
+        }
+
+        .bd-hint {
+            margin-top: 10px;
+        }
+    }
+}
+
+.bd-colorinput-wrapper {
+    width: 100%;
+}

@@ -20,6 +20,7 @@
         <FileSetting v-if="setting.type === 'file'" :setting="setting" :change="change"/>
         <ArraySetting v-if="setting.type === 'array'" :setting="setting" :change="change" />
         <CustomSetting v-if="setting.type === 'custom'" :setting="setting" :change="change" />
+        <ColorSetting v-if="setting.type === 'color'" :setting="setting" :change="change" />
         <div class="bd-form-divider"></div>
     </div>
 </template>
@@ -35,6 +36,7 @@
     import FileSetting from './File.vue';
     import ArraySetting from './Array.vue';
     import CustomSetting from './Custom.vue';
+    import ColorSetting from './Color.vue';
 
     export default {
         props: [
@@ -51,7 +53,8 @@
             SliderSetting,
             FileSetting,
             ArraySetting,
-            CustomSetting
+            CustomSetting,
+            ColorSetting
         },
         computed: {
             changed() {
@@ -62,4 +65,5 @@
             }
         }
     }
+
 </script>
