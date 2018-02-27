@@ -150,6 +150,11 @@ export default class ThemeManager extends ContentManager {
             return [name, setting.options.find(opt => opt.id === value).value];
         }
 
+        if (type === 'color') {
+            console.log(value);
+            return [name, value];
+        }
+
         if (typeof value === 'boolean' || typeof value === 'number') {
             return [name, value];
         }
@@ -157,6 +162,10 @@ export default class ThemeManager extends ContentManager {
         if (typeof value === 'string') {
             return [name, this.toSCSSString(value)];
         }
+    }
+
+    static deQuote(value) {
+        return value.replace('"', '');
     }
 
     static toSCSSString(value) {
