@@ -15,7 +15,7 @@ class Module {
 
     constructor(args) {
         this.__ = {
-            state: args,
+            state: args || {},
             args
         };
         this.init();
@@ -24,6 +24,12 @@ class Module {
     init() {
         if (this.bindings) this.bindings();
         if (this.setInitialState) this.setInitialState(this.state);
+    }
+
+    setState(newState) {
+        const oldState = this.state;
+        Object.assign(this.__.state, newState);
+        if (this.stateChanged) this.stateChanged(oldState, newState);
     }
 
     set args(t) {}

@@ -64,6 +64,7 @@
     import { SidebarView, Sidebar, SidebarItem, ContentColumn } from './sidebar';
     import { SettingsWrapper, SettingsPanel, CssEditorView, PluginsView, ThemesView, UpdaterView } from './bd';
     import { SvgX, MiGithubCircle, MiWeb, MiClose, MiTwitterCircle } from './common';
+    import { ClientIPC } from 'common';
 
     export default {
         data() {

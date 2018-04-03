@@ -9,9 +9,15 @@
 */
 
 import { Events } from 'modules';
-import { Utils } from 'common';
+import { Utils, ClientIPC } from 'common';
 
 export default new class {
+
+    constructor() {
+        ClientIPC.on('bd-toggle-menu', () => Events.emit('bd-toggle-menu'));
+        ClientIPC.on('bd-open-menu', (event, item) => this.open(item));
+        ClientIPC.on('bd-close-menu', this.close);
+    }
 
     open(item) {
         Events.emit('bd-open-menu', item);

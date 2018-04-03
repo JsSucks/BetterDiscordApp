@@ -12,7 +12,7 @@ const path = require('path');
 const sass = require('node-sass');
 const { BrowserWindow, dialog } = require('electron');
 
-const { FileUtils, BDIpc, Config, WindowUtils, CSSEditor, Database } = require('./modules');
+const { FileUtils, BDIpc, Config, WindowUtils, CSSEditor, AppMenu, Database } = require('./modules');
 
 const tests = typeof PRODUCTION === 'undefined';
 
@@ -153,6 +153,8 @@ class BetterDiscord {
         this.windowUtils.on('did-navigate-in-page', (event, url, isMainFrame) => {
             this.windowUtils.send('did-navigate-in-page', { event, url, isMainFrame });
         });
+
+        AppMenu.setState({ windowUtils: this.windowUtils });
 
         setTimeout(() => {
             this.injectScripts();

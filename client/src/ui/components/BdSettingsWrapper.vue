@@ -24,6 +24,7 @@
     import { Events, Settings } from 'modules';
     import { Modals } from 'ui';
     import BdSettings from './BdSettings.vue';
+    import { ClientIPC } from 'common';
 
     export default {
         data() {
@@ -62,6 +63,7 @@
         },
         created() {
             Events.on('ready', e => this.loaded = true);
+            Events.on('bd-toggle-menu', () => this.active = !this.active);
             Events.on('bd-open-menu', item => this.active = true);
             Events.on('bd-close-menu', () => this.active = false);
             Events.on('update-check-start', e => this.updating = 0);
@@ -74,6 +76,9 @@
         },
         destroyed() {
             window.removeEventListener('keyup', this.keyupListener);
+            ClientIPC.off('bd-toggle-menu', this.toggleSettings);
+            ClientIPC.off('bd-show-menu', this.showSettings);
+            ClientIPC.off('bd-hide-menu', this.hideSettings);
         }
     }
 </script>
