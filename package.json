@@ -16,8 +16,8 @@
   },
   "private": false,
   "dependencies": {
-    "node-sass": "^4.7.2",
-    "nedb": "^1.8.0"
+    "nedb": "^1.8.0",
+    "node-sass": "^4.9.0"
   },
   "devDependencies": {
     "archiver": "^2.1.1",
@@ -36,7 +36,7 @@
     "eslint-plugin-vue": "^4.3.0",
     "file-type": "^7.6.0",
     "filewatcher": "^3.0.1",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-babel": "^7.0.0",
     "gulp-copy": "^1.1.0",
     "gulp-inject-string": "^1.1.1",

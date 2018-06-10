@@ -14,7 +14,7 @@ import { remote } from 'electron';
 import DOM from './dom';
 import Vue from './vue';
 import AutoManip from './automanip';
-import { BdSettingsWrapper, BdModals } from './components';
+import { BdSettingsWrapper, BdModals, BdToasts } from './components';
 
 export default class {
 
@@ -68,6 +68,13 @@ export default class {
         DOM.createElement('div', null, 'bd-settings').appendTo(DOM.bdBody);
         DOM.createElement('div', null, 'bd-modals').appendTo(DOM.bdModals);
         DOM.createElement('bd-tooltips').appendTo(DOM.bdBody);
+        DOM.createElement('bd-toasts').appendTo(DOM.bdBody);
+
+        const toasts = new Vue({
+            el: 'bd-toasts',
+            components: { BdToasts },
+            template: '<BdToasts/>'
+        });
 
         this.modals = new Vue({
             el: '#bd-modals',

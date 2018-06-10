@@ -130,6 +130,9 @@ export default class DOM {
     static get bdModals() {
         return this.getElement('bd-modals') || this.createElement('bd-modals').appendTo(this.bdBody);
     }
+	static get bdToasts() {
+        return this.getElement('bd-toasts') || this.createElement('bd-toasts').appendTo(this.bdBody);
+    }
 
     static getElement(e) {
         if (e instanceof BdNode) return e.element;

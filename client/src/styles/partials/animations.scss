@@ -49,6 +49,30 @@
     }
 }
 
+@keyframes bd-toast-up {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes bd-toast-down {
+    0% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+}
+
 @keyframes bd-fade-out {
     0% {
         opacity: 1;

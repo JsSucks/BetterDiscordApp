@@ -8,6 +8,7 @@
  * LICENSE file in the root directory of this source tree.
 */
 
+import { Toasts } from 'ui';
 import { EmoteModule } from 'builtin';
 import { SettingsSet, SettingUpdatedEvent } from 'structs';
 import { Utils, FileUtils, ClientLogger as Logger } from 'common';
@@ -28,6 +29,7 @@ export default new class Settings {
                 Logger.log('Settings', [`${set.id}/${category.id}/${setting.id} was changed from`, old_value, 'to', value]);
                 Events.emit('setting-updated', event);
                 Events.emit(`setting-updated-${set.id}_${category.id}_${setting.id}`, event);
+				Toasts.success(`${set.id}/${category.id}/${setting.id} was changed from ${old_value} to ${value}`); // Just for debugging purposes remove in prod
             });
 
             set.on('settings-updated', async event => {

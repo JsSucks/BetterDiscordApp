@@ -14,3 +14,6 @@ export { default as MiExtension } from './materialicons/Extension.vue';
 export { default as MiError } from './materialicons/Error.vue';
 export { default as MiDiscord } from './materialicons/Discord.vue';
 export { default as MiStar } from './materialicons/Star.vue';
+export { default as MiInfo } from './materialicons/Info.vue';
+export { default as MiWarning } from './materialicons/Warning.vue';
+export { default as MiSuccess } from './materialicons/Success.vue';

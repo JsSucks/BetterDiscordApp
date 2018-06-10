@@ -10,7 +10,7 @@
 
 import { EmoteModule } from 'builtin';
 import { SettingsSet, SettingsCategory, Setting, SettingsScheme } from 'structs';
-import { BdMenu, Modals, DOM, Reflection } from 'ui';
+import { BdMenu, Modals, DOM, Reflection, Toasts } from 'ui';
 import { Utils, ClientLogger as Logger, ClientIPC, AsyncEventEmitter } from 'common';
 import Settings from './settings';
 import ExtModuleManager from './extmodulemanager';
@@ -289,6 +289,27 @@ export default class PluginApi {
             }
         });
     }
+	
+	
+	/**
+     * Toasts
+     */
+    showToast(message, options = {}) {
+        return Toasts.push(message, options);
+    }
+    showSuccessToast(message, options = {}) {
+        return Toasts.success(message, options);
+    }
+    showInfoToast(message, options = {}) {
+        return Toasts.info(message, options);
+    }
+    showErrorToast(message, options = {}) {
+        return Toasts.error(message, options);
+    }
+    showWarningToast(message, options = {}) {
+        return Toasts.warning(message, options);
+    }
+	
 
     /**
      * Emotes

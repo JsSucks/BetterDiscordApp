@@ -8,7 +8,7 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import { DOM, BdUI, BdMenu, Modals, Reflection } from 'ui';
+import { DOM, BdUI, BdMenu, Modals, Reflection, Toasts } from 'ui';
 import BdCss from './styles/index.scss';
 import { Events, CssEditor, Globals, Settings, Database, Updater, ModuleManager, PluginManager, ThemeManager, ExtModuleManager, Vendor, WebpackModules, Patcher, MonkeyPatch, ReactComponents, ReactAutoPatcher, DiscordApi } from 'modules';
 import { ClientLogger as Logger, ClientIPC, Utils } from 'common';
@@ -26,7 +26,7 @@ class BetterDiscord {
         Logger.log('main', 'BetterDiscord starting');
 
         this._bd = {
-            DOM, BdUI, BdMenu, Modals, Reflection,
+            DOM, BdUI, BdMenu, Modals, Reflection, Toasts,
 
             Events, CssEditor, Globals, Settings, Database, Updater,
             ModuleManager, PluginManager, ThemeManager, ExtModuleManager,
