@@ -11,10 +11,11 @@
 import Kvp from './kvp';
 
 export default class SecureKvpSetting extends Kvp {
+
     /**
      * The value to use when the setting doesn't have a value.
      */
     get defaultValue() {
-        return { key: 'Key', value: '**********' };
+        return { key: 'PlaceholderKey', value: '' };
     }
 }

@@ -24,3 +24,5 @@ export { default as EventHook } from './eventhook';
 export { default as DiscordApi, Modules as DiscordApiModules } from './discordapi';
 export { default as BdWebApi } from './bdwebapi';
 export { default as Connectivity } from './connectivity';
+export { default as Security } from './security';
+export { default as Cache } from './cache';

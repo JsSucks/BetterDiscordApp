@@ -176,6 +176,69 @@ export class Utils {
         } while (!value);
         return value;
     }
+
+    /**
+     * Finds the index of array of bytes in another array
+     * @param {Array} haystack The array to find aob in
+     * @param {Array} needle The aob to find
+     * @return {Number} aob index, -1 if not found
+     */
+    static aobscan(haystack, needle) {
+        for (let h = 0; h < haystack.length - needle.length + 1; ++h) {
+            let found = true;
+            for (let n = 0; n < needle.length; ++n) {
+                if (needle[n] === null ||
+                    needle[n] === '??' ||
+                    haystack[h + n] === needle[n]) continue;
+                found = false;
+                break;
+            }
+            if (found) return h;
+        }
+        return -1;
+    }
+
+    /**
+     * Convert buffer to base64 encoded string
+     * @param {any} buffer buffer to convert
+     * @returns {String} base64 encoded string from buffer
+     */
+    static arrayBufferToBase64(buffer) {
+        let binary = '';
+        const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
+        for (let i = 0; i < bytes.byteLength; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    }
+
+    static async getImageFromBuffer(buffer) {
+        if (!(buffer instanceof Blob)) buffer = new Blob([buffer]);
+        const reader = new FileReader();
+        reader.readAsDataURL(buffer);
+        await new Promise(r => {
+            reader.onload = r
+        });
+        const img = new Image();
+        img.src = reader.result;
+        return await new Promise(resolve => {
+            img.onload = () => {
+                resolve(img);
+            }
+        });
+    }
+
+    static async canvasToArrayBuffer(canvas, mime = 'image/png') {
+        const reader = new FileReader();
+        return new Promise(resolve => {
+            canvas.toBlob(blob => {
+                reader.addEventListener('loadend', () => {
+                    resolve(reader.result);
+                });
+                reader.readAsArrayBuffer(blob);
+            }, mime);
+        });
+    }
 }
 
 export class FileUtils {

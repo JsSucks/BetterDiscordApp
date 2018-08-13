@@ -129,3 +129,17 @@
         transform: translate3d(4px, -4px, 0);
     }
 }
+
+@keyframes bd-pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .7;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

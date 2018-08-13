@@ -22,11 +22,12 @@
 </template>
 
 <script>
-    import aes256 from 'aes256';
+    import { DiscordApi } from 'modules';
+    import { E2EE } from 'builtin';
+
     export default {
         data() {
             return {
-                masterKey: 'temporarymasterkey',
                 valueChanged: false
             }
         },
@@ -40,7 +41,7 @@
             },
             valueBlur(e) {
                 if (!this.valueChanged) return;
-                const value = aes256.encrypt(this.masterKey, e.target.value);
+                const value = E2EE.encrypt(null, e.target.value);
                 this.setting.value = { key: this.setting.value.key, value }
                 this.valueChanged = false;
             },
@@ -52,6 +53,10 @@
                 if (e.key !== 'Enter') return;
                 e.target.blur();
             }
+        },
+        beforeMount() {
+            if (this.setting.value.key !== 'PlaceholderKey') return;
+            this.setting.value.key = DiscordApi.currentChannel.id || 'Key';
         }
     }
 </script>

@@ -1,0 +1,168 @@
+.bd-e2eeTaContainer {
+    display: flex;
+
+    .bd-e2eeTaBtn {
+        padding: 10px;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: row;
+        cursor: pointer;
+        opacity: .8;
+        transition: opacity .2s ease-in-out;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &.bd-e2eeLock {
+            &.bd-error {
+                fill: $colerr;
+            }
+
+            &.bd-ok {
+                fill: $colbdgreen;
+            }
+
+            &.bd-warn {
+                fill: $colwarn;
+                animation: bd-pulse 2s ease-in-out infinite;
+            }
+        }
+    }
+
+    .bd-taDivider {
+        background-color: rgba(255, 255, 255, 0.1);
+        box-sizing: border-box;
+        position: relative;
+        top: 10%;
+        width: 1px;
+        height: 37px;
+        margin-top: 5px;
+    }
+}
+
+.bd-e2eeMdContainer {
+    position: relative;
+    display: inline-block;
+    top: 4px;
+
+    .bd-e2eeMdBtn {
+        cursor: pointer;
+
+        &.bd-e2eeLock {
+            &.bd-error {
+                fill: $colerr;
+            }
+
+            &.bd-ok {
+                fill: $colbdgreen;
+            }
+
+            &.bd-warn {
+                fill: $colwarn;
+            }
+
+            &.bd-loading {
+                animation: bd-pulse 2s ease-in-out infinite;
+            }
+        }
+    }
+}
+
+.bd-e2eeMessageButtonWrap {
+    .bd-e2eeMessageButton {
+        fill: #99aab5;
+        margin-left: 6px;
+        margin-right: -2px;
+        opacity: .4;
+        transition: opacity .2s ease;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.bd-e2eePopover {
+    background: #484b51;
+    margin: 0;
+    margin-top: 15px;
+
+    .bd-ok svg {
+        fill: $colbdgreen;
+    }
+
+    .bd-warn svg {
+        fill: $colwarn;
+    }
+
+    .bd-popover-wrapper,
+    .bd-popoverWrapper {
+        .bd-popover-inner,
+        .bd-popoverInner {
+            display: flex;
+
+            > div:first-child {
+                display: flex;
+
+                > div:not(:first-child) {
+                    margin-left: 10px;
+                }
+            }
+
+            .bd-material-design-icon,
+            .bd-materialDesignIcon {
+                display: flex;
+                fill: #7e8084;
+                cursor: pointer;
+
+                &:hover {
+                    fill: #FFF;
+                }
+            }
+        }
+    }
+
+    .bd-popover-arrow,
+    .bd-popoverArrow {
+        display: none;
+    }
+}
+
+.bd-encryptedImage::before {
+    content: "";
+    position: absolute;
+    background: $colbdgreen;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    display: flex;
+    // justify-content: center;
+    // align-items: flex-start;
+    // font-size: 1.2em;
+    // font-weight: 700;
+    // color: #2c2c2c;
+    // line-height: 30px;
+    background-image: $lockIcon;
+    background-size: calc(100% / 2);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bd-decryptedImage::before {
+    content: "";
+    background-image: $lockIcon;
+    width: 11px;
+    height: 11px;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    background-size: cover;
+    background-color: $colbdgreen;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+    border: 2px solid $colbdgreen;
+    top: 5px;
+    left: 5px;
+    opacity: .5;
+}

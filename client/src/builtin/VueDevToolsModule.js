@@ -37,7 +37,7 @@ export default new class VueDevtoolsModule extends BuiltinModule {
     }
 
     devToolsOpened() {
-         electron.remote.BrowserWindow.removeDevToolsExtension('Vue.js devtools');
+        electron.remote.BrowserWindow.removeDevToolsExtension('Vue.js devtools');
         electron.webFrame.registerURLSchemeAsPrivileged('chrome-extension');
         try {
             const res = electron.remote.BrowserWindow.addDevToolsExtension(path.join(Globals.getPath('ext'), 'extensions', 'vdt'));
