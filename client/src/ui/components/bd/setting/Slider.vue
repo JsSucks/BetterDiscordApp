@@ -9,19 +9,19 @@
 */
 
 <template>
-    <div class="bd-form-slider" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+    <div class="bd-formSlider" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
         <div class="bd-title">
             <h3>{{ setting.text }}</h3>
             <div class="bd-slider">
-                <div class="bd-slider-container">
-                    <div class="bd-slider-points">
-                        <div class="bd-slider-point" v-for="(label, point) in setting.points" :style="{left: `${getPointPosition(point) * 100}%`}">{{ label }}</div>
+                <div class="bd-sliderContainer">
+                    <div class="bd-sliderPoints">
+                        <div class="bd-sliderPoint" v-for="(label, point) in setting.points" :style="{left: `${getPointPosition(point) * 100}%`}">{{ label }}</div>
                     </div>
-                    <div class="bd-slider-bar">
-                        <div class="bd-slider-bar-filled" :style="{width: `${getPointPosition() * 100}%`}"></div>
+                    <div class="bd-sliderBar">
+                        <div class="bd-sliderBarFilled" :style="{width: `${getPointPosition() * 100}%`}"></div>
                     </div>
-                    <div class="bd-slider-thumb-wrap">
-                        <div class="bd-slider-thumb" v-tooltip="{content: (value || '0') + setting.unit, show: tooltip, trigger: 'manual'}" :style="{left: `${getPointPosition() * 100}%`}"></div>
+                    <div class="bd-sliderThumbWrap">
+                        <div class="bd-sliderThumb" v-tooltip="{content: (value || '0') + setting.unit, show: tooltip, trigger: 'manual'}" :style="{left: `${getPointPosition() * 100}%`}"></div>
                     </div>
                     <input type="range" :value="value" :min="setting.min || 0" :max="setting.max || 100" :step="setting.step || 1" @keyup.stop @input="input" />
                 </div>

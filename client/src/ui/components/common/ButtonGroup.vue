@@ -9,7 +9,7 @@
 */
 
 <template>
-    <div class="bd-button-group">
+    <div class="bd-buttonGroup">
         <slot />
     </div>
 </template>

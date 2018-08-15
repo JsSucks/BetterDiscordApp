@@ -14,39 +14,43 @@
 
     .bd-toast {
         position: relative;
-        animation: bd-toast-up 300ms ease;
-        background: #36393F;
+        animation: bd-toastUp 300ms ease;
+        background: #36393f;
         padding: 10px;
         border-radius: 5px;
-        box-shadow: 0 0 0 1px rgba(32,34,37,.6), 0 2px 10px 0 rgba(0,0,0,.2);
+        box-shadow: 0 0 0 1px rgba(32, 34, 37, .6), 0 2px 10px 0 rgba(0, 0, 0, .2);
         font-weight: 500;
         color: #fff;
         user-select: text;
         font-size: 14px;
         margin-top: 10px;
 
-        &.bd-toast-error {
-            background: #f04747;
+        &.bd-toastError {
+            background: $colerr;
         }
 
-        &.bd-toast-info {
-            background: #4a90e2;
+        &.bd-toastInfo {
+            background: $colbdblue;
         }
 
-        &.bd-toast-warning {
-            background: #FFA600;
+        &.bd-toastWarning {
+            background: $colwarn;
         }
 
-        &.bd-toast-success {
-            background: #43b581;
+        &.bd-toastSuccess {
+            background: $colbdgreen;
         }
 
-        &.bd-toast-has-icon {
+        &.bd-toastHasIcon {
             padding-left: 30px;
+        }
+
+        &.bd-toastClosing {
+            animation: bd-toastDown 300ms ease;
         }
     }
 
-    .bd-toast-icon {
+    .bd-toastIcon {
         position: absolute;
         left: 5px;
         top: 50%;
@@ -58,11 +62,7 @@
         overflow: hidden;
 
         svg {
-            fill: white;
+            fill: #fff;
         }
-    }
-
-    .bd-toast.bd-toast-closing {
-        animation: bd-toast-down 300ms ease;
     }
 }

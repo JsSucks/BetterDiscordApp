@@ -9,8 +9,8 @@
 */
 
 <template>
-    <div class="bd-form-radio">
-        <div class="bd-form-radio-details">
+    <div class="bd-formRadio">
+        <div class="bd-formRadioDetails">
             <div class="bd-title">
                 <h3>{{setting.text}}</h3>
             </div>

@@ -37,7 +37,7 @@ export default class {
      * @return {Promise}
      */
     static async initModules() {
-        for (let module of this.modules) {
+        for (const module of this.modules) {
             try {
                 if (module.init && module.init instanceof Function) module.init();
             } catch (err) {

@@ -9,16 +9,16 @@
 */
 
 <template>
-    <div :class="['bd-drawer', {'bd-drawer-open': open, 'bd-animating': animating}]">
-        <div class="bd-form-header bd-drawer-header" @click="() => open = !open">
-            <span class="bd-form-header-text">{{ label }}</span>
-            <span class="bd-form-header-button bd-drawer-open-button">
-                <span class="bd-chevron-1"><MiChevronDown /></span>
-                <span class="bd-chevron-2"><MiChevronDown /></span>
+    <div :class="['bd-drawer', {'bd-drawerOpen': open, 'bd-animating': animating}]">
+        <div class="bd-formHeader bd-drawerHeader" @click="() => open = !open">
+            <span class="bd-formHeaderText">{{ label }}</span>
+            <span class="bd-formHeaderButton bd-drawerOpenButton">
+                <span class="bd-chevron1"><MiChevronDown /></span>
+                <span class="bd-chevron2"><MiChevronDown /></span>
             </span>
         </div>
-        <div class="bd-drawer-contents-wrap">
-            <div class="bd-drawer-contents" ref="contents">
+        <div class="bd-drawerContentsWrap">
+            <div class="bd-drawerContents" ref="contents">
                 <slot v-if="open || animating" />
             </div>
         </div>

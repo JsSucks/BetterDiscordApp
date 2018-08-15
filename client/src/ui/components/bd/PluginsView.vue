@@ -21,11 +21,11 @@
             </div>
         </div>
 
-        <div class="bd-flex bd-flex-col bd-pluginsview">
-            <div v-if="local" class="bd-flex bd-flex-grow bd-flex-col bd-plugins-container bd-local-plugins">
+        <div class="bd-flex bd-flexCol bd-pluginsview">
+            <div v-if="local" class="bd-flex bd-flexGrow bd-flexCol bd-pluginsContainer bd-localPlugins">
                 <PluginCard v-for="plugin in localPlugins" :plugin="plugin" :key="plugin.id" :data-plugin-id="plugin.id" @toggle-plugin="togglePlugin(plugin)" @reload-plugin="reloadPlugin(plugin)" @delete-plugin="unload => deletePlugin(plugin, unload)" @show-settings="dont_clone => showSettings(plugin, dont_clone)" />
             </div>
-            <div v-if="!local" class="bd-online-ph">
+            <div v-if="!local" class="bd-onlinePh">
                 <h3>Coming Soon</h3>
                 <a href="https://v2.betterdiscord.net/plugins" target="_new">Website Browser</a>
             </div>

@@ -80,8 +80,8 @@ export default class ThemeManager extends ContentManager {
     static async getConfigAsSCSS(settingsset) {
         const variables = [];
 
-        for (let category of settingsset.categories) {
-            for (let setting of category.settings) {
+        for (const category of settingsset.categories) {
+            for (const setting of category.settings) {
                 const setting_scss = await this.parseSetting(setting);
                 if (setting_scss) variables.push(`$${setting_scss[0]}: ${setting_scss[1]};`);
             }
@@ -98,14 +98,14 @@ export default class ThemeManager extends ContentManager {
     static async getConfigAsSCSSMap(settingsset) {
         const variables = [];
 
-        for (let category of settingsset.categories) {
-            for (let setting of category.settings) {
+        for (const category of settingsset.categories) {
+            for (const setting of category.settings) {
                 const setting_scss = await this.parseSetting(setting);
                 if (setting_scss) variables.push(`${setting_scss[0]}: (${setting_scss[1]})`);
             }
         }
 
-        return '(' + variables.join(', ') + ')';
+        return `(${variables.join(', ')})`;
     }
 
     /**

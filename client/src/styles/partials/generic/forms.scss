@@ -1,8 +1,7 @@
-.bd-form-header {
+.bd-formHeader {
     margin: 15px 0 10px;
-    color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, .15);
     font-size: 14px;
-    font-weight: 700;
     line-height: 16px;
     text-transform: uppercase;
     font-weight: 600;
@@ -13,11 +12,11 @@
     font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
     display: flex;
 
-    .bd-form-header-text {
+    .bd-formHeaderText {
         flex: 1 1 auto;
     }
 
-    .bd-form-header-button {
+    .bd-formHeaderButton {
         flex: 0 0;
         margin-left: 5px;
 
@@ -30,59 +29,63 @@
     }
 
     &:hover {
-        .bd-form-header-button svg {
-            fill: #fff;
+        .bd-formHeaderButton {
+            svg {
+                fill: #fff;
+            }
         }
     }
 }
 
-.bd-form-item h5 {
-    color: #b9bbbe;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 12px;
+.bd-formItem {
+    h5 {
+        color: #b9bbbe;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 12px;
+    }
 }
 
-.bd-form-divider {
+.bd-formDivider {
     height: 1px;
     margin: 15px 0;
-    background: hsla(218,5%,47%,.3);
-    transition: background-color 0.2s ease;
+    background: hsla(218, 5%, 47%, .3);
+    transition: background-color .2s ease;
 
-    .bd-form-item-changed > & {
+    .bd-formItemChanged > & {
         background: $colok;
     }
 }
 
-.bd-form-warning {
+.bd-formWarning {
     display: flex;
     margin-top: 20px;
     background: #d84040;
-    border: 1px solid #B30B0B;
+    border: 1px solid #b30b0b;
     opacity: .8;
     border-radius: 4px;
     padding: 10px;
 
     .bd-text {
         display: flex;
-        color: #FFF;
+        color: #fff;
         font-weight: 700;
         align-items: center;
         flex-grow: 1;
     }
 
-    .bd-form-button {
+    .bd-formButton {
         margin: 0;
         align-self: flex-end;
-        background: #C42929;
+        background: #c42929;
 
         &:hover {
-            background: darken(#C42929, 2%);
+            background: darken(#c42929, 2%);
         }
     }
 }
 
-.bd-form-button {
+.bd-formButton {
     width: 100px;
     height: 30px;
     line-height: 30px;

@@ -11,11 +11,11 @@
 <template>
     <div class="bd-settingswrap">
         <ScrollerWrap>
-            <div class="bd-settingswrap-header">
-                <span class="bd-settingswrap-header-text">{{ headertext }}</span>
+            <div class="bd-settingswrapHeader">
+                <span class="bd-settingswrapHeaderText">{{ headertext }}</span>
                 <slot name="header" />
             </div>
-            <div class="bd-settingswrap-contents">
+            <div class="bd-settingswrapContents">
                 <slot />
             </div>
         </ScrollerWrap>

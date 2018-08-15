@@ -58,7 +58,7 @@ export const BdMenuItems = new class {
         if (this.items.includes(item)) return item;
 
         item.id = items++;
-        item.contentid = item.contentid || (items++ + '');
+        item.contentid = item.contentid || (`${items++}`);
         item.active = false;
         item.hidden = item.hidden || false;
         item._type = item._type || 'button';

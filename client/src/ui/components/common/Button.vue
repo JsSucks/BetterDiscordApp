@@ -10,7 +10,7 @@
 
 <template>
     <div class="bd-button" :class="[{'bd-disabled': disabled}, {'bd-err': type === 'err'}]" @click="!disabled && !loading ? $emit('click', $event) : null">
-        <div v-if="loading" class="bd-spinner-7"></div>
+        <div v-if="loading" class="bd-spinner7"></div>
         <slot v-else />
     </div>
 </template>

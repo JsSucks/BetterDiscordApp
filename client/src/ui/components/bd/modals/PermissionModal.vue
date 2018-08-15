@@ -9,22 +9,22 @@
 */
 
 <template>
-    <Modal :class="['bd-modal-basic', {'bd-modal-out': modal.closing}]" :headerText="modal.title" @close="modal.close">
-        <div slot="body" class="bd-modal-basic-body">
-            <div v-for="(perm, i) in permissions" :key="`perm-${i}`" class="bd-perm-scope">
-                <div class="bd-perm-allow">
-                    <div class="bd-perm-check">
-                        <div class="bd-perm-check-inner"></div>
+    <Modal :class="['bd-modalBasic', {'bd-modalOut': modal.closing}]" :headerText="modal.title" @close="modal.close">
+        <div slot="body" class="bd-modalBasicBody">
+            <div v-for="(perm, i) in permissions" :key="`perm-${i}`" class="bd-permScope">
+                <div class="bd-permAllow">
+                    <div class="bd-permCheck">
+                        <div class="bd-permCheckInner"></div>
                     </div>
-                    <div class="bd-perm-inner">
-                        <div class="bd-perm-name">{{perm.HEADER}}</div>
-                        <div class="bd-perm-desc">{{perm.BODY}}</div>
+                    <div class="bd-permInner">
+                        <div class="bd-permName">{{perm.HEADER}}</div>
+                        <div class="bd-permDesc">{{perm.BODY}}</div>
                     </div>
                 </div>
             </div>
         </div>
-        <div slot="footer" class="bd-modal-controls">
-            <div class="bd-flex-grow"></div>
+        <div slot="footer" class="bd-modalControls">
+            <div class="bd-flexGrow"></div>
             <div class="bd-button" @click="modal.close">Cancel</div>
             <div class="bd-button bd-ok" @click="() => { modal.confirm(); modal.close(); }">Authorize</div>
         </div>

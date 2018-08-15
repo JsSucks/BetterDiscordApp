@@ -1,13 +1,13 @@
-.bd-perm-scope {
+.bd-permScope {
     display: flex;
 
-    .bd-perm-allow {
+    .bd-permAllow {
         display: flex;
         flex: 1;
 
-        .bd-perm-check {
+        .bd-permCheck {
             -webkit-box-sizing: border-box;
-            background: hsla(0,0%,100%,.2);
+            background: hsla(0, 0%, 100%, .2);
             border-radius: 18px;
             box-sizing: border-box;
             height: 36px;
@@ -16,7 +16,7 @@
             padding: 2px;
             width: 36px;
 
-            .bd-perm-check-inner {
+            .bd-permCheckInner {
                 background-color: #43b581;
                 border: 2px solid #35383c;
                 border-radius: 16px;
@@ -26,24 +26,24 @@
             }
         }
 
-        .bd-perm-inner {
+        .bd-permInner {
             display: flex;
             flex: 1;
             flex-direction: column;
             justify-content: center;
             min-height: 45px;
             padding: 13px 0;
-            border-bottom: 1px solid hsla(0,0%,100%,.1);
+            border-bottom: 1px solid hsla(0, 0%, 100%, .1);
 
-            .bd-perm-name {
+            .bd-permName {
                 color: #fff;
                 font-size: 17px;
                 font-weight: 500;
                 line-height: 22px;
             }
 
-            .bd-perm-desc {
-                color: hsla(0,0%,100%,.2);
+            .bd-permDesc {
+                color: hsla(0, 0%, 100%, .2);
                 font-size: 12px;
                 line-height: 15px;
             }

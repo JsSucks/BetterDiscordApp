@@ -289,7 +289,7 @@ export class GuildMember {
     addRole(...roles) {
         const newRoles = this.roleIds.concat([]);
         let changed = false;
-        for (let role of roles) {
+        for (const role of roles) {
             if (newRoles.includes(role.id || role)) continue;
             newRoles.push(role.id || role);
             changed = true;
@@ -306,7 +306,7 @@ export class GuildMember {
     removeRole(...roles) {
         const newRoles = this.roleIds.concat([]);
         let changed = false;
-        for (let role of roles) {
+        for (const role of roles) {
             if (!newRoles.includes(role.id || role)) continue;
             Utils.removeFromArray(newRoles, role.id || role);
             changed = true;

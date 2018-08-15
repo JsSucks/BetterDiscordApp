@@ -9,15 +9,15 @@
 */
 
 <template>
-    <div class="bd-form-keybind">
-        <div class="bd-form-keybind-details">
+    <div class="bd-formKeybind">
+        <div class="bd-formKeybindDetails">
             <div class="bd-title">
                 <h3>{{ setting.text }}</h3>
             </div>
             <div class="bd-hint">{{ setting.hint }}</div>
         </div>
-        <div class="bd-keybind" :class="{'bd-active': active, 'bd-disabled': setting.disabled, 'bd-keybind-unset': !setting.value}">
-            <div class="bd-keybind-selected">{{ selected || 'No Keybind Set' }}</div>
+        <div class="bd-keybind" :class="{'bd-active': active, 'bd-disabled': setting.disabled, 'bd-keybindUnset': !setting.value}">
+            <div class="bd-keybindSelected">{{ selected || 'No Keybind Set' }}</div>
             <button class="bd-button" v-tooltip="`Click to record a new keybind sequence${setting.value ? ' (shift + click to delete the sequence)' : ''}`" @click="$event.shiftKey ? deleteKeybind() : toggleActive(); $event.target.blur()">{{ active ? 'Stop Recording' : setting.value ? 'Edit Keybind' : 'Record Keybind' }}</button>
         </div>
     </div>

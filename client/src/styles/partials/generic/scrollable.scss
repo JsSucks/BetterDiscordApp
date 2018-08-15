@@ -1,15 +1,14 @@
-.bd-scroller-wrap {
+.bd-scrollerWrap {
     display: flex;
     width: 100%;
 
     .bd-scroller {
+        @include scrollbar;
         display: flex;
         flex-grow: 1;
         flex-direction: column;
         overflow-y: auto;
         overflow-x: hidden;
-
-        @include scrollbar;
     }
 
     &.bd-dark {

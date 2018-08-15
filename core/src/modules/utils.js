@@ -197,7 +197,8 @@ export class WindowUtils extends Module {
         if (!nodeIntegration) return window.send('--bd-inject-script', {script: fpath, variable});
 
         if (variable) return window.executeJavaScript(`window["${escaped_variable}"] = require("${escaped_path}");`);
-        else return window.executeJavaScript(`require("${escaped_path}");`);
+
+        return window.executeJavaScript(`require("${escaped_path}");`);
     }
 
     on(event, callback) {

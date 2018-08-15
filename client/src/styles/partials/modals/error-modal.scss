@@ -1,25 +1,46 @@
-.bd-modal.bd-err {
-    .bd-modal-header .bd-modal-icon svg {
-        fill: $colerr;
-    }
+.bd-modal {
+    &.bd-err {
+        .bd-modalHeader {
+            .bd-modalIcon {
+                svg {
+                    fill: $colerr;
+                }
+            }
+         }
 
-    .bd-modal-body {
-        padding-bottom: 15px;
-        min-height: 70px;
+        .bd-modalBody {
+            padding-bottom: 15px;
+            min-height: 70px;
+        }
     }
 }
 
-.bd-modal-error .bd-modal-error-title {
-    padding: 5px;
-    background: rgba(0,0,0,.3);
-    border-radius: 3px 3px 0 0;
-}
-
-.bd-modal-error {
+.bd-modalError {
     margin-top: 5px;
 
-    .bd-scroller-wrap {
-        background: rgba(0,0,0,.2);
+    .bd-modalErrorTitle {
+        padding: 5px;
+        background: rgba(0, 0, 0, .3);
+        border-radius: 3px 3px 0 0;
+    }
+
+    .bd-modalErrorBody {
+        white-space: pre-wrap;
+        font-size: 12px;
+        font-family: 'Consolas';
+        padding: 0 5px;
+        border-radius: 3px;
+        max-height: 100px;
+        width: auto;
+        transition: transform .2s ease, margin-top .2s ease, opacity .2s ease;
+        transform: scaleY(0) translateY(0%);
+        margin-top: -50%;
+        opacity: 0;
+    }
+
+    .bd-scrollerWrap {
+        background: rgba(0, 0, 0, .2);
+        opacity: 0;
 
         .bd-scroller {
             overflow-x: auto;
@@ -30,37 +51,21 @@
             }
         }
     }
-}
 
-.bd-modal-error .bd-scroller-wrap {
-    opacity: 0;
-}
+    &.bd-open {
+        .bd-modalErrorBody {
+            transform: scaleY(1) translateY(0%);
+            margin-top: 0%;
+            opacity: 1;
+            user-select: all;
 
-.bd-modal-error.bd-open {
-    .bd-modal-error-body {
-        transform: scaleY(1) translateY(0%);
-        margin-top: 0%;
-        opacity: 1;
-        user-select: all;
-        span {
-            font-weight: 700;
+            span {
+                font-weight: 700;
+            }
+        }
+
+        .bd-scrollerWrap {
+            opacity: 1;
         }
     }
-    .bd-scroller-wrap {
-        opacity: 1;
-    }
-}
-
-.bd-modal-error .bd-modal-error-body {
-    white-space: pre-wrap;
-    font-size: 12px;
-    font-family: 'Consolas';
-    padding: 0 5px;
-    border-radius: 3px;
-    max-height: 100px;
-    width: auto;
-    transition: transform 0.2s ease, margin-top 0.2s ease, opacity 0.2s ease;
-    transform: scaleY(0) translateY(0%);
-    margin-top: -50%;
-    opacity: 0;
 }

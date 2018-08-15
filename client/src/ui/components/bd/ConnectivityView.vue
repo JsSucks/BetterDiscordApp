@@ -10,13 +10,13 @@
 
 <template>
     <SettingsWrapper headertext="Connectivity">
-        <div class="bd-flex bd-flex-col bd-connectivityview">
-            <div class="bd-settingswrap-item">
-                <div v-if="connecting" class="bd-button bd-settingswrap-button-big bd-disabled">Connecting</div>
-                <div v-else-if="!connected" class="bd-button bd-settingswrap-button-big" @click="showConnectWindow">Connect</div>
-                <div v-else class="bd-settingswrap-infobox">
-                    <div class="bd-settingswrap-infobox-child" :style="{flex: '0 1 auto', backgroundImage: `url(${connectedUser.avatarUrl})`, width: '100px', height: '100px', borderRadius: '50%'}"></div>
-                    <div class="bd-settingswrap-infobox-child" :style="{flex: '1 1 auto', marginLeft: '10px'}">
+        <div class="bd-flex bd-flexCol bd-connectivityview">
+            <div class="bd-settingswrapItem">
+                <div v-if="connecting" class="bd-button bd-settingswrapButtonBig bd-disabled">Connecting</div>
+                <div v-else-if="!connected" class="bd-button bd-settingswrapButtonBig" @click="showConnectWindow">Connect</div>
+                <div v-else class="bd-settingswrapInfobox">
+                    <div class="bd-settingswrapInfoboxChild" :style="{flex: '0 1 auto', backgroundImage: `url(${connectedUser.avatarUrl})`, width: '100px', height: '100px', borderRadius: '50%'}"></div>
+                    <div class="bd-settingswrapInfoboxChild" :style="{flex: '1 1 auto', marginLeft: '10px'}">
                         <div class="bd-wrapper">
                             <h5>Username</h5>
                             <div>
@@ -31,9 +31,9 @@
                     <div class="bd-button" :style="{height: '30px', borderRadius: '4px', padding: '0 5px'}" @click="disconnect">Disconnect</div>
                 </div>
             </div>
-            <div class="bd-settingswrap-item">
-                <h2 class="bd-settingswrap-subheader">BetterDiscord Connectivity</h2>
-                <div class="bd-settingswrap-item-desc">
+            <div class="bd-settingswrapItem">
+                <h2 class="bd-settingswrapSubheader">BetterDiscord Connectivity</h2>
+                <div class="bd-settingswrapItemDesc">
                     Explanation for what connectivity is here.
                     Explanation for what connectivity is here.
                     Explanation for what connectivity is here.

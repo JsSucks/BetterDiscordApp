@@ -9,12 +9,12 @@
 */
 
 <template>
-    <div class="bd-settings" :class="{active, 'bd-settings-out': !item && animating}" @keyup="$emit('close')">
+    <div class="bd-settings" :class="{'bd-active': active, 'bd-settingsOut': !item && animating}" @keyup="$emit('close')">
         <SidebarView :contentVisible="item" :animating="animating" :class="{'bd-stop': item}">
             <Sidebar slot="sidebar">
-                <div class="bd-settings-x" @click="$emit('close')">
+                <div class="bd-settingsX" @click="$emit('close')">
                     <MiClose size="17"/>
-                    <span class="bd-x-text">ESC</span>
+                    <span class="bd-xText">ESC</span>
                 </div>
                 <template v-for="(category, text) in sidebar">
                     <SidebarItem :item="{text, type: 'header'}" />
@@ -24,13 +24,13 @@
 
             <div slot="sidebarfooter" class="bd-info">
                 <span class="bd-vtext">v2.0.0a by Jiiks/JsSucks</span>
-                <div @click="openGithub" v-tooltip="'GitHub'" class="bd-material-button">
+                <div @click="openGithub" v-tooltip="'GitHub'" class="bd-materialButton">
                     <MiGithubCircle size="16" />
                 </div>
-                <div @click="openTwitter" v-tooltip="'@Jiiksi'" class="bd-material-button">
+                <div @click="openTwitter" v-tooltip="'@Jiiksi'" class="bd-materialButton">
                     <MiTwitterCircle size="16" />
                 </div>
-                <div @click="openWebsite" v-tooltip="'BetterDiscord'" class="bd-material-button">
+                <div @click="openWebsite" v-tooltip="'BetterDiscord'" class="bd-materialButton">
                     <MiWeb size="16" />
                 </div>
             </div>

@@ -20,7 +20,7 @@ import electron, { ipcRenderer } from 'electron';
     const currentWindow = electron.remote.getCurrentWindow();
 
     if (currentWindow.__bd_preload) {
-        for (let preloadScript of currentWindow.__bd_preload) {
+        for (const preloadScript of currentWindow.__bd_preload) {
             try {
                 require(preloadScript);
             } catch (err) {

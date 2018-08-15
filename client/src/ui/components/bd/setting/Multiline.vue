@@ -9,8 +9,8 @@
 */
 
 <template>
-    <div class="bd-form-textarea">
-        <div class="bd-form-textarea-details">
+    <div class="bd-formTextarea">
+        <div class="bd-formTextareaDetails">
             <div class="bd-title">
                 <h3>{{ setting.text }}</h3>
             </div>

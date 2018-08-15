@@ -2,22 +2,22 @@
     display: flex;
 }
 
-.bd-flex-row,
+.bd-flexRow,
 .bd-flexRow {
     flex-direction: row;
 }
 
-.bd-flex-col,
+.bd-flexCol,
 .bd-flexCol {
     flex-direction: column;
 }
 
-.bd-flex-grow,
+.bd-flexGrow,
 .bd-flexGrow {
     flex-grow: 1;
 }
 
-.bd-flex-spacer,
+.bd-flexSpacer,
 .bd-flexSpacer {
     flex-grow: 1;
 }

@@ -1,4 +1,4 @@
-@keyframes bd-refresh-circle-anim-out {
+@keyframes bd-refreshCircleAnimOut {
     0% {
         transform: rotate(0deg);
         stroke-dasharray: 36.5, 200;
@@ -17,7 +17,7 @@
     }
 }
 
-@keyframes bd-refresh-circle-anim-in {
+@keyframes bd-refreshCircleAnimIn {
     0% {
         transform: rotate(-360deg);
         stroke-dasharray: 0, 200;
@@ -31,7 +31,7 @@
     }
 }
 
-@keyframes bd-refresh-arrow-rotate {
+@keyframes bd-refreshArrowRotate {
     from {
         transform: rotate(-680deg);
     }
@@ -41,7 +41,7 @@
     }
 }
 
-.bd-refresh-button {
+.bd-refreshButton {
     cursor: pointer;
     height: 31px;
     width: 31px;
@@ -59,107 +59,109 @@
         margin: 6px;
     }
 
-    .bd-svg-refresh {
+    .bd-svgRefresh {
         opacity: 1;
     }
 
     &.bd-refreshed {
-        .bd-svg-refresh {
-            transition: .5s cubic-bezier(.4,0,0,1) .2s;
+        .bd-svgRefresh {
+            transition: .5s cubic-bezier(.4, 0, 0, 1) .2s;
         }
 
-        .bd-svg-cancel-line:nth-of-type(1) {
-            transform-origin: bottom;
-            transition: .5s cubic-bezier(0,0,0,1) .1s, transform-origin 1ms;
+        .bd-svgCancelLine {
+            &:nth-of-type(1) {
+                transform-origin: bottom;
+                transition: .5s cubic-bezier(0, 0, 0, 1) .1s, transform-origin 1ms;
+            }
+
+            &:nth-of-type(2) {
+                transform-origin: left;
+                transition: .5s cubic-bezier(0, 0, 0, 1), transform-origin 1ms;
+            }
         }
 
-        .bd-svg-cancel-line:nth-of-type(2) {
-            transform-origin: left;
-            transition: .5s cubic-bezier(0,0,0,1), transform-origin 1ms;
-        }
-
-        .bd-svg-circle {
+        .bd-svgCircle {
             stroke-dasharray: 36.5, 200;
             stroke-dashoffset: -7.5;
             transform-origin: center;
-            animation: bd-refresh-circle-anim-in 1s cubic-bezier(.4,0,0,1);
+            animation: bd-refreshCircleAnimIn 1s cubic-bezier(.4, 0, 0, 1);
         }
 
-        .bd-svg-arrow {
+        .bd-svgArrow {
             transform-origin: center;
-            animation: bd-refresh-arrow-rotate 1s cubic-bezier(.4,0,0,1);
+            animation: bd-refreshArrowRotate 1s cubic-bezier(.4, 0, 0, 1);
         }
     }
 
     &.bd-refreshing {
-        .bd-svg-refresh {
-            transition: .5s cubic-bezier(.4,0,0,1);
+        .bd-svgRefresh {
+            transition: .5s cubic-bezier(.4, 0, 0, 1);
             opacity: .3;
         }
 
-        .bd-svg-cancel-line {
+        .bd-svgCancelLine {
             opacity: 1;
+
+            &:nth-of-type(1) {
+                transform-origin: top;
+                transform: scale(1, 1);
+                transition: .5s cubic-bezier(0, 0, 0, 1) .4s, transform-origin 1ms;
+            }
+
+            &:nth-of-type(2) {
+                transform-origin: right;
+                transform: scale(1, 1);
+                transition: .5s cubic-bezier(0, 0, 0, 1) .3s, transform-origin 1ms;
+            }
         }
 
-        .bd-svg-cancel-line:nth-of-type(1) {
-            transform-origin: top;
-            transform: scale(1,1);
-            transition: .5s cubic-bezier(0,0,0,1) .4s, transform-origin 1ms;
-        }
-
-        .bd-svg-cancel-line:nth-of-type(2) {
-            transform-origin: right;
-            transform: scale(1,1);
-            transition: .5s cubic-bezier(0,0,0,1) .3s, transform-origin 1ms;
-        }
-
-        .bd-svg-circle {
+        .bd-svgCircle {
             stroke-dasharray: 36.5, 200;
             stroke-dashoffset: -44;
             transform-origin: center;
-            animation: bd-refresh-circle-anim-out 1s cubic-bezier(.4,0,0,1);
+            animation: bd-refreshCircleAnimOut 1s cubic-bezier(.4, 0, 0, 1);
         }
 
-        .bd-svg-arrow {
+        .bd-svgArrow {
             transform-origin: center;
             transform: rotate(360deg);
-            transition: 1s cubic-bezier(.4,0,0,1);
+            transition: 1s cubic-bezier(.4, 0, 0, 1);
         }
 
-        .bd-svg-arrow-triangle {
+        .bd-svgArrowTriangle {
             transition: .5s ease;
             transform: scale(0);
         }
     }
 
-    .bd-svg-cancel {
+    .bd-svgCancel {
         transform: rotate(-45deg);
         transform-origin: center;
     }
 
-    .bd-svg-cancel-line {
+    .bd-svgCancelLine {
         opacity: .4;
+
+        &:nth-of-type(1) {
+            transform: scale(1, 0);
+        }
+
+        &:nth-of-type(2) {
+            transform: scale(0, 1);
+        }
     }
 
-    .bd-svg-cancel-line:nth-of-type(1) {
-        transform: scale(1,0);
-    }
-
-    .bd-svg-cancel-line:nth-of-type(2) {
-        transform: scale(0,1);
-    }
-
-    .bd-svg-circle {
+    .bd-svgCircle {
         stroke-dasharray: 36.5, 200;
         stroke-dashoffset: -7.5;
     }
 
-    .bd-svg-arrow {
+    .bd-svgArrow {
         transform-origin: center;
         transform: rotate(0deg);
     }
 
-    .bd-svg-arrow-triangle {
+    .bd-svgArrowTriangle {
         transform-origin: 17.1px 6.9px;
         transition: .8s ease .2s;
         transform: scale(1);

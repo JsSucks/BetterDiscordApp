@@ -1,19 +1,19 @@
-.bd-form-radio {
+.bd-formRadio {
     display: flex;
 
-    .bd-form-radio-details {
+    .bd-formRadioDetails {
         flex: 1 1 auto;
     }
 
-    .bd-radio-group {
+    .bd-radioGroup {
         width: 180px;
         margin-left: 15px;
     }
 
-    .bd-form-item-fullwidth & {
+    .bd-formItemFullwidth & {
         flex-direction: column;
 
-        .bd-radio-group {
+        .bd-radioGroup {
             width: 100%;
             margin-top: 10px;
             margin-left: 0;
@@ -22,15 +22,15 @@
 }
 
 .bd-radio {
-    background: rgba(0,0,0,.1);
-    border: 1px solid rgba(0,0,0,.3);
+    background: rgba(0, 0, 0, .1);
+    border: 1px solid rgba(0, 0, 0, .3);
     border-radius: 3px;
     padding: 11px;
     align-items: center;
     cursor: pointer;
     display: flex;
 
-    .bd-radio-control-wrap {
+    .bd-radioControlWrap {
         flex: 0 0 auto;
         margin: -3px;
         margin-right: 10px;
@@ -39,21 +39,15 @@
         border-radius: 3px;
         border: 1px solid #72767d;
 
-        .bd-radio-control {
-            // background: rgb(50, 50, 50);
-            // border: 1px solid rgb(114, 118, 125);
-            // border-radius: 50%;
-            // width: 12px;
-            // height: 12px;
-            // transition: background-color .1s;
+        .bd-radioControl {
             margin: 1px;
             opacity: 0;
         }
     }
 
-    .bd-radio-text {
+    .bd-radioText {
         flex: 1 1 auto;
-        color: white;
+        color: #fff;
         word-wrap: break-word;
         width: 1px;
     }
@@ -66,15 +60,15 @@
         border-color: #040405;
     }
 
-    &.bd-radio-selected {
-        background-color: $colbdblue;
-        border-color: $colbdblue;
+    &.bd-radioSelected {
+        background-color: $colbdgreen;
+        border-color: $colbdgreen;
 
-        .bd-radio-control-wrap {
+        .bd-radioControlWrap {
             border-color: #fff;
             background-color: #fff;
 
-            .bd-radio-control {
+            .bd-radioControl {
                 opacity: 1;
             }
         }

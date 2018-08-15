@@ -9,7 +9,7 @@
 */
 
 <template>
-    <div class="bd-form-item" :class="{'bd-form-item-changed': setting.changed, 'bd-disabled': disabled, 'bd-form-item-noheader': !setting.text, 'bd-form-item-fullwidth': setting.fullwidth}">
+    <div class="bd-formItem" :class="{'bd-formItemChanged': setting.changed, 'bd-disabled': disabled, 'bd-formItemNoheader': !setting.text, 'bd-formItemFullwidth': setting.fullwidth}">
         <BoolSetting v-if="setting.type === 'bool'" :setting="setting" />
         <StringSetting v-else-if="setting.type === 'text' && !setting.multiline" :setting="setting" />
         <MultilineTextSetting v-else-if="setting.type === 'text' && setting.multiline" :setting="setting" />
@@ -27,7 +27,7 @@
         <SecureKeyValuePair v-else-if="setting.type === 'securekvp'" :setting="setting" />
         <CustomSetting v-else-if="setting.type === 'custom'" :setting="setting" />
 
-        <div v-if="!hideDivider" class="bd-form-divider"></div>
+        <div v-if="!hideDivider" class="bd-formDivider"></div>
     </div>
 </template>
 

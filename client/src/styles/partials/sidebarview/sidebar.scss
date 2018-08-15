@@ -7,9 +7,8 @@
         padding: 6px 0;
         margin-left: 10px;
         margin-top: 15px;
-        color: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, .15);
         font-size: 14px;
-        font-weight: 700;
         line-height: 16px;
         text-transform: uppercase;
         font-weight: 600;
@@ -39,12 +38,12 @@
         font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
 
         &:hover,
-        &.active {
-            background: $colbdblue;
+        &.bd-active {
+            background: $colbdgreen;
             color: #fff;
         }
 
-        &.active {
+        &.bd-active {
             cursor: default;
         }
     }

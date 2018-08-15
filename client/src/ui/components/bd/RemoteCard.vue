@@ -11,22 +11,22 @@
 <template>
     <div class="bd-remoteCard">
         <div class="bd-flexRow bd-flex">
-            <div class="bd-remoteCard-title bd-flexGrow">{{item.name}} v{{item.version}} by {{item.author}}</div>
-            <div class="bd-remoteCard-likes">{{item.rating}}</div>
+            <div class="bd-remoteCardTitle bd-flexGrow">{{item.name}} v{{item.version}} by {{item.author}}</div>
+            <div class="bd-remoteCardLikes">{{item.rating}}</div>
         </div>
         <div class="bd-flexRow bd-flex" :style="{marginTop: '10px'}">
-            <div class="bd-remoteCard-thumb" :style="{backgroundImage: `url(${resolveThumb()})`}"></div>
-            <div class="bd-remoteCard-infoContainer bd-flex bd-flexCol bd-flexGrow">
-                <div class="bd-remoteCard-infoBox bd-flex bd-flexGrow bd-flexCol">
-                    <div class="bd-remoteCard-info">{{item.installs}} Installs</div>
-                    <div class="bd-remoteCard-info">{{item.activeUsers}} Active Users</div>
-                    <div class="bd-remoteCard-info">Updated: Some time ago</div>
+            <div class="bd-remoteCardThumb" :style="{backgroundImage: `url(${resolveThumb()})`}"></div>
+            <div class="bd-remoteCardInfoContainer bd-flex bd-flexCol bd-flexGrow">
+                <div class="bd-remoteCardInfoBox bd-flex bd-flexGrow bd-flexCol">
+                    <div class="bd-remoteCardInfo">{{item.installs}} Installs</div>
+                    <div class="bd-remoteCardInfo">{{item.activeUsers}} Active Users</div>
+                    <div class="bd-remoteCardInfo">Updated: Some time ago</div>
                 </div>
             </div>
         </div>
         <div class="bd-flexRow bd-flex bd-flexGrow">
-            <div class="bd-flexGrow bd-remoteCard-tags">{{item.tags.join(', ')}}</div>
-            <div class="bd-button-group">
+            <div class="bd-flexGrow bd-remoteCardTags">{{item.tags.join(', ')}}</div>
+            <div class="bd-buttonGroup">
                 <div class="bd-button">Install</div>
                 <div class="bd-button">Preview</div>
                 <div class="bd-button">Source</div>

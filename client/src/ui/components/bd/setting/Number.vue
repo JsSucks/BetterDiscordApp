@@ -9,14 +9,14 @@
 */
 
 <template>
-    <div class="bd-form-numberinput">
+    <div class="bd-formNumberinput">
         <div class="bd-title">
             <h3 v-if="setting.text">{{setting.text}}</h3>
             <div class="bd-number">
                 <input type="number" :value="setting.value / setting.multi" :min="setting.min" :max="setting.max" :step="setting.step" @keyup.stop @input="input" />
-                <div class="bd-number-spinner bd-flex bd-flex-col">
-                    <div class="bd-arrow" @click="changeBy(1)"><div class="bd-up-arrow"></div></div>
-                    <div class="bd-arrow" @click="changeBy(-1)"><div class="bd-down-arrow"></div></div>
+                <div class="bd-numberSpinner bd-flex bd-flexCol">
+                    <div class="bd-arrow" @click="changeBy(1)"><div class="bd-upArrow"></div></div>
+                    <div class="bd-arrow" @click="changeBy(-1)"><div class="bd-downArrow"></div></div>
                 </div>
             </div>
         </div>

@@ -54,7 +54,7 @@ export default new class Settings {
             const user_config = await FileUtils.readJsonFromFile(settingsPath);
             const { settings, scss, css, css_editor_files, scss_error, css_editor_bounds, favourite_emotes } = user_config;
 
-            for (let set of this.settings) {
+            for (const set of this.settings) {
                 const newSet = settings.find(s => s.id === set.id);
                 if (!newSet) continue;
                 await set.merge(newSet, {dont_save: true});
@@ -91,7 +91,7 @@ export default new class Settings {
                 favourite_emotes: EmoteModule.favourite_emotes
             });
 
-            for (let set of this.settings) {
+            for (const set of this.settings) {
                 set.setSaved();
             }
         } catch (err) {

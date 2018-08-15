@@ -9,12 +9,12 @@
 */
 
 <template>
-    <div class="bd-form-customsetting" :class="{'bd-form-customsetting-debug': setting.debug}">
+    <div class="bd-formCustomsetting" :class="{'bd-formCustomsettingDebug': setting.debug}">
         <component :is="component" :setting="setting" :change="change"></component>
-        <Drawer class="bd-form-customsetting-value bd-form-textarea" label="Custom setting data" v-if="setting.debug">
-            <pre class="bd-pre-wrap"><div class="bd-pre">{{ JSON.stringify(setting, null, 4) }}</div></pre>
+        <Drawer class="bd-formCustomsettingValue bd-formTextarea" label="Custom setting data" v-if="setting.debug">
+            <pre class="bd-preWrap"><div class="bd-pre">{{ JSON.stringify(setting, null, 4) }}</div></pre>
 
-            <div class="bd-form-textarea-details">
+            <div class="bd-formTextareaDetails">
                 <div class="bd-title">
                     <h3>Set value</h3>
                 </div>

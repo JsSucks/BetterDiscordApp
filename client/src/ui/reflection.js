@@ -110,7 +110,7 @@ class Reflection {
     static getComponentStateNode(node, component) {
         if (component instanceof ReactComponents.ReactComponent) component = component.component;
 
-        for (let stateNode of this.getStateNodes(node)) {
+        for (const stateNode of this.getStateNodes(node)) {
             if (stateNode instanceof component) return stateNode;
         }
     }

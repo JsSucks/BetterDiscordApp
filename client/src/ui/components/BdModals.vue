@@ -9,11 +9,11 @@
 */
 
 <template>
-    <div class="bd-modals-container">
-        <div v-for="(modal, index) in modals.stack" :key="`bd-modal-${modal.id}`">
-            <div class="bd-backdrop" :class="{'bd-backdrop-out': closing}" :style="{opacity: index === 0 ? undefined : 0}"></div>
-            <div class="bd-modal-wrap" :style="{transform: `scale(${downscale(index + 1, 0.2)})`, opacity: downscale(index + 1, 1)}">
-                <div class="bd-modal-close-area" @click="closeModal(modal)"></div>
+    <div class="bd-modalsContainer">
+        <div v-for="(modal, index) in modals.stack" :key="`bd-modal${modal.id}`">
+            <div class="bd-backdrop" :class="{'bd-backdropOut': closing}" :style="{opacity: index === 0 ? undefined : 0}"></div>
+            <div class="bd-modalWrap" :style="{transform: `scale(${downscale(index + 1, 0.2)})`, opacity: downscale(index + 1, 1)}">
+                <div class="bd-modalCloseArea" @click="closeModal(modal)"></div>
                 <keep-alive><component :is="modal.component" /></keep-alive>
             </div>
         </div>

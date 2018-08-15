@@ -1,5 +1,5 @@
 @keyframes bd-slidein {
-    0% {
+    0%  {
         transform: translateX(-100%);
         opacity: .2;
     }
@@ -49,7 +49,7 @@
     }
 }
 
-@keyframes bd-toast-up {
+@keyframes bd-toastUp {
     0% {
         transform: translateY(10px);
         opacity: 0;
@@ -61,7 +61,7 @@
     }
 }
 
-@keyframes bd-toast-down {
+@keyframes bd-toastDown {
     0% {
         transform: translateY(0%);
         opacity: 1;
@@ -73,7 +73,7 @@
     }
 }
 
-@keyframes bd-fade-out {
+@keyframes bd-fadeOut {
     0% {
         opacity: 1;
     }
@@ -83,7 +83,7 @@
     }
 }
 
-@keyframes bd-fade-in {
+@keyframes bd-fadeIn {
     0% {
         opacity: 0;
     }
@@ -93,39 +93,75 @@
     }
 }
 
-@keyframes bd-modal-in {
-    0% { transform: scale(0.8); opacity: 0; }
-    90% { transform: scale(1.01); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
-}
-@keyframes bd-modal-out {
-    0% { transform: scale(1); opacity: 1; }
-    10% { transform: scale(1.01); opacity: 1; }
-    90% { opacity: 0; }
-    100% { transform: scale(0.8); opacity: 0; }
+@keyframes bd-modalIn {
+    0% {
+        transform: scale(.8);
+        opacity: 0;
+    }
+
+    90% {
+        transform: scale(1.01);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
-@keyframes bd-backdrop-in {
-    0% { opacity: 0; }
-}
-@keyframes bd-backdrop-out {
-    100% { opacity: 0; }
+@keyframes bd-modalOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    10% {
+        transform: scale(1.01);
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(.8);
+        opacity: 0;
+    }
 }
 
-@keyframes bd-warn-shake {
-    10%, 90% {
+@keyframes bd-backdropIn {
+    0% {
+        opacity: 0;
+    }
+}
+
+@keyframes bd-backdropOut {
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes bd-warnShake {
+    10%,
+    90% {
         transform: translate3d(-4px, -4px, 0);
     }
 
-    20%, 80% {
+    20%,
+    80% {
         transform: translate3d(4px, 4px, 0);
     }
 
-    30%, 50%, 70% {
+    30%,
+    50%,
+    70% {
         transform: translate3d(-4px, 4px, 0);
     }
 
-    40%, 60% {
+    40%,
+    60% {
         transform: translate3d(4px, -4px, 0);
     }
 }
@@ -141,5 +177,44 @@
 
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes bd-settingsButtonPulse {
+    0% {
+        filter: grayscale(100%);
+    }
+
+    50% {
+        filter: grayscale(0%);
+        opacity: 1;
+    }
+
+    100% {
+        filter: grayscale(100%);
+    }
+}
+
+@keyframes bd-colourpickerSlidein {
+    0% {
+        right: 20px;
+    }
+
+    100% {
+        right: 0;
+    }
+}
+
+@keyframes bd-keybindPulse {
+    0% {
+        box-shadow: 0 0 6px rgba(240, 71, 71, .3);
+    }
+
+    50% {
+        box-shadow: 0 0 10px rgba(240, 71, 71, .6);
+    }
+
+    100% {
+        box-shadow: 0 0 6px rgba(240, 71, 71, .3);
     }
 }

@@ -21,7 +21,7 @@ export default class ClassNormaliser extends Module {
     }
 
     patchClassModules(modules) {
-        for (let module of modules) {
+        for (const module of modules) {
             this.patchClassModule(normalizedPrefix, module);
         }
     }
@@ -38,7 +38,7 @@ export default class ClassNormaliser extends Module {
         if (typeof module !== 'object' || Array.isArray(module)) return false;
         if (module.__esModule) return false;
         if (!Object.keys(module).length) return false;
-        for (let baseClassName in module) {
+        for (const baseClassName in module) {
             const value = module[baseClassName];
             if (typeof value !== 'string') return false;
             if (this.shouldIgnore(value)) continue;
@@ -50,11 +50,11 @@ export default class ClassNormaliser extends Module {
     }
 
     patchClassModule(componentName, classNames) {
-        for (let baseClassName in classNames) {
+        for (const baseClassName in classNames) {
             const value = classNames[baseClassName];
             if (this.shouldIgnore(value)) continue;
             const classList = value.split(' ');
-            for (let normalClass of classList) {
+            for (const normalClass of classList) {
                 const match = normalClass.match(randClass)[1];
                 if (!match) continue; // Shouldn't ever happen since they passed the moduleFilter, but you never know
                 const camelCase = match.split('-').map((s, i) => i ? s[0].toUpperCase() + s.slice(1) : s).join('');
@@ -74,7 +74,7 @@ export default class ClassNormaliser extends Module {
             element.classList.add(`${normalizedPrefix}-${newClass}`);
         }
 
-        for (let child of element.children) {
+        for (const child of element.children) {
             this.normalizeElement(child);
         }
     }

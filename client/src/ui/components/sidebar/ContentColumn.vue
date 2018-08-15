@@ -9,7 +9,7 @@
 */
 
 <template>
-    <div class="bd-content bd-content-column">
+    <div class="bd-content bd-contentColumn">
         <slot/>
     </div>
 </template>

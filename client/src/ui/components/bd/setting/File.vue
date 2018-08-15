@@ -9,19 +9,19 @@
 */
 
 <template>
-    <div class="bd-form-fileinput">
+    <div class="bd-formFileinput">
         <div class="bd-title">
             <h3>{{ setting.text }}</h3>
-            <button class="bd-button bd-button-primary" :class="{'bd-disabled': setting.disabled}" @click="openDialog">Select</button>
+            <button class="bd-button bd-buttonPrimary" :class="{'bd-disabled': setting.disabled}" @click="openDialog">Select</button>
         </div>
         <div class="bd-hint">{{ setting.hint }}</div>
-        <div class="bd-selected-files">
-            <div class="bd-selected-file" v-for="file_path in setting.value">
+        <div class="bd-selectedFiles">
+            <div class="bd-selectedFile" v-for="file_path in setting.value">
                 <!-- Maybe add a preview here later? -->
                 <!-- For now just show the selected file path -->
-                <span class="bd-file-path">{{ file_path }}</span>
-                <span class="bd-file-open" @click="openItem(file_path)"><MiOpenInNew /></span>
-                <span class="bd-file-remove" :class="{'bd-disabled': setting.disabled}" @click="removeItem(file_path)"><MiMinus /></span>
+                <span class="bd-filePath">{{ file_path }}</span>
+                <span class="bd-fileOpen" @click="openItem(file_path)"><MiOpenInNew /></span>
+                <span class="bd-fileRemove" :class="{'bd-disabled': setting.disabled}" @click="removeItem(file_path)"><MiMinus /></span>
             </div>
         </div>
     </div>

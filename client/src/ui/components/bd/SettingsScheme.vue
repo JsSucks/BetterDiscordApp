@@ -9,10 +9,10 @@
 */
 
 <template>
-    <div class="bd-settings-scheme" :class="{'bd-active': isActive}" @click="$emit('apply')">
-        <div class="bd-settings-scheme-icon" :style="{'background-image': iconURL}"></div>
-        <div class="bd-settings-scheme-name" v-if="scheme.name">{{ scheme.name }}</div>
-        <div class="bd-settings-scheme-hint" v-if="scheme.hint">{{ scheme.hint }}</div>
+    <div class="bd-settingsScheme" :class="{'bd-active': isActive}" @click="$emit('apply')">
+        <div class="bd-settingsSchemeIcon" :style="{'background-image': iconURL}"></div>
+        <div class="bd-settingsSchemeName" v-if="scheme.name">{{ scheme.name }}</div>
+        <div class="bd-settingsSchemeHint" v-if="scheme.hint">{{ scheme.hint }}</div>
     </div>
 </template>
 

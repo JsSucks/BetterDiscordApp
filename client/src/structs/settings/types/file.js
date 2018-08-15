@@ -49,7 +49,7 @@ export default class FileSetting extends Setting {
         if (!this.value || !this.value.length) return '()';
 
         const files = [];
-        for (let filepath of this.value) {
+        for (const filepath of this.value) {
             const buffer = await FileUtils.readFileBuffer(path.resolve(this.path, filepath));
             const type = await FileUtils.getFileType(buffer);
             files.push(`(data: ${ThemeManager.toSCSSString(buffer.toString('base64'))}, type: ${ThemeManager.toSCSSString(type.mime)}, url: ${ThemeManager.toSCSSString(await FileUtils.toDataURI(buffer, type.mime))})`);

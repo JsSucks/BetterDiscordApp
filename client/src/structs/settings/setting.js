@@ -47,7 +47,7 @@ export default class Setting {
         else if (args.type === 'kvp') return new KvpSetting(args, ...merge);
         else if (args.type === 'securekvp') return new SecureKvpSetting(args, ...merge);
         else if (args.type === 'custom') return new CustomSetting(args, ...merge);
-        else throw {message: `Setting type ${args.type} unknown`};
+        throw {message: `Setting type ${args.type} unknown`};
     }
 
 }

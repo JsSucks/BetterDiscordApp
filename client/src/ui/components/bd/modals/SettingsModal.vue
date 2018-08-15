@@ -9,14 +9,14 @@
 */
 
 <template>
-    <div class="bd-settings-modal" :class="{'bd-edited': changed}">
-        <Modal :class="{'bd-modal-out': modal.closing}" :headerText="modal.headertext" @close="modal.close">
-            <SettingsPanel :settings="settings" :schemes="modal.schemes" slot="body" class="bd-settings-modal-body" />
-            <div slot="footer" class="bd-footer-alert" :class="{'bd-active': changed || saving, 'bd-warn': warnclose}" :style="{pointerEvents: changed ? 'all' : 'none'}">
-                <div class="bd-footer-alert-text">Unsaved changes</div>
-                <div class="bd-button bd-reset-button bd-tp" :class="{'bd-disabled': saving}" @click="resetSettings">Reset</div>
+    <div class="bd-settingsModal" :class="{'bd-edited': changed}">
+        <Modal :class="{'bd-modalOut': modal.closing}" :headerText="modal.headertext" @close="modal.close">
+            <SettingsPanel :settings="settings" :schemes="modal.schemes" slot="body" class="bd-settingsModalBody" />
+            <div slot="footer" class="bd-footerAlert" :class="{'bd-active': changed || saving, 'bd-warn': warnclose}" :style="{pointerEvents: changed ? 'all' : 'none'}">
+                <div class="bd-footerAlertText">Unsaved changes</div>
+                <div class="bd-button bd-resetButton bd-tp" :class="{'bd-disabled': saving}" @click="resetSettings">Reset</div>
                 <div class="bd-button bd-ok" :class="{'bd-disabled': saving}" @click="saveSettings">
-                    <div v-if="saving" class="bd-spinner-7"></div>
+                    <div v-if="saving" class="bd-spinner7"></div>
                     <template v-else>Save Changes</template>
                 </div>
             </div>

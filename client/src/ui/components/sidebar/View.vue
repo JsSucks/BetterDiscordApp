@@ -9,8 +9,8 @@
 */
 
 <template>
-    <div class="bd-sidebar-view" :class="{active: contentVisible, animating: animating}">
-        <div class="bd-sidebar-region bd-flex-col">
+    <div class="bd-sidebarView" :class="{'bd-active': contentVisible, animating: animating}">
+        <div class="bd-sidebarRegion bd-flexCol">
             <div class="bd-settingswrap">
                 <ScrollerWrap dark="true">
                     <slot name="sidebar" />
@@ -18,7 +18,7 @@
             </div>
             <slot name="sidebarfooter"/>
         </div>
-        <div class="bd-content-region">
+        <div class="bd-contentRegion">
             <slot name="content" />
         </div>
     </div>

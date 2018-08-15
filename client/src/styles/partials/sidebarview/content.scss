@@ -1,4 +1,4 @@
-.bd-content-column {
+.bd-contentColumn {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -12,7 +12,7 @@
 
         &.bd-contentcolumn-enter-active,
         &.bd-contentcolumn-leave-active {
-            transition: opacity 0.4s ease;
+            transition: opacity .4s ease;
         }
 
         &.bd-contentcolumn-enter-to {

@@ -9,10 +9,10 @@
 */
 
 <template>
-    <div class="bd-profile-badges" :class="[`bd-profile-badges-${type}`]" @click.stop>
-        <div v-if="contributor.developer" v-tooltip="'BetterDiscord Developer'" class="bd-profile-badge bd-profile-badge-developer" @click="click"></div>
-        <div v-else-if="contributor.webdev" v-tooltip="'BetterDiscord Web Developer'" class="bd-profile-badge bd-profile-badge-developer" @click="click"></div>
-        <div v-else-if="contributor.contributor" v-tooltip="'BetterDiscord Contributor'" class="bd-profile-badge bd-profile-badge-contributor" @click="click"></div>
+    <div class="bd-profileBadges" :class="[`bd-profileBadges${type ? type.charAt(0).toUpperCase() + type.slice(1) : ''}`]" @click.stop>
+        <div v-if="contributor.developer" v-tooltip="'BetterDiscord Developer'" class="bd-profileBadge bd-profileBadgeDeveloper" @click="click"></div>
+        <div v-else-if="contributor.webdev" v-tooltip="'BetterDiscord Web Developer'" class="bd-profileBadge bd-profileBadgeDeveloper" @click="click"></div>
+        <div v-else-if="contributor.contributor" v-tooltip="'BetterDiscord Contributor'" class="bd-profileBadge bd-profileBadgeContributor" @click="click"></div>
     </div>
 </template>
 

@@ -47,7 +47,7 @@ export class DOMObserver {
     }
 
     observerCallback(mutations) {
-        for (let sub of this.subscriptions) {
+        for (const sub of this.subscriptions) {
             try {
                 const filteredMutations = sub.filter ? mutations.filter(sub.filter) : mutations;
 
@@ -55,7 +55,7 @@ export class DOMObserver {
                     if (!filteredMutations.length) continue;
                     sub.callback.call(sub.bind || sub, filteredMutations);
                 } else {
-                    for (let mutation of filteredMutations) sub.callback.call(sub.bind || sub, mutation);
+                    for (const mutation of filteredMutations) sub.callback.call(sub.bind || sub, mutation);
                 }
             } catch (err) {
                 Logger.warn('DOMObserver', [`Error in observer callback`, err]);
@@ -239,7 +239,7 @@ export default class DOM {
     }
 
     static setAttributes(node, attributes) {
-        for (let attribute of attributes) {
+        for (const attribute of attributes) {
             node.setAttribute(attribute.name, attribute.value);
         }
     }

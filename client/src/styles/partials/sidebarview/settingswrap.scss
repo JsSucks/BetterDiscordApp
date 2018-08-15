@@ -1,4 +1,4 @@
-.bd-sidebar-region {
+.bd-sidebarRegion {
     .bd-settingswrap {
         display: flex;
         height: 100%;
@@ -6,30 +6,32 @@
         flex: 1;
         min-height: 1px;
         box-sizing: border-box;
-        padding: 90px 15px 0 15px;
+        padding: 90px 15px 0;
         margin-bottom: 5px;
     }
 }
 
-.bd-content-region {
+.bd-contentRegion {
     .bd-settingswrap {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
 
-        > .bd-scroller-wrap {
+        > .bd-scrollerWrap {
             flex-grow: 1;
 
             > .bd-scroller {
                 overflow-y: scroll;
 
-                .platform-darwin .bd-settings & {
-                    padding-top: 22px;
+                .platform-darwin { // sass-lint:disable-line class-name-format
+                    .bd-settings & {
+                        padding-top: 22px;
+                    }
                 }
             }
         }
 
-        .bd-settingswrap-header {
+        .bd-settingswrapHeader {
             outline: 0;
             padding: 0;
             margin: 30px 20px 20px;
@@ -37,8 +39,8 @@
             display: flex;
             flex: 0 0 auto;
 
-            .bd-settingswrap-header-text {
-                color: $colbdblue;
+            .bd-settingswrapHeaderText {
+                color: $colbdgreen;
                 text-transform: uppercase;
                 font-weight: 600;
                 font-size: 16px;
@@ -46,25 +48,25 @@
             }
         }
 
-        .bd-settingswrap-item {
-            .bd-settingswrap-button-big {
+        .bd-settingswrapItem {
+            .bd-settingswrapButtonBig {
                 width: 150px;
                 height: 50px;
                 border-radius: 5px;
                 margin-bottom: 20px;
             }
 
-            .bd-settingswrap-item-desc {
+            .bd-settingswrapItemDesc {
                 color: #72767d;
                 font-size: 14px;
                 font-weight: 500;
                 line-height: 20px;
             }
 
-            .bd-settingswrap-infobox {
+            .bd-settingswrapInfobox {
                 display: flex;
                 align-items: stretch;
-                background: rgba(32,34,37,.6);
+                background: rgba(32, 34, 37, .6);
                 border-color: #202225;
                 padding: 20px;
                 border-radius: 5px;
@@ -73,14 +75,14 @@
                 position: relative;
                 margin-bottom: 20px;
 
-                .bd-settingswrap-infobox-child {
+                .bd-settingswrapInfoboxChild {
                     background-size: 100% 100%;
 
                     .bd-wrapper {
                         margin-bottom: 20px;
 
                         h5 {
-                            color: hsla(210,3%,87%,.3);
+                            color: hsla(210, 3%, 87%, .3);
                             letter-spacing: .5px;
                             font-size: 12px;
                             text-transform: uppercase;
@@ -102,7 +104,7 @@
 
                             > span {
                                 color: #b9bbbe;
-                                opacity: 0.5;
+                                opacity: .5;
                             }
                         }
                     }
@@ -110,14 +112,14 @@
             }
         }
 
-        .bd-settingswrap-subheader {
+        .bd-settingswrapSubheader {
             color: #f6f6f7;
             text-transform: uppercase;
             margin-bottom: 20px;
             font-weight: 600;
         }
 
-        .bd-settingswrap-contents {
+        .bd-settingswrapContents {
             padding: 0 20px;
             margin-bottom: 84px;
         }

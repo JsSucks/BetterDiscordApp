@@ -1,12 +1,11 @@
-.bd-modal-header {
+.bd-modalHeader {
     display: flex;
     padding: 15px;
     flex: 0 0;
     -webkit-transition: -webkit-box-shadow .1s ease-out;
-    transition: -webkit-box-shadow .1s ease-out;
     transition: box-shadow .1s ease-out;
 
-    .bd-modal-headertext {
+    .bd-modalHeadertext {
         color: #fff;
         font-weight: 700;
         flex-grow: 1;
@@ -14,11 +13,13 @@
         padding: 1px;
     }
 
-    .bd-modal-icon .bd-material-design-icon {
-        margin-right: 5px;
+    .bd-modalIcon {
+        .bd-materialDesignIcon {
+            margin-right: 5px;
+        }
     }
 
-    .bd-modal-x {
+    .bd-modalX {
         display: flex;
         width: 20px;
         height: 20px;
@@ -30,21 +31,23 @@
         margin-left: -2px -2px -2px 10px;
         padding: 2px;
 
-        .bd-material-design-icon {
+        .bd-materialDesignIcon {
             fill: #ccc;
         }
 
         &:hover {
             background: #2d2f34;
 
-            .bd-material-design-icon {
+            .bd-materialDesignIcon {
                 fill: #fff;
             }
         }
     }
 }
 
-.bd-modal-scrolled .bd-modal-header {
-    -webkit-box-shadow: 0 1px 0 0 rgba(24,25,28,.3), 0 1px 2px 0 rgba(24,25,28,.3);
-    box-shadow: 0 1px 0 0 rgba(24,25,28,.3), 0 1px 2px 0 rgba(24,25,28,.3);
+.bd-modalScrolled {
+    .bd-modalHeader {
+        -webkit-box-shadow: 0 1px 0 0 rgba(24, 25, 28, .3), 0 1px 2px 0 rgba(24, 25, 28, .3);
+        box-shadow: 0 1px 0 0 rgba(24, 25, 28, .3), 0 1px 2px 0 rgba(24, 25, 28, .3);
+    }
 }

@@ -9,26 +9,26 @@
 */
 
 <template>
-    <div class="bd-form-settingsarray" :class="{'bd-form-settingsarray-inline': setting.inline}">
+    <div class="bd-formSettingsarray" :class="{'bd-formSettingsarrayInline': setting.inline}">
         <div class="bd-title">
             <h3>{{ setting.text }}</h3>
-            <button class="bd-button bd-button-primary" :class="{'bd-disabled': setting.disabled || setting.max && setting.items.length >= setting.max}" @click="() => addItem(!setting.inline)">Add</button>
+            <button class="bd-button bd-buttonPrimary" :class="{'bd-disabled': setting.disabled || setting.max && setting.items.length >= setting.max}" @click="() => addItem(!setting.inline)">Add</button>
         </div>
         <div class="bd-hint">{{ setting.hint }}</div>
-        <div class="bd-settingsarray-items">
-            <div class="bd-settingsarray-item" v-for="(item, index) in setting.items">
-                <div class="bd-settingsarray-item-marker">{{ index + 1 }}</div>
+        <div class="bd-settingsarrayItems">
+            <div class="bd-settingsarrayItem" v-for="(item, index) in setting.items">
+                <div class="bd-settingsarrayItemMarker">{{ index + 1 }}</div>
 
-                <SettingsPanel class="bd-settingsarray-item-contents" v-if="setting.inline" :settings="item" />
-                <div class="bd-settingsarray-item-contents" v-else>
-                    <div class="bd-settingsarray-item-hint">
+                <SettingsPanel class="bd-settingsarrayItemContents" v-if="setting.inline" :settings="item" />
+                <div class="bd-settingsarrayItemContents" v-else>
+                    <div class="bd-settingsarrayItemHint">
                         <span v-if="getItemSettings(item)[0]">{{ getItemSettings(item)[0].text }}: {{ getItemSettings(item)[0].value }}</span><span v-if="getItemSettings(item)[1]">, {{ getItemSettings(item)[1].text }}: {{ getItemSettings(item)[1].value }}</span><span v-if="getItemSettings(item)[2]">, ...</span>
                     </div>
                 </div>
 
-                <div class="bd-settingsarray-item-controls">
-                    <span class="bd-settingsarray-open" v-if="setting.allow_external" @click="() => showModal(item, index)"><MiOpenInNew v-if="setting.inline" /><MiSettings v-else /></span>
-                    <span class="bd-settingsarray-remove" :class="{'bd-disabled': setting.disabled || setting.min && setting.items.length <= setting.min}" @click="() => removeItem(item)"><MiMinus /></span>
+                <div class="bd-settingsarrayItemControls">
+                    <span class="bd-settingsarrayOpen" v-if="setting.allow_external" @click="() => showModal(item, index)"><MiOpenInNew v-if="setting.inline" /><MiSettings v-else /></span>
+                    <span class="bd-settingsarrayRemove" :class="{'bd-disabled': setting.disabled || setting.min && setting.items.length <= setting.min}" @click="() => removeItem(item)"><MiMinus /></span>
                 </div>
             </div>
         </div>

@@ -1,26 +1,28 @@
-.bd-form-fileinput {
-    .bd-button.bd-button-primary {
-        padding: 3px 8px;
-        border-radius: 3px;
-        font-size: 12px;
-        font-weight: 400;
+.bd-formFileinput {
+    .bd-button {
+        &.bd-buttonPrimary {
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 400;
+        }
     }
 
-    .bd-selected-files {
+    .bd-selectedFiles {
         margin: 15px 0;
 
-        .bd-selected-file {
+        .bd-selectedFile {
             margin: 10px 0;
             color: #aaa;
             font-size: 15px;
             display: flex;
 
-            .bd-file-path {
+            .bd-filePath {
                 flex: 1 1;
             }
 
-            .bd-file-open,
-            .bd-file-remove {
+            .bd-fileOpen,
+            .bd-fileRemove {
                 flex: 0 0;
                 margin-left: 5px;
 

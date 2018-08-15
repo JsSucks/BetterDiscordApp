@@ -9,7 +9,7 @@
 */
 
 <template>
-    <div class="bd-item" :class="{active}" @click="$emit('click', item.id)">
+    <div class="bd-item" :class="{'bd-active': active}" @click="$emit('click', item.id)">
         {{item.text}}
     </div>
 </template>

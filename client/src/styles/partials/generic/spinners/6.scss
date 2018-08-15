@@ -1,4 +1,4 @@
-.bd-spinner-6 {
+.bd-spinner6 {
     width: 40px;
     height: 40px;
     position: relative;
@@ -9,35 +9,35 @@
     transform: rotate(45deg);
 
     &::before {
-        content: "";
+        content: '';
         background: #fff;
         height: 10px;
         width: 10px;
         position: absolute;
         right: 5px;
         bottom: 5px;
-        -webkit-animation: bd-spinner-6-anim-before 2s cubic-bezier(.4, 0, 0, 1) infinite;
-        animation: bd-spinner-6-anim-before 2s cubic-bezier(.4, 0, 0, 1) infinite;
+        -webkit-animation: bd-spinner6AnimBefore 2s cubic-bezier(.4, 0, 0, 1) infinite;
+        animation: bd-spinner6AnimBefore 2s cubic-bezier(.4, 0, 0, 1) infinite;
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
     }
 
     &::after {
-        content: "";
+        content: '';
         background: #fff;
         height: 10px;
         width: 10px;
         position: absolute;
         left: 5px;
         top: 5px;
-        -webkit-animation: bd-spinner-6-anim-after 2s cubic-bezier(.4, 0, 0, 1) infinite;
-        animation: bd-spinner-6-anim-after 2s cubic-bezier(.4, 0, 0, 1) infinite;
+        -webkit-animation: bd-spinner6AnimAfter 2s cubic-bezier(.4, 0, 0, 1) infinite;
+        animation: bd-spinner6AnimAfter 2s cubic-bezier(.4, 0, 0, 1) infinite;
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
     }
 }
 
-@-webkit-keyframes bd-spinner-6-anim-before {
+@-webkit-keyframes bd-spinner6AnimBefore {
     0% {
         bottom: 10px;
         right: 10px;
@@ -74,7 +74,7 @@
     }
 }
 
-@keyframes bd-spinner-6-anim-before {
+@keyframes bd-spinner6AnimBefore {
     0% {
         bottom: 10px;
         right: 10px;
@@ -111,7 +111,7 @@
     }
 }
 
-@-webkit-keyframes bd-spinner-6-anim-after {
+@-webkit-keyframes bd-spinner6AnimAfter {
     0% {
         top: 10px;
         left: 10px;
@@ -148,7 +148,7 @@
     }
 }
 
-@keyframes bd-spinner-6-anim-after {
+@keyframes bd-spinner6AnimAfter {
     0% {
         top: 10px;
         left: 10px;

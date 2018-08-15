@@ -89,7 +89,7 @@ export default class GuildSetting extends Setting {
         const newGuilds = [];
         let error;
 
-        for (let newGuild of updatedSetting.value) {
+        for (const newGuild of updatedSetting.value) {
             try {
                 const guild = updatedSetting.old_value.find(g => g === newGuild);
 
@@ -105,7 +105,7 @@ export default class GuildSetting extends Setting {
             } catch (e) { error = e; }
         }
 
-        for (let guild_id of updatedSetting.old_value) {
+        for (const guild_id of updatedSetting.old_value) {
             if (newGuilds.find(g => g === guild_id)) continue;
 
             try {
@@ -129,7 +129,7 @@ export default class GuildSetting extends Setting {
         if (!this.value || !this.value.length) return '()';
 
         const guilds = [];
-        for (let guild_id of this.value) {
+        for (const guild_id of this.value) {
             if (guild_id)
                 guilds.push(guild_id);
         }

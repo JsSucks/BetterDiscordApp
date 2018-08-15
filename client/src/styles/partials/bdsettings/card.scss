@@ -3,20 +3,20 @@
     flex-direction: column;
     flex-grow: 1;
     background: transparent;
-    border-bottom: 1px solid rgba(114, 118, 126, 0.3);
+    border-bottom: 1px solid rgba(114, 118, 126, .3);
     min-height: 150px;
     color: #b9bbbe;
     margin-top: 20px;
     padding-bottom: 20px;
 
-    .bd-card-header {
+    .bd-cardHeader {
         margin-bottom: 15px;
         display: flex;
         flex-grow: 0;
         font-weight: 700;
         align-items: center;
 
-        .bd-card-icon {
+        .bd-cardIcon {
             width: 30px;
             height: 30px;
             background-size: cover;
@@ -31,12 +31,12 @@
         }
     }
 
-    .bd-card-body {
+    .bd-cardBody {
         display: flex;
         flex-grow: 1;
         flex-direction: column;
 
-        .bd-card-description {
+        .bd-cardDescription {
             flex-grow: 1;
             min-height: 60px;
             color: #8a8c90;
@@ -46,12 +46,12 @@
             white-space: pre-wrap;
         }
 
-        .bd-card-footer {
+        .bd-cardFooter {
             display: flex;
             align-items: flex-end;
 
-            .bd-card-extra {
-                color: rgba(255, 255, 255, 0.15);
+            .bd-cardExtra {
+                color: rgba(255, 255, 255, .15);
                 font-size: 10px;
                 font-weight: 700;
                 flex-grow: 1;
@@ -60,7 +60,7 @@
             .bd-controls {
                 margin-left: 15px;
 
-                .bd-button-group {
+                .bd-buttonGroup {
                     .bd-button {
                         fill: #fff;
                         width: 30px;
@@ -71,19 +71,21 @@
         }
     }
 
-    .bd-switch-wrapper {
+    .bd-switchWrapper {
         width: 40px;
         height: 20px;
 
-        .bd-switch::before {
-            width: 14px;
-            height: 14px;
+        .bd-switch {
+            &::before {
+                width: 14px;
+                height: 14px;
+            }
         }
     }
 }
 
-.bd-content-author {
-    .bd-content-author-link {
+.bd-contentAuthor {
+    .bd-contentAuthorLink {
         cursor: pointer;
 
         &:hover {
@@ -92,10 +94,10 @@
     }
 }
 
-.bd-content-author-links {
+.bd-contentAuthorLinks {
     padding: 3px 5px;
 
-    .bd-popover-inner > :first-child {
+    .bd-popoverInner > :first-child {
         display: flex;
         flex-direction: row;
     }

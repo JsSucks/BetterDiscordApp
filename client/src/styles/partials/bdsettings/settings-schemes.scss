@@ -1,44 +1,44 @@
-.bd-settings-schemes {
+.bd-settingsSchemes {
     margin-bottom: 15px;
-    border-bottom: 1px solid rgba(114, 118, 126, 0.3);
+    border-bottom: 1px solid rgba(114, 118, 126, .3);
 
-    .bd-settings-schemes-container {
+    .bd-settingsSchemesContainer {
         margin-right: -15px;
     }
 }
 
-.bd-settings-scheme {
+.bd-settingsScheme {
     display: inline-block;
     width: calc(33.3% - 15px);
     margin: 0 15px 15px 0;
     cursor: pointer;
     vertical-align: top;
 
-    .bd-settings-modal & {
+    .bd-settingsModal & {
         width: calc(50% - 15px);
 
-        .bd-settings-scheme-icon {
+        .bd-settingsSchemeIcon {
             height: 120px;
         }
     }
 
-    .bd-settings-scheme-icon {
+    .bd-settingsSchemeIcon {
         box-sizing: border-box;
         width: 100%;
         height: 120px;
         border: 2px solid $coldimwhite;
         border-radius: 3px;
-        transition: border-color 0.2s ease;
+        transition: border-color .2s ease;
         margin-bottom: 15px;
         background: center / cover no-repeat #2f3136;
     }
 
-    .bd-settings-scheme-name {
+    .bd-settingsSchemeName {
         font-weight: 500;
         color: #f6f6f7;
     }
 
-    .bd-settings-scheme-hint {
+    .bd-settingsSchemeHint {
         flex: 1 1 auto;
         color: #72767d;
         font-size: 14px;
@@ -47,7 +47,7 @@
     }
 
     &:hover {
-        .bd-settings-scheme-icon {
+        .bd-settingsSchemeIcon {
             border-color: lighten($coldimwhite, 20%);
         }
     }
@@ -55,8 +55,8 @@
     &.bd-active {
         cursor: default;
 
-        .bd-settings-scheme-icon {
-            border-color: $colbdblue;
+        .bd-settingsSchemeIcon {
+            border-color: $colbdgreen;
         }
     }
 }

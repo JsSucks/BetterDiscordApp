@@ -1,24 +1,23 @@
 .bd-keybind {
     padding: 10px;
     display: flex;
-    // width: 180px;
     margin-top: 10px;
-    background-color: rgba(0,0,0,.1);
-    border: 1px solid rgba(0,0,0,.3);
+    background-color: rgba(0, 0, 0, .1);
+    border: 1px solid rgba(0, 0, 0, .3);
     transition: border .15s ease;
     border-radius: 3px;
     box-sizing: border-box;
     min-height: 40px;
 
-    .bd-keybind-selected {
+    .bd-keybindSelected {
         flex: 1 1 auto;
         color: #f6f6f7;
         font-size: 14px;
     }
 
-    &.bd-keybind-unset {
-        .bd-keybind-selected {
-            color: hsla(240,6%,97%,.3);
+    &.bd-keybindUnset {
+        .bd-keybindSelected {
+            color: hsla(240, 6%, 97%, .3);
             font-weight: 600;
         }
     }
@@ -36,17 +35,11 @@
 
     &.bd-active {
         border-color: $colerr;
-        animation: bd-keybind-pulse 1s infinite;
+        animation: bd-keybindPulse 1s infinite;
 
         .bd-button {
             color: $colerr;
             background-color: rgba($colerr, .3);
         }
     }
-}
-
-@keyframes bd-keybind-pulse {
-    0% { box-shadow: 0 0 6px rgba(240,71,71,.3) }
-    50% { box-shadow: 0 0 10px rgba(240,71,71,.6) }
-    100% { box-shadow: 0 0 6px rgba(240,71,71,.3) }
 }

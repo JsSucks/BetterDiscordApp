@@ -1,15 +1,15 @@
-.bd-setting-switch,
-.bd-form-textinput,
-.bd-form-textarea,
-.bd-form-numberinput,
-.bd-form-dropdown,
-.bd-form-radio,
-.bd-form-slider,
-.bd-form-colourpicker,
-.bd-form-keybind,
-.bd-form-fileinput,
-.bd-form-guildinput,
-.bd-form-settingsarray {
+.bd-settingSwitch,
+.bd-formTextinput,
+.bd-formTextarea,
+.bd-formNumberinput,
+.bd-formDropdown,
+.bd-formRadio,
+.bd-formSlider,
+.bd-formColourpicker,
+.bd-formKeybind,
+.bd-formFileinput,
+.bd-formGuildinput,
+.bd-formSettingsarray {
     .bd-title {
         display: flex;
 
@@ -28,27 +28,28 @@
         margin-top: 5px;
         margin-bottom: 0;
         line-height: 20px;
-        border-bottom: 0px solid rgba(114, 118, 126, 0.1);
+        border-bottom: 0 solid rgba(114, 118, 126, .1);
     }
 
     .bd-disabled & {
-        opacity: 0.6;
+        opacity: .6;
 
-        &, input {
-            cursor: not-allowed !important;
+        &,
+        input {
+            cursor: not-allowed !important; // sass-lint:disable-line no-important
         }
     }
 }
 
-.bd-form-customsetting {
-    &.bd-form-customsetting-debug + .bd-form-divider {
+.bd-formCustomsetting {
+    &.bd-formCustomsettingDebug + .bd-formDivider {
         margin-top: 0;
     }
 
-    > .bd-form-customsetting-value {
+    > .bd-formCustomsettingValue {
         margin-bottom: 0;
 
-        .bd-form-textarea-details {
+        .bd-formTextareaDetails {
             margin-top: 15px;
         }
 

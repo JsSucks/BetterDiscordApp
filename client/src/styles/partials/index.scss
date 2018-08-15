@@ -1,16 +1,12 @@
-@import './variables/index.scss';
-@import './mixins/index.scss';
-@import './animations.scss';
-@import './layouts.scss';
+@import './variables/index';
+@import './mixins/index';
 
-@import './sidebarview/index.scss';
-@import './bdsettings/index.scss';
-@import './generic/index.scss';
-@import './modals/index.scss';
-@import './badges.scss';
+@import './sidebarview/index';
+@import './bdsettings/index';
+@import './generic/index';
+@import './modals/index';
 
-@import './discordoverrides.scss';
-@import './helpers.scss';
-@import './misc.scss';
-@import './emotes.scss';
-@import './toasts.scss';
+@import './discordoverrides';
+@import './helpers';
+@import './misc';
+@import './emotes';

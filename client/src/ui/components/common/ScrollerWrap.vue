@@ -9,7 +9,7 @@
 */
 
 <template>
-    <div class="bd-scroller-wrap" :class="{'bd-dark': dark}">
+    <div class="bd-scrollerWrap" :class="{'bd-dark': dark}">
         <div class="bd-scroller">
             <slot/>
         </div>

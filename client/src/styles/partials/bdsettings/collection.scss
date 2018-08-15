@@ -2,8 +2,10 @@
     display: flex;
     flex-direction: column;
 
-    div:first-child {
-        flex: 1 1 auto;
+    div {
+        &:first-child {
+            flex: 1 1 auto;
+        }
     }
 
     .bd-collectionItem {
@@ -22,7 +24,7 @@
 
             &:hover {
                 svg {
-                    fill: #FFF;
+                    fill: #fff;
                 }
             }
 
@@ -50,7 +52,7 @@
 
         &:hover {
             svg {
-                fill: #FFF;
+                fill: #fff;
             }
         }
     }

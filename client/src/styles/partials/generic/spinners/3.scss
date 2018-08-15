@@ -1,4 +1,4 @@
-.bd-spinner-3 {
+.bd-spinner3 {
     width: 40px;
     height: 40px;
     position: relative;
@@ -6,7 +6,7 @@
     -webkit-backface-visibility: hidden;
 
     &::before {
-        content: "";
+        content: '';
         background: #fff;
         height: 30px;
         width: 30px;
@@ -14,14 +14,14 @@
         border-radius: 50%;
         left: 5px;
         top: 5px;
-        -webkit-animation: bd-spinner-3-anim-before 2s cubic-bezier(0.4, 0, 0, 1) infinite;
-        animation: bd-spinner-3-anim-before 3s cubic-bezier(0.4, 0, 0, 1) infinite;
+        -webkit-animation: bd-spinner3AnimBefore 2s cubic-bezier(.4, 0, 0, 1) infinite;
+        animation: bd-spinner3AnimBefore 3s cubic-bezier(.4, 0, 0, 1) infinite;
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
     }
 
     &::after {
-        content: "";
+        content: '';
         background: #202225;
         height: 20px;
         width: 20px;
@@ -29,77 +29,77 @@
         border-radius: 50%;
         left: 10px;
         top: 10px;
-        -webkit-animation: bd-spinner-3-anim-after 2s cubic-bezier(0.4, 0, 0, 1) infinite;
-        animation: bd-spinner-3-anim-after 3s cubic-bezier(.4, 0, 0, 1) -.1s infinite;
+        -webkit-animation: bd-spinner3AnimAfter 2s cubic-bezier(.4, 0, 0, 1) infinite;
+        animation: bd-spinner3AnimAfter 3s cubic-bezier(.4, 0, 0, 1) -.1s infinite;
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
     }
 }
 
-@-webkit-keyframes bd-spinner-3-anim-before {
+@-webkit-keyframes bd-spinner3AnimBefore {
     0% {
-        -webkit-transform: scale(1)rotate(0.01deg);
-        transform: scale(1)rotate(0.01deg);
+        -webkit-transform: scale(1) rotate(.01deg);
+        transform: scale(1) rotate(.01deg);
     }
 
     50% {
-        -webkit-transform: scale(1.2)rotate(0.01deg);
-        transform: scale(1.2)rotate(0.01deg);
+        -webkit-transform: scale(1.2) rotate(.01deg);
+        transform: scale(1.2) rotate(.01deg);
     }
 
     100% {
-        -webkit-transform: scale(1)rotate(0.01deg);
-        transform: scale(1)rotate(0.01deg);
+        -webkit-transform: scale(1) rotate(.01deg);
+        transform: scale(1) rotate(.01deg);
     }
 }
 
-@keyframes bd-spinner-3-anim-before {
+@keyframes bd-spinner3AnimBefore {
     0% {
-        -webkit-transform: scale(1)rotate(0.01deg);
-        transform: scale(1)rotate(0.01deg);
+        -webkit-transform: scale(1) rotate(.01deg);
+        transform: scale(1) rotate(.01deg);
     }
 
     50% {
-        -webkit-transform: scale(0.8)rotate(0.01deg);
-        transform: scale(1.2)rotate(0.01deg);
+        -webkit-transform: scale(.8) rotate(.01deg);
+        transform: scale(1.2) rotate(.01deg);
     }
 
     100% {
-        -webkit-transform: scale(1)rotate(0.01deg);
-        transform: scale(1)rotate(0.01deg);
+        -webkit-transform: scale(1) rotate(.01deg);
+        transform: scale(1) rotate(.01deg);
     }
 }
 
-@-webkit-keyframes bd-spinner-3-anim-after {
+@-webkit-keyframes bd-spinner3AnimAfter {
     0% {
-        -webkit-transform: scale(1)rotate(0.01deg);
-        transform: scale(1)rotate(0.01deg);
+        -webkit-transform: scale(1) rotate(.01deg);
+        transform: scale(1) rotate(.01deg);
     }
 
     50% {
-        -webkit-transform: scale(0.4)rotate(0.01deg);
-        transform: scale(0.4)rotate(0.01deg);
+        -webkit-transform: scale(.4) rotate(.01deg);
+        transform: scale(.4) rotate(.01deg);
     }
 
     100% {
-        -webkit-transform: scale(1)rotate(0.01deg);
-        transform: scale(1)rotate(0.01deg);
+        -webkit-transform: scale(1) rotate(.01deg);
+        transform: scale(1) rotate(.01deg);
     }
 }
 
-@keyframes bd-spinner-3-anim-after {
+@keyframes bd-spinner3AnimAfter {
     0% {
-        -webkit-transform: scale(1)rotate(0.01deg);
-        transform: scale(1)rotate(0.01deg);
+        -webkit-transform: scale(1) rotate(.01deg);
+        transform: scale(1) rotate(.01deg);
     }
 
     50% {
-        -webkit-transform: scale(0.4)rotate(0.01deg);
-        transform: scale(0.4)rotate(0.01deg);
+        -webkit-transform: scale(.4) rotate(.01deg);
+        transform: scale(.4) rotate(.01deg);
     }
 
     100% {
-        -webkit-transform: scale(1)rotate(0.01deg);
-        transform: scale(1)rotate(0.01deg);
+        -webkit-transform: scale(1) rotate(.01deg);
+        transform: scale(1) rotate(.01deg);
     }
 }

@@ -10,9 +10,9 @@
         margin: 10px 10px 0 0;
         border-radius: 50%;
         cursor: pointer;
-        transition: border-radius .4s cubic-bezier(0.5, 0, 0.27, 1.55), background-color .4s cubic-bezier(0.5, 0, 0.27, 1.55), box-shadow .3s cubic-bezier(0.5, 0, 0.27, 1.55);
+        transition: border-radius .4s cubic-bezier(.5, 0, .27, 1.55), background-color .4s cubic-bezier(.5, 0, .27, 1.55), box-shadow .3s cubic-bezier(.5, 0, .27, 1.55);
 
-        .bd-guild-text {
+        .bd-guildText {
             float: left;
             display: block;
             width: $size;
@@ -25,18 +25,18 @@
 
         &:hover {
             border-radius: 30%;
-            background-color: $colbdblue;
+            background-color: $colbdgreen;
 
-            &.bd-guild-has-icon {
+            &.bd-guildHasIcon {
                 background-color: rgb(47, 49, 54);
             }
         }
 
         &.bd-active {
-            background-color: $colbdblue;
-            box-shadow: 0 0 7px 2px $colbdblue;
+            background-color: $colbdgreen;
+            box-shadow: 0 0 7px 2px $colbdgreen;
 
-            &.bd-guild-has-icon {
+            &.bd-guildHasIcon {
                 background-color: rgb(47, 49, 54);
             }
         }

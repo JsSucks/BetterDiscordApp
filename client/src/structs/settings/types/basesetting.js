@@ -30,7 +30,7 @@ export default class Setting extends AsyncEventEmitter {
         if (!this.args.hasOwnProperty('saved_value'))
             this.args.saved_value = this.args.value;
 
-        for (let newSetting of merge) {
+        for (const newSetting of merge) {
             this._merge(newSetting);
         }
 

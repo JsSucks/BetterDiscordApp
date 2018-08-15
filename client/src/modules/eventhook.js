@@ -62,8 +62,8 @@ export default class extends EventListener {
      */
     emit(e, action, data) {
         switch (e) {
-            case 'dispatch':
-                return this.dispatch(action, data);
+        case 'dispatch':
+            return this.dispatch(action, data);
         }
     }
 

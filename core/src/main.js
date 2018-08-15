@@ -57,9 +57,9 @@ const globals = {
 const CSP = {
     'img-src': ['https://cdn.betterttv.net', 'https://cdn.frankerfacez.com'],
     'script-src': [
-        "'sha256-fSHKdpQGCHaIqWP3SpJOuUHrLp49jy4dWHzZ/RBJ/p4='", // React Devtools
-        "'sha256-VFJcfKY5B3EBkFDgQnv3CozPwBlZcxwssfLVWlPFfZU='", // Vue Devtools
-        "'sha256-VzDmLZ4PxPkOS/KY7ITzLQsSWhfCnvUrNculcj8UNgE=' 'sha256-l6K+77Z1cmldR9gIvaVWlboF/zr5MXCQHcsEHfnr5TU='"] // Vue Detector
+        '\'sha256-fSHKdpQGCHaIqWP3SpJOuUHrLp49jy4dWHzZ/RBJ/p4=\'', // React Devtools
+        '\'sha256-VFJcfKY5B3EBkFDgQnv3CozPwBlZcxwssfLVWlPFfZU=\'', // Vue Devtools
+        '\'sha256-VzDmLZ4PxPkOS/KY7ITzLQsSWhfCnvUrNculcj8UNgE=\' \'sha256-l6K+77Z1cmldR9gIvaVWlboF/zr5MXCQHcsEHfnr5TU=\''] // Vue Detector
 };
 
 class PatchedBrowserWindow extends BrowserWindow {
@@ -255,7 +255,7 @@ export class BetterDiscord {
      */
     static hookSessionRequest() {
         session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-            for (let [header, values] of Object.entries(details.responseHeaders)) {
+            for (const [header, values] of Object.entries(details.responseHeaders)) {
                 if (!header.match(/^Content-Security-Policy(-Report-Only)?$/i)) continue;
 
                 details.responseHeaders[header] = values.map(value => {

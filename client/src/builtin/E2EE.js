@@ -19,8 +19,8 @@ import E2EEComponent from './E2EEComponent.vue';
 import E2EEMessageButton from './E2EEMessageButton.vue';
 import nodecrypto from 'node-crypto';
 
-const userMentionPattern = new RegExp(`<@!?([0-9]{10,})>`, "g");
-const roleMentionPattern = new RegExp(`<@&([0-9]{10,})>`, "g");
+const userMentionPattern = new RegExp(`<@!?([0-9]{10,})>`, 'g');
+const roleMentionPattern = new RegExp(`<@&([0-9]{10,})>`, 'g');
 const everyoneMentionPattern = new RegExp(`(?:\\s+|^)@everyone(?:\\s+|$)`);
 
 const START_DATE = new Date();
@@ -43,7 +43,7 @@ export default new class E2EE extends BuiltinModule {
             this.setMaster(newMaster);
             this.patchDispatcher();
             this.patchMessageContent();
-            const selector = '.' + WebpackModules.getClassName('channelTextArea', 'emojiButton');
+            const selector = `.${WebpackModules.getClassName('channelTextArea', 'emojiButton')}`;
             const cta = await ReactComponents.getComponent('ChannelTextArea', { selector });
             this.patchChannelTextArea(cta);
             this.patchChannelTextAreaSubmit(cta);
@@ -71,7 +71,6 @@ export default new class E2EE extends BuiltinModule {
     get settingPath() {
         return ['security', 'default', 'e2ee'];
     }
-
 
     get database() {
         return Settings.getSetting('security', 'e2eedb', 'e2ekvps').value;
@@ -112,8 +111,8 @@ export default new class E2EE extends BuiltinModule {
         const items = Settings.getSetting('security', 'e2eedb', 'e2ekvps').items;
         const index = items.findIndex(kvp => kvp.value.key === channelId);
         if (index > -1) {
-          items[index].value = {key: channelId, value: key};
-          return;
+            items[index].value = {key: channelId, value: key};
+            return;
         }
         Settings.getSetting('security', 'e2eedb', 'e2ekvps').addItem({ value: { key: channelId, value: key } });
     }
@@ -178,7 +177,7 @@ export default new class E2EE extends BuiltinModule {
     patchDispatcher() {
         const Dispatcher = WebpackModules.getModuleByName('Dispatcher');
         MonkeyPatch('BD:E2EE', Dispatcher).before('dispatch', (_, [event]) => {
-            if (event.type !== "MESSAGE_CREATE") return;
+            if (event.type !== 'MESSAGE_CREATE') return;
 
             const key = this.getKey(event.message.channel_id);
             if (!key) return; // We don't have a key for this channel
@@ -208,11 +207,11 @@ export default new class E2EE extends BuiltinModule {
     }
 
     async patchMessageContent() {
-        const selector = '.' + WebpackModules.getClassName('container', 'containerCozy', 'containerCompact', 'edited');
+        const selector = `.${WebpackModules.getClassName('container', 'containerCozy', 'containerCompact', 'edited')}`;
         const MessageContent = await ReactComponents.getComponent('MessageContent', { selector });
         MonkeyPatch('BD:E2EE', MessageContent.component.prototype).before('render', this.beforeRenderMessageContent.bind(this));
         MonkeyPatch('BD:E2EE', MessageContent.component.prototype).after('render', this.renderMessageContent.bind(this));
-        const ImageWrapper = await ReactComponents.getComponent('ImageWrapper', { selector: '.' + WebpackModules.getClassName('imageWrapper') });
+        const ImageWrapper = await ReactComponents.getComponent('ImageWrapper', { selector: `.${WebpackModules.getClassName('imageWrapper')}` });
         MonkeyPatch('BD:E2EE', ImageWrapper.component.prototype).before('render', this.beforeRenderImageWrapper.bind(this));
     }
 
@@ -293,13 +292,13 @@ export default new class E2EE extends BuiltinModule {
             try {
                 const decrypt = Security.decrypt(seed, [this.master, haveKey, cached.image]);
                 component.props.className = 'bd-decryptedImage';
-                component.props.src = component.props.original = 'data:;base64,' + decrypt;
+                component.props.src = component.props.original = `data:;base64,${decrypt}`;
             } catch (err) { return } finally { component.props.readyState = 'READY' }
             return;
         }
 
         component.props.readyState = 'LOADING';
-        Logger.info('E2EE', 'Decrypting image: ' + src);
+        Logger.info('E2EE', `Decrypting image: ${src}`);
         request.get(src, { encoding: 'binary' }).then(res => {
             (async () => {
                 const arr = new Uint8Array(new ArrayBuffer(res.length));

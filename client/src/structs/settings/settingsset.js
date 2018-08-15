@@ -31,7 +31,7 @@ export default class SettingsSet extends AsyncEventEmitter {
         this.args.categories = this.categories.map(category => new SettingsCategory(category));
         this.args.schemes = this.schemes.map(scheme => new SettingsScheme(scheme));
 
-        for (let newSet of merge) {
+        for (const newSet of merge) {
             this._merge(newSet);
         }
 
@@ -40,7 +40,7 @@ export default class SettingsSet extends AsyncEventEmitter {
         this.__addedSetting = this.__addedSetting.bind(this);
         this.__removedSetting = this.__removedSetting.bind(this);
 
-        for (let category of this.categories) {
+        for (const category of this.categories) {
             category.on('setting-updated', this.__settingUpdated);
             category.on('settings-updated', this.__settingsUpdated);
             category.on('added-setting', this.__addedSetting);
@@ -287,7 +287,7 @@ export default class SettingsSet extends AsyncEventEmitter {
      * @return {Setting}
      */
     findSetting(f) {
-        for (let category of this.categories) {
+        for (const category of this.categories) {
             const setting = category.find(f);
             if (setting) return setting;
         }
@@ -309,7 +309,7 @@ export default class SettingsSet extends AsyncEventEmitter {
      * @return {Array} An array of matching Setting objects
      */
     findSettingInCategory(cf, f) {
-        for (let category of this.categories.filter(cf)) {
+        for (const category of this.categories.filter(cf)) {
             const setting = category.find(f);
             if (setting) return setting;
         }
@@ -323,7 +323,7 @@ export default class SettingsSet extends AsyncEventEmitter {
      */
     findSettingsInCategory(cf, f) {
         let settings = [];
-        for (let category of this.categories.filter(cf)) {
+        for (const category of this.categories.filter(cf)) {
             settings = settings.concat(category.findSettings(f));
         }
         return settings;
@@ -371,7 +371,7 @@ export default class SettingsSet extends AsyncEventEmitter {
         const categories = newSet && newSet.args ? newSet.args.settings : newSet ? newSet.settings : newSet;
         if (!categories) return [];
 
-        for (let newCategory of categories) {
+        for (const newCategory of categories) {
             const category = this.find(category => category.id === (newCategory.id || newCategory.category));
             if (!category) {
                 Logger.warn('SettingsSet', `Trying to merge category ${newCategory.id}, which does not exist.`);
@@ -402,7 +402,7 @@ export default class SettingsSet extends AsyncEventEmitter {
             newSet ? newSet.categories || newSet.settings : newSet;
         if (!categories) return [];
 
-        for (let newCategory of categories) {
+        for (const newCategory of categories) {
             const category = this.find(category => category.id === (newCategory.id || newCategory.category));
             if (!category) {
                 Logger.warn('SettingsSet', `Trying to merge category ${newCategory.id}, which does not exist.`);
@@ -432,7 +432,7 @@ export default class SettingsSet extends AsyncEventEmitter {
      * Marks all settings in this set as saved (not changed).
      */
     setSaved() {
-        for (let category of this.categories) {
+        for (const category of this.categories) {
             category.setSaved();
         }
     }

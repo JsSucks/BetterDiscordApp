@@ -1,14 +1,14 @@
-.bd-spinner-4 {
+.bd-spinner4 {
     width: 40px;
     height: 40px;
     position: relative;
-    -webkit-animation: bd-spinner-4-anim 1s cubic-bezier(0.9, -0.64, 0.05, 1.44) infinite;
-    animation: bd-spinner-4-anim 1s cubic-bezier(0.9, -0.64, 0.05, 1.44) infinite;
+    -webkit-animation: bd-spinner4Anim 1s cubic-bezier(.9, -.64, .05, 1.44) infinite;
+    animation: bd-spinner4Anim 1s cubic-bezier(.9, -.64, .05, 1.44) infinite;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 
     &::before {
-        content: "";
+        content: '';
         background: #fff;
         height: 10px;
         width: 10px;
@@ -21,7 +21,7 @@
     }
 
     &::after {
-        content: "";
+        content: '';
         background: #fff;
         height: 10px;
         width: 10px;
@@ -34,7 +34,7 @@
     }
 }
 
-@-webkit-keyframes bd-spinner-4-anim {
+@-webkit-keyframes bd-spinner4Anim {
     0% {
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
@@ -46,7 +46,7 @@
     }
 }
 
-@keyframes bd-spinner-4-anim {
+@keyframes bd-spinner4Anim {
     0% {
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg);

@@ -21,11 +21,11 @@
             </div>
         </div>
 
-        <div class="bd-flex bd-flex-col bd-themesview">
-            <div v-if="local" class="bd-flex bd-flex-grow bd-flex-col bd-themes-container bd-local-themes">
+        <div class="bd-flex bd-flexCol bd-themesview">
+            <div v-if="local" class="bd-flex bd-flexGrow bd-flexCol bd-themesContainer bd-localThemes">
                 <ThemeCard v-for="theme in localThemes" :theme="theme" :key="theme.id" :data-theme-id="theme.id" @toggle-theme="toggleTheme(theme)" @reload-theme="reload => reloadTheme(theme, reload)" @show-settings="dont_clone => showSettings(theme, dont_clone)" @delete-theme="unload => deleteTheme(theme, unload)" />
             </div>
-            <div v-if="!local" class="bd-online-ph">
+            <div v-if="!local" class="bd-onlinePh">
                 <div class="bd-fancySearch" :class="{'bd-active': loadingOnline || (onlineThemes && onlineThemes.docs)}">
                     <input type="text" class="bd-textInput" @keydown.enter="searchInput" @keyup.stop/>
                 </div>

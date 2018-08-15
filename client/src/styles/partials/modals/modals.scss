@@ -1,11 +1,11 @@
-.bd-modal-wrap {
-    transition: all 0.2s ease;
+.bd-modalWrap {
+    transition: all .2s ease;
     width: 100%;
     height: 100%;
     position: absolute;
     z-index: 9000;
 
-    .bd-modal-close-area {
+    .bd-modalCloseArea {
         width: 100%;
         height: 100%;
     }
@@ -14,7 +14,6 @@
 .bd-modal {
     position: fixed;
     align-content: space-around;
-    display: flex;
     border-radius: 8px;
     width: 100%;
     height: 100%;
@@ -22,32 +21,28 @@
     top: 0;
     user-select: none;
     padding: 60px;
-    transform: scale(1) translateZ(0px);
+    transform: scale(1) translateZ(0);
     -webkit-box-direction: normal;
     -webkit-box-orient: vertical;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     align-items: center;
     box-sizing: border-box;
     pointer-events: none;
     z-index: 9001;
     justify-content: center;
-    animation: bd-modal-in 0.22s ease;
+    animation: bd-modalIn .22s ease;
 
-    &.bd-modal-out {
-        animation: bd-modal-out 0.22s ease;
+    &.bd-modalOut {
+        animation: bd-modalOut .22s ease;
     }
 
-    .bd-modal-inner {
+    .bd-modalInner {
         background: #36393e;
         contain: layout;
         flex-direction: column;
         pointer-events: auto;
         -webkit-box-direction: normal;
         -webkit-box-orient: vertical;
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
         flex-grow: 1;
         border-radius: 4px;
@@ -56,33 +51,35 @@
         width: 500px;
     }
 
-    .bd-modal-body {
+    .bd-modalBody {
         padding: 0 15px;
         display: flex;
 
-        .bd-scroller-wrap .bd-scroller {
-            color: #fff;
-            margin: 0;
-            padding: 0;
+        .bd-scrollerWrap {
+            .bd-scroller {
+                color: #fff;
+                margin: 0;
+                padding: 0;
+            }
         }
     }
 
-    .bd-modal-titlelink {
+    .bd-modalTitlelink {
         cursor: pointer;
-        color: $colbdblue;
+        color: $colbdgreen;
 
         &:hover {
             text-decoration: underline;
-            color: lighten($colbdblue, 5%);
+            color: lighten($colbdgreen, 5%);
         }
     }
 
-    .bd-modal-controls {
+    .bd-modalControls {
         display: flex;
         padding: 15px;
         border-top: 1px solid #4a4a4a;
 
-        .bd-modal-tip {
+        .bd-modalTip {
             flex-grow: 1;
             line-height: 26px;
             color: #fff;

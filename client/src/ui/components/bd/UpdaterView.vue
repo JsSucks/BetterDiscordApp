@@ -10,11 +10,11 @@
 
 <template>
     <SettingsWrapper headertext="Updates">
-        <div class="bd-flex bd-flex-col bd-updaterview">
-            <div v-if="error" class="bd-form-item">
+        <div class="bd-flex bd-flexCol bd-updaterview">
+            <div v-if="error" class="bd-formItem">
                 <h5 style="margin-bottom: 10px;">Error installing updates</h5>
-                <div class="bd-err bd-pre-wrap"><div class="bd-pre">{{ error.formatted }}</div></div>
-                <div class="bd-form-divider"></div>
+                <div class="bd-err bd-preWrap"><div class="bd-pre">{{ error.formatted }}</div></div>
+                <div class="bd-formDivider"></div>
             </div>
 
             <template v-if="updatesAvailable">

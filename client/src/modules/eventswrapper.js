@@ -38,7 +38,7 @@ export default class EventsWrapper {
 
     get off() { return this.unsubscribe }
     unsubscribe(event, callback) {
-        for (let index in this.eventSubs) {
+        for (const index in this.eventSubs) {
             if (this.eventSubs[index].event !== event || (callback && this.eventSubs[index].callback === callback)) continue;
             eventemitters.get(this).removeListener(event, this.eventSubs[index].boundCallback);
             this.eventSubs.splice(index, 1);
@@ -46,7 +46,7 @@ export default class EventsWrapper {
     }
 
     unsubscribeAll() {
-        for (let event of this.eventSubs) {
+        for (const event of this.eventSubs) {
             eventemitters.get(this).removeListener(event.event, event.boundCallback);
         }
         this.eventSubs.splice(0, this.eventSubs.length);

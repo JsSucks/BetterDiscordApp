@@ -9,7 +9,7 @@
 */
 
 <template>
-    <div class="bd-setting-switch">
+    <div class="bd-settingSwitch">
         <div class="bd-title">
             <h3>{{setting.text}}</h3>
             <SettingSwitch v-model="setting.value" />

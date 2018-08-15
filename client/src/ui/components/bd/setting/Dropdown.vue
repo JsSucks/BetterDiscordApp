@@ -9,7 +9,7 @@
 */
 
 <template>
-    <div class="bd-form-dropdown">
+    <div class="bd-formDropdown">
         <div class="bd-title">
             <h3 v-if="setting.text">{{setting.text}}</h3>
             <Dropdown v-if="!setting.fullwidth" :options="setting.options" v-model="setting.value" :disabled="setting.disabled" />

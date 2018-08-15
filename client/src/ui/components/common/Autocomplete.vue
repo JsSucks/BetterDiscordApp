@@ -10,21 +10,21 @@
 
 <template>
     <div class="bd-autocomplete" :class="{'bd-active': emotes && emotes.length}">
-        <div v-if="emotes && emotes.length" class="bd-autocomplete-inner">
-            <div class="bd-autocomplete-row">
-                <div class="bd-autocomplete-selector">
-                    <div class="bd-autocomplete-title">
+        <div v-if="emotes && emotes.length" class="bd-autocompleteInner">
+            <div class="bd-autocompleteRow">
+                <div class="bd-autocompleteSelector">
+                    <div class="bd-autocompleteTitle">
                         Emotes Matching:
                         <strong>{{title}}</strong>
                     </div>
                 </div>
             </div>
-            <div v-for="(emote, index) in emotes" class="bd-autocomplete-row" :key="index">
-                <div class="bd-autocomplete-selector bd-selectable" :class="{'bd-selected': index === selectedIndex, 'bd-emote-favourite': isFavourite(emote)}" @mouseover="selected = emote.id" @click="inject(emote)">
-                    <div class="bd-autocomplete-field">
+            <div v-for="(emote, index) in emotes" class="bd-autocompleteRow" :key="index">
+                <div class="bd-autocompleteSelector bd-selectable" :class="{'bd-selected': index === selectedIndex, 'bd-emoteFavourite': isFavourite(emote)}" @mouseover="selected = emote.id" @click="inject(emote)">
+                    <div class="bd-autocompleteField">
                         <img :src="emote.src" :alt="emote.name" />
-                        <div class="bd-flex-grow">{{emote.id}}</div>
-                        <div class="bd-emote-favourite-button" :class="{'bd-active': isFavourite(emote)}" @click.stop="toggleFavourite(emote)">
+                        <div class="bd-flexGrow">{{emote.id}}</div>
+                        <div class="bd-emoteFavouriteButton" :class="{'bd-active': isFavourite(emote)}" @click.stop="toggleFavourite(emote)">
                             <MiStar :size="16" />
                         </div>
                     </div>

@@ -1,8 +1,8 @@
 <template>
-    <span class="bd-emotewrapper" :class="{'bd-emote-favourite': favourite, 'bd-emote-no-wrapper': !hasWrapper}" v-tooltip="name" :data-emote-name="name">
+    <span class="bd-emotewrapper" :class="{'bd-emoteFavourite': favourite, 'bd-emoteNoWrapper': !hasWrapper}" v-tooltip="name" :data-emote-name="name">
         <img class="bd-emote" :src="src" :alt="`;${name};`" />
 
-        <div class="bd-emote-favourite-button" :class="{'bd-active': favourite}" @click="toggleFavourite">
+        <div class="bd-emoteFavouriteButton" :class="{'bd-active': favourite}" @click="toggleFavourite">
             <MiStar :size="16" />
         </div>
     </span>

@@ -128,7 +128,7 @@ export default class Modals {
      */
     static closeAll(force) {
         const promises = [];
-        for (let modal of this.stack)
+        for (const modal of this.stack)
             promises.push(modal.close(force));
         return Promise.all(promises);
     }
@@ -232,28 +232,30 @@ export default class Modals {
     static showContentManagerErrors(clear = true) {
         // Get any errors from PluginManager and ThemeManager
         const errors = ([]).concat(PluginManager.errors).concat(ThemeManager.errors);
-        if (errors.length) {
-            const modal = this.error({
-                header:
-                    (PluginManager.errors.length && ThemeManager.errors.length ? '' :
-                    (PluginManager.errors.length ? PluginManager.moduleName : ThemeManager.moduleName) + ' - ') +
-                    (PluginManager.errors.length ? `${PluginManager.errors.length} ${PluginManager.contentType}${PluginManager.errors.length !== 1 ? 's' : ''}` : '') +
-                    (PluginManager.errors.length && ThemeManager.errors.length ? ' and ' : '') +
-                    (ThemeManager.errors.length ? `${ThemeManager.errors.length} ${ThemeManager.contentType}${ThemeManager.errors.length !== 1 ? 's' : ''}` : '') +
-                    ' failed to load',
-                module: (PluginManager.errors.length && ThemeManager.errors.length ? 'Content Manager' :
-                        (PluginManager.errors.length ? PluginManager.moduleName : ThemeManager.moduleName)),
-                type: 'err',
-                content: errors
-            });
+        if (!errors.length) return;
 
-            if (clear) {
-                PluginManager._errors = [];
-                ThemeManager._errors = [];
-            }
+        const pmErrCount = PluginManager.errors.length;
+        const tmErrCount = ThemeManager.errors.length;
+        const failedModule = pmErrCount && tmErrCount ? 'Content Manager' : pmErrCount ? 'Plugin Manager' : 'Theme Manager';
 
-            return modal;
+        const modal = this.error({
+            header: `
+                    ${failedModule} - 
+                    ${pmErrCount ? `${pmErrCount} ${PluginManager.contentType}${pmErrCount !== 1 ? 's' : ''}` : ''}
+                    ${pmErrCount && tmErrCount ? ' and ' : ''}
+                    ${tmErrCount ? `${tmErrCount} ${ThemeManager.contentType}${tmErrCount !== 1 ? 's' : ''}` : ''} failed to load
+                    `,
+            module: failedModule,
+            type: 'err',
+            content: errors
+        });
+
+        if (clear) {
+            PluginManager._errors = [];
+            ThemeManager._errors = [];
         }
+
+        return modal;
     }
 
     /**
@@ -294,7 +296,7 @@ export default class Modals {
      * @return {Modal}
      */
     static contentSettings(content, headertext, options) {
-        return this.settings(content.settings, headertext ? headertext : content.name + ' Settings', options);
+        return this.settings(content.settings, headertext ? headertext : `${content.name} Settings`, options);
     }
 
     /**

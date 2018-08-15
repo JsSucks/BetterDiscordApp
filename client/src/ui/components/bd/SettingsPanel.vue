@@ -9,22 +9,22 @@
 */
 
 <template>
-    <div class="bd-settings-panel">
-        <div class="bd-settings-schemes" v-if="schemes && schemes.length">
-            <div class="bd-settings-schemes-container">
+    <div class="bd-settingsPanel">
+        <div class="bd-settingsSchemes" v-if="schemes && schemes.length">
+            <div class="bd-settingsSchemesContainer">
                 <SettingsScheme v-for="scheme in schemes" :key="scheme.id" :scheme="scheme" :is-active="scheme.isActive(settings)" @apply="scheme.applyTo(settings)" />
             </div>
         </div>
 
-        <div class="bd-settings-categories">
+        <div class="bd-settingsCategories">
             <template v-for="category in settings.categories">
-                <div class="bd-settings-category">
+                <div class="bd-settingsCategory">
                     <div v-if="category.category === 'default' || !category.type">
                         <Setting v-for="setting in category.settings" :key="setting.id" :setting="setting" />
                     </div>
-                    <div class="bd-settings-static" v-else-if="category.type === 'static'">
-                        <div class="bd-form-header">
-                            <span class="bd-form-header-text">{{ category.category_name }}</span>
+                    <div class="bd-settingsStatic" v-else-if="category.type === 'static'">
+                        <div class="bd-formHeader">
+                            <span class="bd-formHeaderText">{{ category.category_name }}</span>
                         </div>
                         <Setting v-for="setting in category.settings" :key="setting.id" :setting="setting" />
                     </div>

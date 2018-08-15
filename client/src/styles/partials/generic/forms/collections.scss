@@ -29,14 +29,16 @@
                 fill: #ccc;
             }
 
-            &:not(.bd-disabled):hover {
-                svg {
-                    fill: #fff;
+            &:not(.bd-disabled) {
+                &:hover {
+                    svg {
+                        fill: #fff;
+                    }
                 }
             }
 
             &.bd-disabled {
-                opacity: 0.5;
+                opacity: .5;
             }
         }
     }
@@ -58,7 +60,7 @@
 
         &:hover {
             svg {
-                fill: #FFF;
+                fill: #fff;
             }
         }
     }

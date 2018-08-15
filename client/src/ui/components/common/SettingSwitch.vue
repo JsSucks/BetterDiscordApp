@@ -9,8 +9,8 @@
 */
 
 <template>
-    <label class="bd-switch-wrapper" @click="$emit('input', !value)">
-        <input type="checkbox" class="bd-switch-checkbox" />
+    <label class="bd-switchWrapper" @click="$emit('input', !value)">
+        <input type="checkbox" class="bd-switchCheckbox" />
         <div class="bd-switch" :class="{'bd-checked': value}" />
     </label>
 </template>

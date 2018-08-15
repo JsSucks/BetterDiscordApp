@@ -29,14 +29,14 @@ export default class SettingsCategory extends AsyncEventEmitter {
 
         this.args.settings = this.settings.map(setting => new Setting(setting));
 
-        for (let newCategory of merge) {
+        for (const newCategory of merge) {
             this._merge(newCategory);
         }
 
         this.__settingUpdated = this.__settingUpdated.bind(this);
         this.__settingsUpdated = this.__settingsUpdated.bind(this);
 
-        for (let setting of this.settings) {
+        for (const setting of this.settings) {
             setting.on('setting-updated', this.__settingUpdated);
             setting.on('settings-updated', this.__settingsUpdated);
         }
@@ -216,7 +216,7 @@ export default class SettingsCategory extends AsyncEventEmitter {
     _merge(newCategory) {
         let updatedSettings = [];
 
-        for (let newSetting of newCategory.settings) {
+        for (const newSetting of newCategory.settings) {
             const setting = this.settings.find(setting => setting.id === newSetting.id);
             if (!setting) {
                 Logger.warn('SettingsCategory', `Trying to merge setting ${this.id}/${newSetting.id}, which does not exist.`);
@@ -243,7 +243,7 @@ export default class SettingsCategory extends AsyncEventEmitter {
     async merge(newCategory, emit_multi = true) {
         let updatedSettings = [];
 
-        for (let newSetting of newCategory.settings) {
+        for (const newSetting of newCategory.settings) {
             const setting = this.settings.find(setting => setting.id === newSetting.id);
             if (!setting) {
                 Logger.warn('SettingsCategory', `Trying to merge setting ${this.id}/${newSetting.id}, which does not exist.`);
@@ -271,7 +271,7 @@ export default class SettingsCategory extends AsyncEventEmitter {
      * Marks all settings in this set as saved (not changed).
      */
     setSaved() {
-        for (let setting of this.settings) {
+        for (const setting of this.settings) {
             setting.setSaved();
         }
     }

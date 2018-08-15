@@ -10,7 +10,7 @@ bd-tooltips {
 .bd-popover {
     background-color: #000;
     border-radius: 5px;
-    box-shadow: 0 2px 10px 0 rgba(0,0,0,.2);
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .2);
     color: #dcddde;
     contain: layout;
     font-size: 14px;
@@ -25,8 +25,8 @@ bd-tooltips {
         content: none;
     }
 
-    .bd-tooltip-arrow,
-    .bd-popover-arrow {
+    .bd-tooltipArrow,
+    .bd-popoverArrow {
         border: 5px solid transparent;
         height: 0;
         pointer-events: none;
@@ -34,61 +34,61 @@ bd-tooltips {
         position: absolute;
     }
 
-    &[x-placement^="top"] {
+    &[x-placement^='top'] {
         margin-bottom: 10px;
 
-        .bd-tooltip-arrow,
-        .bd-popover-arrow {
+        .bd-tooltipArrow,
+        .bd-popoverArrow {
             margin-left: -5px;
             border-top-color: #000;
             bottom: -10px;
         }
     }
 
-    &[x-placement^="bottom"] {
+    &[x-placement^='bottom'] {
         margin-top: 10px;
 
-        .bd-tooltip-arrow,
-        .bd-popover-arrow {
-            border-width: 0 5px 5px 5px;
+        .bd-tooltipArrow,
+        .bd-popoverArrow {
+            border-width: 0 5px 5px;
             top: -5px;
             border-bottom-color: #000;
         }
     }
 
-    &[x-placement^="right"] {
+    &[x-placement^='right'] {
         margin-left: 10px;
 
-        .bd-tooltip-arrow,
-        .bd-popover-arrow {
+        .bd-tooltipArrow,
+        .bd-popoverArrow {
             border-width: 5px 5px 5px 0;
             left: -5px;
             border-right-color: #000;
         }
     }
 
-    &[x-placement^="left"] {
+    &[x-placement^='left'] {
         margin-right: 10px;
 
-        .bd-tooltip-arrow,
-        .bd-popover-arrow {
+        .bd-tooltipArrow,
+        .bd-popoverArrow {
             border-width: 5px 0 5px 5px;
             right: -5px;
             border-left-color: #000;
         }
     }
 
-    .bd-material-button {
+    .bd-materialButton {
         cursor: pointer;
 
         &:hover {
-            .bd-material-design-icon {
+            .bd-materialDesignIcon {
                 fill: #fff;
             }
         }
     }
 
-    .bd-material-design-icon {
+    .bd-materialDesignIcon {
         fill: #414245;
 
         &:hover {

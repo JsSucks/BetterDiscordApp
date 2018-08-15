@@ -72,21 +72,21 @@ export class Utils {
      */
     static findInTree(tree, searchFilter, {walkable = null, ignore = []}) {
         if (searchFilter(tree)) return tree;
-        if (typeof tree !== "object" || tree == null) return undefined;
-    
+        if (typeof tree !== 'object' || tree == null) return undefined;
+
         let tempReturn = undefined;
         if (tree instanceof Array) {
-            for (let value of tree) {
+            for (const value of tree) {
                 tempReturn = this.findInTree(value, searchFilter, {walkable, ignore});
-                if (typeof tempReturn != "undefined") return tempReturn;
+                if (typeof tempReturn != 'undefined') return tempReturn;
             }
         }
         else {
             const toWalk = walkable == null ? Object.keys(tree) : walkable;
-            for (let key of toWalk) {
+            for (const key of toWalk) {
                 if (!tree.hasOwnProperty(key) || ignore.includes(key)) continue;
                 tempReturn = this.findInTree(tree[key], searchFilter, {walkable, ignore});
-                if (typeof tempReturn != "undefined") return tempReturn;
+                if (typeof tempReturn != 'undefined') return tempReturn;
             }
         }
         return tempReturn;
@@ -107,14 +107,14 @@ export class Utils {
             // Loop through the object and check if everything's the same
             if (Object.keys(value1).length !== Object.keys(value2).length) return false;
 
-            for (let key in value1) {
+            for (const key in value1) {
                 if (!this.compare(value1[key], value2[key])) return false;
             }
         } else if (value1 !== value2) return false;
 
         // value1 and value2 contain the same data
         // Check any more values
-        for (let value3 of values) {
+        for (const value3 of values) {
             if (!this.compare(value1, value3))
                 return false;
         }
@@ -136,7 +136,7 @@ export class Utils {
 
             const clone = Object.assign({}, value);
 
-            for (let key in clone) {
+            for (const key in clone) {
                 clone[key] = this.deepclone(clone[key], exclude);
             }
 
@@ -157,7 +157,7 @@ export class Utils {
         if (typeof object === 'object' && object !== null) {
             const properties = Object.getOwnPropertyNames(object);
 
-            for (let property of properties) {
+            for (const property of properties) {
                 this.deepfreeze(object[property], exclude);
             }
 
@@ -260,7 +260,7 @@ export class Utils {
         });
         const img = new Image();
         img.src = reader.result;
-        return await new Promise(resolve => {
+        return new Promise(resolve => {
             img.onload = () => {
                 resolve(img);
             }
@@ -446,7 +446,7 @@ export class FileUtils {
      * @return {Promise}
      */
     static async writeJsonToFile(path, json, pretty) {
-        return this.writeFile(path, JSON.stringify(json, null, pretty ? 4 : 0) + '\n');
+        return this.writeFile(path, `${JSON.stringify(json, null, pretty ? 4 : 0)}\n`);
     }
 
     /**

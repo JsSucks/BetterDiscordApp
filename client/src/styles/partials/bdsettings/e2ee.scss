@@ -31,7 +31,7 @@
     }
 
     .bd-taDivider {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(255, 255, 255, .1);
         box-sizing: border-box;
         position: relative;
         top: 10%;
@@ -41,24 +41,23 @@
     }
 
     .bd-e2eeLockContextMenu {
+        border: 0;
 
-        border: none;
-
-        .ctx-menu {
-            background: #23272A;
+        .ctx-menu { // sass-lint:disable-line class-name-format
+            background: #23272a;
             border-radius: 4px;
             box-shadow: none;
             padding: 0;
 
             .bd-e2eeLockContextMenuOption {
-                background: #23272A;
-                color: #99AAB5;
-                padding: 8px 8px;
+                background: #23272a;
+                color: #99aab5;
+                padding: 8px;
                 font-weight: 500;
                 cursor: default;
 
                 &:hover {
-                    background: #000000;
+                    background: #000;
                 }
             }
         }
@@ -112,81 +111,88 @@
     margin: 0;
     margin-top: 15px;
 
-    .bd-ok svg {
-        fill: $colbdgreen;
+    .bd-ok {
+        svg {
+            fill: $colbdgreen;
+        }
     }
 
-    .bd-warn svg {
-        fill: $colwarn;
+    .bd-warn {
+        svg {
+            fill: $colwarn;
+        }
     }
 
-    .bd-popover-wrapper,
+    .bd-popoverWrapper,
     .bd-popoverWrapper {
-        .bd-popover-inner,
+        .bd-popoverInner,
         .bd-popoverInner {
             display: flex;
 
-            > div:first-child {
-                display: flex;
+            > div {
+                &:first-child {
+                    display: flex;
 
-                > div:not(:first-child) {
-                    margin-left: 10px;
+                    > div {
+                        &:not(:first-child) {
+                            margin-left: 10px;
+                        }
+                    }
                 }
             }
 
-            .bd-material-design-icon,
+            .bd-materialDesignIcon,
             .bd-materialDesignIcon {
                 display: flex;
                 fill: #7e8084;
                 cursor: pointer;
 
                 &:hover {
-                    fill: #FFF;
+                    fill: #fff;
                 }
             }
         }
     }
 
-    .bd-popover-arrow,
+    .bd-popoverArrow,
     .bd-popoverArrow {
         display: none;
     }
 }
 
-.bd-encryptedImage::before {
-    content: "";
-    position: absolute;
-    background: $colbdgreen;
-    width: 100%;
-    height: 100%;
-    border-radius: 3px;
-    display: flex;
-    // justify-content: center;
-    // align-items: flex-start;
-    // font-size: 1.2em;
-    // font-weight: 700;
-    // color: #2c2c2c;
-    // line-height: 30px;
-    background-image: $lockIcon;
-    background-size: calc(100% / 2);
-    background-repeat: no-repeat;
-    background-position: center;
+.bd-encryptedImage,
+.bd-decryptedImage {
+    &::before {
+        content: '';
+        position: absolute;
+        background-color: $colbdgreen;
+        background-image: $lockIcon;
+        background-repeat: no-repeat;
+    }
 }
 
-.bd-decryptedImage::before {
-    content: "";
-    background-image: $lockIcon;
-    width: 11px;
-    height: 11px;
-    position: absolute;
-    z-index: 1;
-    display: block;
-    background-size: cover;
-    background-color: $colbdgreen;
-    background-repeat: no-repeat;
-    border-radius: 100%;
-    border: 2px solid $colbdgreen;
-    top: 5px;
-    left: 5px;
-    opacity: .5;
+.bd-encryptedImage {
+    &::before {
+        width: 100%;
+        height: 100%;
+        border-radius: 3px;
+        display: flex;
+        background-size: calc(100% / 2);
+        background-position: center;
+    }
+}
+
+.bd-decryptedImage {
+    &::before {
+        width: 11px;
+        height: 11px;
+        z-index: 1;
+        display: block;
+        background-size: cover;
+        border-radius: 100%;
+        border: 2px solid $colbdgreen;
+        top: 5px;
+        left: 5px;
+        opacity: .5;
+    }
 }

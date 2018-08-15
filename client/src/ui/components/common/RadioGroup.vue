@@ -9,14 +9,14 @@
 */
 
 <template>
-    <div class="bd-radio-group" :class="{'bd-disabled': disabled}">
-        <label class="bd-radio" v-for="option in options" :class="{'bd-radio-selected': isSelected(option.value)}" @click="toggleOption(option.value)">
-            <div class="bd-radio-control-wrap">
-                <svg class="bd-radio-control" name="Checkmark" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+    <div class="bd-radioGroup" :class="{'bd-disabled': disabled}">
+        <label class="bd-radio" v-for="option in options" :class="{'bd-radioSelected': isSelected(option.value)}" @click="toggleOption(option.value)">
+            <div class="bd-radioControlWrap">
+                <svg class="bd-radioControl" name="Checkmark" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
                     <g fill="none" fill-rule="evenodd"><polyline stroke="#3e82e5" stroke-width="2" points="3.5 9.5 7 13 15 5"></polyline></g>
                 </svg>
             </div>
-            <div class="bd-radio-text">{{ option.text }}</div>
+            <div class="bd-radioText">{{ option.text }}</div>
         </label>
     </div>
 </template>

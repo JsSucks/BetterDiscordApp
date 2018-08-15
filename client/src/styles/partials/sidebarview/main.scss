@@ -1,4 +1,4 @@
-.bd-sidebar-view {
+.bd-sidebarView {
     position: absolute;
     top: 0;
     left: 0;
@@ -7,12 +7,10 @@
     display: flex;
     box-sizing: border-box;
 
-    .bd-sidebar-region {
+    .bd-sidebarRegion {
         background: #202225;
         -webkit-box-flex: 1;
         -webkit-box-pack: end;
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
         justify-content: flex-end;
         flex: 1 0 30%;
@@ -26,18 +24,18 @@
         }
     }
 
-    .bd-content-region {
+    .bd-contentRegion {
         flex-grow: 1;
         transform: translateX(-100%);
         background: #36393e;
         box-shadow: 0 0 4px #202225;
         backface-visibility: hidden;
-        transition: transform 0.6s ease;
+        transition: transform .6s ease;
         pointer-events: all;
     }
 
     &.bd-stop {
-        .bd-content-region {
+        .bd-contentRegion {
             transform: none;
         }
     }

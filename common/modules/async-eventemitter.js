@@ -35,7 +35,7 @@ export default class AsyncEventEmitter extends EventEmitter {
             }];
         }
 
-        for (let listener of listeners) {
+        for (const listener of listeners) {
             await listener.apply(this, data);
         }
     }

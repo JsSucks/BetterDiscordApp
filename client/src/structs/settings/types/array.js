@@ -174,7 +174,7 @@ export default class ArraySetting extends Setting {
         const newItems = [];
         let error;
 
-        for (let newItem of updatedSetting.value) {
+        for (const newItem of updatedSetting.value) {
             try {
                 const item = this.items.find(i => i.id && i.id === newItem.id);
 
@@ -200,7 +200,7 @@ export default class ArraySetting extends Setting {
             } catch (e) { error = e; }
         }
 
-        for (let item of this.items) {
+        for (const item of this.items) {
             if (newItems.includes(item)) continue;
 
             try {
@@ -245,8 +245,8 @@ export default class ArraySetting extends Setting {
     setContentPath(contentPath) {
         this.args.path = contentPath;
 
-        for (let category of this.categories) {
-            for (let setting of category.settings) {
+        for (const category of this.categories) {
+            for (const setting of category.settings) {
                 setting.setContentPath(contentPath);
             }
         }
@@ -258,11 +258,11 @@ export default class ArraySetting extends Setting {
      */
     async toSCSS() {
         const maps = [];
-        for (let item of this.items)
+        for (const item of this.items)
             maps.push(await ThemeManager.getConfigAsSCSSMap(item));
 
         // Final comma ensures the variable is a list
-        return maps.length ? maps.join(', ') + ',' : '()';
+        return maps.length ? `${maps.join(', ')},` : '()';
     }
 
 }

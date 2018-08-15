@@ -119,7 +119,7 @@ export default new class {
      * @param {String} scss SCSS string
      */
     async compile(scss) {
-        return await ClientIPC.send('bd-compileSass', {
+        return ClientIPC.send('bd-compileSass', {
             data: scss,
             path: await this.fileExists() ? this.filePath : undefined
         });
@@ -130,7 +130,7 @@ export default new class {
      * @return {Promise}
      */
     async recompile() {
-        return await this.updateScss(this.scss);
+        return this.updateScss(this.scss);
     }
 
     /**
@@ -160,7 +160,7 @@ export default new class {
 
         // For some reason this doesn't work
         // if (!electron.shell.openItem(this.filePath))
-        if (!electron.shell.openExternal('file://' + this.filePath))
+        if (!electron.shell.openExternal(`file://${this.filePath}`))
             throw {message: 'Failed to open system editor.'};
     }
 
@@ -267,7 +267,7 @@ export default new class {
      * @param {Array} files Files to watch
      */
     set watchfiles(files) {
-        for (let file of files) {
+        for (const file of files) {
             if (!this.watchfiles.includes(file)) {
                 this.filewatcher.add(file);
                 this.watchfiles.push(file);
@@ -275,7 +275,7 @@ export default new class {
             }
         }
 
-        for (let index in this.watchfiles) {
+        for (const index in this.watchfiles) {
             let file = this.watchfiles[index];
             while (file && !files.find(f => f === file)) {
                 this.filewatcher.remove(file);

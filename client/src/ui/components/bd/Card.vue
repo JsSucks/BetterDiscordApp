@@ -10,18 +10,18 @@
 
 <template>
     <div class="bd-card">
-        <div class="bd-card-header">
-            <div class="bd-card-icon" :style="{backgroundImage: iconURL}">
+        <div class="bd-cardHeader">
+            <div class="bd-cardIcon" :style="{backgroundImage: iconURL}">
                 <MiExtension v-if="!item.icon" :size="30" />
             </div>
             <span>{{item.name}}</span>
-            <div class="bd-flex-spacer" />
+            <div class="bd-flexSpacer" />
             <slot name="toggle"/>
         </div>
-        <div class="bd-card-body">
-            <div class="bd-card-description">{{item.description}}</div>
-            <div class="bd-card-footer">
-                <div class="bd-card-extra">
+        <div class="bd-cardBody">
+            <div class="bd-cardDescription">{{item.description}}</div>
+            <div class="bd-cardFooter">
+                <div class="bd-cardExtra">
                     v{{item.version}} by
                     <template v-for="(author, i) in item.authors">
                         <ContentAuthor :author="author" :after="i === item.authors.length - 1 ? '' : i === item.authors.length - 2 ? ' and' : ','" />

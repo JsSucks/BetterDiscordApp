@@ -58,7 +58,7 @@ export default class BDIpc {
     static send(window, channel, message, error) {
         channel = channel.startsWith('bd-') ? channel : `bd-${channel}`;
 
-        const eid = 'bd-' + Date.now().toString();
+        const eid = `bd-${  Date.now().toString()}`;
         window.send(channel, { eid, message, error });
 
         return new Promise((resolve, reject) => {

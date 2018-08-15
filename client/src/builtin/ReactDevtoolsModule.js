@@ -42,7 +42,7 @@ export default new class ReactDevtoolsModule extends BuiltinModule {
         try {
             const res = electron.remote.BrowserWindow.addDevToolsExtension(path.join(Globals.getPath('ext'), 'extensions', 'rdt'));
             if (res !== undefined) {
-                Toasts.success(res + ' Installed');
+                Toasts.success(`${res} Installed`);
                 return;
             }
             Toasts.error('React Developer Tools install failed');

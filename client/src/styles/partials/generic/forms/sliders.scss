@@ -1,9 +1,9 @@
-.bd-form-slider {
+.bd-formSlider {
     h3 + .bd-slider {
         margin-left: 15px;
     }
 
-    .bd-form-item-fullwidth & {
+    .bd-formItemFullwidth & {
         .bd-title {
             flex-direction: column;
         }
@@ -19,21 +19,20 @@
     min-height: 24px;
     min-width: 180px;
 
-    .bd-slider-container {
+    .bd-sliderContainer {
         padding-top: 8px;
         padding-bottom: 8px;
     }
 
-    .bd-slider-points {
+    .bd-sliderPoints {
         padding: 0 5px;
 
-        .bd-slider-point {
+        .bd-sliderPoint {
             left: 0;
             margin-left: -12px;
             position: relative;
             top: -6px;
             width: 24px;
-
             color: #72767d;
             font-size: 10px;
             font-weight: 700;
@@ -41,7 +40,7 @@
             text-align: center;
 
             &::after {
-                content: "";
+                content: '';
                 background-color: #4f545c;
                 height: 24px;
                 width: 2px;
@@ -52,13 +51,13 @@
                 margin-left: 11px;
             }
 
-            + .bd-slider-point {
+            + .bd-sliderPoint {
                 top: -14px;
             }
         }
     }
 
-    .bd-slider-bar {
+    .bd-sliderBar {
         background-color: #4f545c;
         height: 8px;
         border-radius: 4px;
@@ -66,34 +65,34 @@
         overflow: hidden;
 
         &::before {
-            content: "";
-            background-color: $colbdblue;
+            content: '';
+            background-color: $colbdgreen;
             height: 8px;
             width: 5px;
             display: block;
             margin-left: -5px;
         }
 
-        .bd-slider-bar-filled {
-            background-color: $colbdblue;
+        .bd-sliderBarFilled {
+            background-color: $colbdgreen;
             height: 8px;
             width: 100%;
             margin-top: -8px;
         }
     }
 
-    .bd-slider-thumb-wrap {
+    .bd-sliderThumbWrap {
         margin: -16px 0;
         padding: 0 5px;
 
-        .bd-slider-thumb {
+        .bd-sliderThumb {
             width: 10px;
             height: 24px;
             position: relative;
             pointer-events: none;
-            background: #FFF;
+            background: #fff;
             border: 1px solid #dcddde;
-            box-shadow: 0 3px 1px 0 rgba(0,0,0,.05), 0 2px 2px 0 rgba(0,0,0,.1), 0 3px 3px 0 rgba(0,0,0,.05);
+            box-shadow: 0 3px 1px 0 rgba(0, 0, 0, .05), 0 2px 2px 0 rgba(0, 0, 0, .1), 0 3px 3px 0 rgba(0, 0, 0, .05);
             margin-left: -5px;
             border-radius: 3px;
             box-sizing: border-box;

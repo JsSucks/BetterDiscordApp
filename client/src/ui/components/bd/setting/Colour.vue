@@ -9,11 +9,11 @@
 */
 
 <template>
-    <div class="bd-form-colourpicker">
+    <div class="bd-formColourpicker">
         <div class="bd-title">
             <h3 v-if="setting.text">{{setting.text}}</h3>
-            <div class="bd-colourpicker-wrapper">
-                <button ref="swatch" class="bd-colourpicker-swatch" :style="{backgroundColor: rgbaString}" @click="open = !open" />
+            <div class="bd-colourpickerWrapper">
+                <button ref="swatch" class="bd-colourpickerSwatch" :style="{backgroundColor: rgbaString}" @click="open = !open" />
             </div>
         </div>
         <Picker ref="picker" v-model="colours" @input="pick" :class="{'bd-hide': !open}" :style="{top: topOffset}" />

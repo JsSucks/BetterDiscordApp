@@ -10,13 +10,13 @@
     transition: all .4s ease-in-out;
     pointer-events: none;
 
-    &.active {
+    &.bd-active {
         width: 900px;
         transform: none;
         opacity: 1;
     }
 
-    .bd-settings-x {
+    .bd-settingsX {
         position: absolute;
         top: 18px;
         left: 255px;
@@ -29,11 +29,11 @@
         align-items: center;
         cursor: pointer;
 
-        .platform-darwin & {
+        .platform-darwin & { // sass-lint:disable-line class-name-format
             top: 43px;
         }
 
-        .bd-x-text {
+        .bd-xText {
             color: #72767d;
             position: absolute;
             top: 32px;
@@ -41,16 +41,16 @@
             font-size: 13px;
         }
 
-        .bd-material-design-icon {
+        .bd-materialDesignIcon {
             justify-content: center;
             display: flex;
             fill: #72767d;
         }
 
         &:hover {
-            background-color: hsla(218,5%,47%,.3);
+            background-color: hsla(218, 5%, 47%, .3);
 
-            .bd-material-design-icon {
+            .bd-materialDesignIcon {
                 fill: #fff;
             }
         }
@@ -67,26 +67,23 @@
             color: #414245;
             font-weight: 700;
             font-size: 12px;
-        }
-
-        .bd-vtext {
             flex-grow: 1;
             height: 20px;
             cursor: default;
             user-select: none;
         }
 
-        .bd-material-button {
+        .bd-materialButton {
             cursor: pointer;
 
             &:hover {
-                .bd-material-design-icon {
+                .bd-materialDesignIcon {
                     fill: #fff;
                 }
             }
         }
 
-        .bd-material-design-icon {
+        .bd-materialDesignIcon {
             fill: #414245;
 
             &:hover {
@@ -95,9 +92,9 @@
         }
     }
 
-    .bd-sidebar-view {
+    .bd-sidebarView {
         &::after {
-            content: "";
+            content: '';
             height: 100%;
             width: 310px;
             background-color: #202225;
@@ -106,63 +103,76 @@
             position: absolute;
         }
 
-        .bd-sidebar-region .bd-scroller {
-            padding-top: 0;
+        .bd-sidebarRegion {
+            .bd-scroller {
+                padding-top: 0;
+            }
         }
 
-        .bd-content-region {
+        .bd-contentRegion {
             width: 590px;
         }
 
-        &.active {
-            .bd-content-region {
-                transition: transform 0.4s ease-in-out, opacity 0.2s ease;
+        &.bd-active {
+            .bd-contentRegion {
+                transition: transform .4s ease-in-out, opacity .2s ease;
                 transform: none;
                 opacity: 1;
             }
         }
 
-        &.bd-stop .bd-sidebar-region {
-            z-index: 3004;
-        }
-        &.bd-stop .bd-content-region {
-            z-index: 3003;
-        }
-    }
+        &.bd-stop {
+            .bd-sidebarRegion {
+                z-index: 3004;
+            }
 
-    .platform-darwin & {
-        top: 0px;
-
-        .bd-sidebar-view .bd-sidebar-region {
-            padding-top: 22px;
+            .bd-contentRegion {
+                z-index: 3003;
+            }
         }
     }
 
-    .platform-linux & {
+    .platform-darwin & { // sass-lint:disable-line class-name-format
+        top: 0;
+
+        .bd-sidebarView {
+            .bd-sidebarRegion {
+                padding-top: 22px;
+            }
+        }
+    }
+
+    .platform-linux & { // sass-lint:disable-line class-name-format
         top: 0;
     }
 
-    &:not(.active) > .bd-sidebar-view.active,
-    &.bd-settings-out .bd-sidebar-view.active {
-        .bd-content-region {
+    &:not(.bd-active) > .bd-sidebarView.bd-active, // sass-lint:disable-line force-element-nesting
+    &.bd-settingsOut .bd-sidebarView.bd-active { // sass-lint:disable-line force-element-nesting
+        .bd-contentRegion {
             transform: translate(-600px, 0%);
             opacity: 0;
             width: 590px;
         }
     }
 
-    &:not(.active) .bd-sidebar-view.active {
-        .bd-content-region {
-            transform: translate(-600px, 100%);
+    &:not(.bd-active) {
+        .bd-sidebarView {
+            &.bd-active {
+                .bd-contentRegion {
+                    transform: translate(-600px, 100%);
+                }
+            }
         }
     }
 }
 
-.bd-sidebar .bd-settings-button {
-    position: absolute;
-    top: 0;
+.bd-sidebar {
+    .bd-settingsButton {
+        position: absolute;
+        top: 0;
 
-    .platform-darwin & {
-        top: 22px;
+        .platform-darwin & { // sass-lint:disable-line class-name-format
+            top: 22px;
+        }
     }
 }

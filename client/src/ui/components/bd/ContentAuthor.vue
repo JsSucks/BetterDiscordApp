@@ -9,14 +9,14 @@
 */
 
 <template>
-    <v-popover class="bd-content-author bd-inline" popoverClass="bd-popover bd-content-author-links" trigger="click" placement="top" :disabled="!hasLinks">
-        <span :class="{'bd-content-author-link': hasLinks}">{{ author.name || author }}</span><span v-text="after" @click.stop></span>
+    <v-popover class="bd-contentAuthor bd-inline" popoverClass="bd-popover bd-contentAuthorLinks" trigger="click" placement="top" :disabled="!hasLinks">
+        <span :class="{'bd-contentAuthorLink': hasLinks}">{{ author.name || author }}</span><span v-text="after" @click.stop></span>
 
         <template slot="popover">
-            <div v-if="author.discord_id" @click="openUserProfileModal(author.discord_id)" v-tooltip="author.discord_username || author.name" class="bd-material-button"><MiDiscord size="16" /></div>
-            <div v-if="author.github_username" @click="openGitHub" v-tooltip="author.github_username" class="bd-material-button"><MiGithubCircle size="16" /></div>
-            <div v-if="author.twitter_username" @click="openTwitter" v-tooltip="'@' + author.twitter_username" class="bd-material-button"><MiTwitterCircle size="16" /></div>
-            <div v-if="author.url" @click="openWebsite" v-tooltip="author.url" class="bd-material-button"><MiWeb size="16" /></div>
+            <div v-if="author.discord_id" @click="openUserProfileModal(author.discord_id)" v-tooltip="author.discord_username || author.name" class="bd-materialButton"><MiDiscord size="16" /></div>
+            <div v-if="author.github_username" @click="openGitHub" v-tooltip="author.github_username" class="bd-materialButton"><MiGithubCircle size="16" /></div>
+            <div v-if="author.twitter_username" @click="openTwitter" v-tooltip="'@' + author.twitter_username" class="bd-materialButton"><MiTwitterCircle size="16" /></div>
+            <div v-if="author.url" @click="openWebsite" v-tooltip="author.url" class="bd-materialButton"><MiWeb size="16" /></div>
         </template>
     </v-popover>
 </template>

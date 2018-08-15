@@ -76,7 +76,7 @@ export default class {
             await FileUtils.ensureDirectory(this.contentPath);
             const directories = await FileUtils.listDirectory(this.contentPath);
 
-            for (let dir of directories) {
+            for (const dir of directories) {
                 try {
                     await FileUtils.directoryExists(path.join(this.contentPath, dir));
                 } catch (err) { continue; }
@@ -119,7 +119,7 @@ export default class {
             await FileUtils.ensureDirectory(this.contentPath);
             const directories = await FileUtils.listDirectory(this.contentPath);
 
-            for (let dir of directories) {
+            for (const dir of directories) {
                 // If content is already loaded this should resolve
                 if (this.getContentByDirName(dir)) continue;
 
@@ -142,7 +142,7 @@ export default class {
                 }
             }
 
-            for (let content of this.localContent) {
+            for (const content of this.localContent) {
                 if (directories.includes(content.dirName)) continue;
 
                 try {
@@ -219,13 +219,13 @@ export default class {
             userConfig.config = defaultConfig.clone({ settings: userConfig.config });
             userConfig.config.setSaved();
 
-            for (let setting of userConfig.config.findSettings(() => true)) {
+            for (const setting of userConfig.config.findSettings(() => true)) {
                 // This will load custom settings
                 // Setting the content's path on only the live config (and not the default config) ensures that custom settings will not be loaded on the default settings
                 setting.setContentPath(contentPath);
             }
 
-            for (let scheme of userConfig.config.schemes) {
+            for (const scheme of userConfig.config.schemes) {
                 scheme.setContentPath(contentPath);
             }
 
@@ -287,7 +287,9 @@ export default class {
                     newcontent.start(false);
                 }
                 return newcontent;
-            } else this.localContent.splice(index, 1);
+            }
+
+            this.localContent.splice(index, 1);
         } catch (err) {
             Logger.err(this.moduleName, err);
             throw err;

@@ -1,22 +1,22 @@
-.bd-settings-button {
+.bd-settingsButton {
     position: absolute;
     z-index: 1;
     top: 22px;
     width: 70px;
     height: 48px;
     left: 0;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .2), 0 2px 0 rgba(0, 0, 0, .06);
     opacity: 1;
 
-    .platform-darwin & {
+    .platform-darwin & { // sass-lint:disable-line class-name-format
         top: 27px;
     }
 
-    .platform-linux & {
+    .platform-linux & { // sass-lint:disable-line class-name-format
         top: 0;
     }
 
-    .bd-settings-button-btn {
+    .bd-settingsButtonBtn {
         background-image: $logoSmallBw;
         background-size: 50% 50%;
         background-repeat: no-repeat;
@@ -25,33 +25,37 @@
         height: 100%;
         cursor: pointer;
         filter: grayscale(100%);
-        opacity: 0.5;
-        transition: all 0.4s ease-in-out;
+        opacity: .5;
+        transition: all .4s ease-in-out;
 
-        &:not(.bd-loading):hover {
-            filter: none;
-            opacity: 1;
+        &:not(.bd-loading) {
+            &:hover {
+                filter: none;
+                opacity: 1;
+            }
         }
 
         &.bd-loading {
-            animation: bd-settings-button-pulse 1.5s infinite;
+            animation: bd-settingsButtonPulse 1.5s infinite;
         }
 
         &.bd-updates {
-            filter: hue-rotate(250deg) !important;
-            opacity: 1 !important;
+            filter: hue-rotate(250deg) !important; // sass-lint:disable-line no-important
+            opacity: 1 !important; // sass-lint:disable-line no-important
         }
     }
 
-    &.bd-hide-button {
-        animation: bd-fade-out 0.4s ease-out;
+    &.bd-hideButton {
+        animation: bd-fadeOut .4s ease-out;
 
         &.bd-active {
-            animation: bd-fade-in 0.4s ease-in;
+            animation: bd-fadeIn .4s ease-in;
         }
 
-        &:not(.bd-active):not(.bd-animating) {
-            display: none;
+        &:not(.bd-active) {
+            &:not(.bd-animating) {
+                display: none;
+            }
         }
     }
 
@@ -60,11 +64,11 @@
     }
 
     &.bd-active,
-    &.bd-hide-button {
+    &.bd-hideButton {
         background: transparent;
         box-shadow: none;
 
-        .bd-settings-button-btn {
+        .bd-settingsButtonBtn {
             background-image: $logoBigBw;
             background-size: 100% 100%;
             filter: none;
@@ -79,18 +83,5 @@
     &.bd-active,
     &.bd-animating {
         z-index: 3001;
-    }
-}
-
-@keyframes bd-settings-button-pulse {
-    0% {
-        filter: grayscale(100%);
-    }
-    50% {
-        filter: grayscale(0%);
-        opacity: 1;
-    }
-    100% {
-        filter: grayscale(100%);
     }
 }

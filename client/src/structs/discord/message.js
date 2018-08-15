@@ -99,15 +99,15 @@ export class Message {
 
     static from(data) {
         switch (data.type) {
-            default: return new Message(data);
-            case 0: return new DefaultMessage(data);
-            case 1: return new RecipientAddMessage(data);
-            case 2: return new RecipientRemoveMessage(data);
-            case 3: return new CallMessage(data);
-            case 4: return new GroupChannelNameChangeMessage(data);
-            case 5: return new GroupChannelIconChangeMessage(data);
-            case 6: return new MessagePinnedMessage(data);
-            case 7: return new GuildMemberJoinMessage(data);
+        default: return new Message(data);
+        case 0: return new DefaultMessage(data);
+        case 1: return new RecipientAddMessage(data);
+        case 2: return new RecipientRemoveMessage(data);
+        case 3: return new CallMessage(data);
+        case 4: return new GroupChannelNameChangeMessage(data);
+        case 5: return new GroupChannelIconChangeMessage(data);
+        case 6: return new MessagePinnedMessage(data);
+        case 7: return new GuildMemberJoinMessage(data);
         }
     }
 

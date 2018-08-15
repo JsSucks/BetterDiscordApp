@@ -14,7 +14,7 @@
 */
 
 <template>
-    <span class="bd-material-design-icon">
+    <span class="bd-materialDesignIcon">
         <svg :width="size || 24" :height="size || 24" viewBox="0 0 24 24">
             <path d="M19,13H5V11H19V13Z"></path>
         </svg>

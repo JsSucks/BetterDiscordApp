@@ -67,7 +67,7 @@ export default class KeybindSetting extends Setting {
     }
 
     static __event_handler(event, data) {
-        for (let keybindSetting of instances) {
+        for (const keybindSetting of instances) {
             keybindSetting.emit(event, data);
         }
     }

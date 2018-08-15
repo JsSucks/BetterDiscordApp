@@ -124,14 +124,14 @@ module.exports = (Plugin, Api, Vendor, Dependencies) => {
             el.textContent = `Test custom setting ${setting.id}. This is from Plugin.getSettingsComponentHTMLElement(). Current value: ${setting.value}.`;
 
             const button1 = document.createElement('button');
-            button1.setAttribute('class', 'bd-button bd-button-primary');
+            button1.setAttribute('class', 'bd-button bd-buttonPrimary');
             button1.setAttribute('style', 'display: inline-block; margin-left: 10px;');
             button1.addEventListener('click', () => change(1));
             button1.textContent = 'Set value to 1';
             el.appendChild(button1);
 
             const button2 = document.createElement('button');
-            button2.setAttribute('class', 'bd-button bd-button-primary');
+            button2.setAttribute('class', 'bd-button bd-buttonPrimary');
             button2.setAttribute('style', 'display: inline-block; margin-left: 10px;');
             button2.addEventListener('click', () => change(2));
             button2.textContent = 'Set value to 2';

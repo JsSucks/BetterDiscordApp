@@ -1,4 +1,4 @@
-.bd-setting-switch {
+.bd-settingSwitch {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -6,10 +6,10 @@
     justify-content: flex-start;
     -webkit-box-align: stretch;
     align-items: stretch;
-    transition: opacity 0.2s ease;
+    transition: opacity .2s ease;
 }
 
-.bd-switch-wrapper {
+.bd-switchWrapper {
     flex: 0 0 auto;
     user-select: none;
     position: relative;
@@ -37,7 +37,7 @@
         transition: background .15s ease-in-out, box-shadow .15s ease-in-out, border .15s ease-in-out;
 
         &::before {
-            content: "";
+            content: '';
             display: block;
             width: 18px;
             height: 18px;
@@ -48,11 +48,11 @@
             background: #f6f6f7;
             border-radius: 10px;
             transition: all .15s ease;
-            box-shadow: 0 3px 1px 0 rgba(0,0,0,.05), 0 2px 2px 0 rgba(0,0,0,.1), 0 3px 3px 0 rgba(0,0,0,.05);
+            box-shadow: 0 3px 1px 0 rgba(0, 0, 0, .05), 0 2px 2px 0 rgba(0, 0, 0, .1), 0 3px 3px 0 rgba(0, 0, 0, .05);
         }
 
         &.bd-checked {
-            background: $colbdblue;
+            background: $colbdgreen;
 
             &::before {
                 transform: translateX(20px);

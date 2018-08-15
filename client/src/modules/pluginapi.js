@@ -182,7 +182,7 @@ export default class PluginApi {
         Utils.removeFromArray(this.menuItems, item);
     }
     removeAllMenuItems() {
-        for (let item of this.menuItems)
+        for (const item of this.menuItems)
             BdMenu.items.remove(item);
     }
     get BdMenuItems() {
@@ -232,7 +232,7 @@ export default class PluginApi {
         DOM.deleteStyle(styleid);
     }
     deleteAllStyles(id) {
-        for (let id of this.injectedStyles) {
+        for (const id of this.injectedStyles) {
             this.deleteStyle(id);
         }
     }
@@ -273,7 +273,7 @@ export default class PluginApi {
     }
     closeAllModals(force) {
         const promises = [];
-        for (let modal of this.modalStack)
+        for (const modal of this.modalStack)
             promises.push(modal.close(force));
         return Promise.all(promises);
     }
@@ -305,7 +305,6 @@ export default class PluginApi {
         });
     }
 
-
     /**
      * Toasts
      */
@@ -334,7 +333,6 @@ export default class PluginApi {
             get enabled() { return Toasts.enabled }
         };
     }
-
 
     /**
      * Emotes
@@ -388,7 +386,7 @@ export default class PluginApi {
 
     async getPlugin(plugin_id) {
         // This should require extra permissions
-        return await PluginManager.waitForPlugin(plugin_id);
+        return PluginManager.waitForPlugin(plugin_id);
     }
     listPlugins() {
         return PluginManager.localContent.map(plugin => plugin.id);
@@ -406,7 +404,7 @@ export default class PluginApi {
 
     async getTheme(theme_id) {
         // This should require extra permissions
-        return await ThemeManager.waitForContent(theme_id);
+        return ThemeManager.waitForContent(theme_id);
     }
     listThemes() {
         return ThemeManager.localContent.map(theme => theme.id);
@@ -424,7 +422,7 @@ export default class PluginApi {
 
     async getModule(module_id) {
         // This should require extra permissions
-        return await ExtModuleManager.waitForContent(module_id);
+        return ExtModuleManager.waitForContent(module_id);
     }
     listModules() {
         return ExtModuleManager.localContent.map(module => module.id);

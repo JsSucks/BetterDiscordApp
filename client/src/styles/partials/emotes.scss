@@ -1,9 +1,9 @@
-.bd-emote-outer {
+.bd-emoteOuter {
     display: inline-block;
     height: 32px;
     user-select: none;
 
-    .bd-is-emote {
+    .bd-isEmote {
         font-size: 0;
     }
 }
@@ -14,7 +14,7 @@
 
     img {
         height: 32px;
-        margin: 0 .05em 0 .1em !important;
+        margin: 0 .05em 0 .1em !important; // sass-lint:disable-line no-important
         min-height: 22px;
         min-width: 22px;
         object-fit: contain;
@@ -24,8 +24,8 @@
 }
 
 .bd-emotewrapper,
-.bd-autocomplete-selector {
-    .bd-emote-favourite-button {
+.bd-autocompleteSelector {
+    .bd-emoteFavouriteButton {
         display: none;
         width: 16px;
         height: 16px;
@@ -44,19 +44,28 @@
             transition: fill .1s ease;
         }
 
-        &.bd-active svg {
-            fill: #fff;
+        &.bd-active {
+            svg {
+                fill: #fff;
+            }
         }
     }
 
-    &.bd-selected .bd-emote-favourite-button,
-    &:hover .bd-emote-favourite-button {
-        display: block;
+    &.bd-selected {
+        .bd-emoteFavouriteButton {
+            display: block;
+        }
+    }
+
+    &:hover {
+        .bd-emoteFavouriteButton {
+            display: block;
+        }
     }
 }
 
-.bd-autocomplete-selector {
-    .bd-emote-favourite-button {
+.bd-autocompleteSelector {
+    .bd-emoteFavouriteButton {
         margin-left: 8px;
         margin-right: 0;
         opacity: .5;

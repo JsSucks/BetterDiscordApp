@@ -21,11 +21,11 @@ const KnownModules = {
     GuildStore: Filters.byProperties(['getGuild']),
     SortedGuildStore: Filters.byProperties(['getSortedGuilds']),
     SelectedGuildStore: Filters.byProperties(['getLastSelectedGuildId']),
-    GuildSync: Filters.byProperties(["getSyncedGuilds"]),
-    GuildInfo: Filters.byProperties(["getAcronym"]),
+    GuildSync: Filters.byProperties(['getSyncedGuilds']),
+    GuildInfo: Filters.byProperties(['getAcronym']),
     GuildChannelsStore: Filters.byProperties(['getChannels', 'getDefaultChannel']),
     GuildMemberStore: Filters.byProperties(['getMember']),
-    MemberCountStore: Filters.byProperties(["getMemberCounts"]),
+    MemberCountStore: Filters.byProperties(['getMemberCounts']),
     GuildEmojiStore: Filters.byProperties(['getEmojis']),
     GuildActions: Filters.byProperties(['markGuildAsRead']),
     GuildPermissions: Filters.byProperties(['getGuildPermissions']),
@@ -33,20 +33,20 @@ const KnownModules = {
     /* Channel Store & Actions */
     ChannelStore: Filters.byProperties(['getChannels', 'getDMFromUserId']),
     SelectedChannelStore: Filters.byProperties(['getLastSelectedChannelId']),
-    ChannelActions: Filters.byProperties(["selectChannel"]),
-    PrivateChannelActions: Filters.byProperties(["openPrivateChannel"]),
-    ChannelSelector: Filters.byProperties(["selectGuild", "selectChannel"]),
+    ChannelActions: Filters.byProperties(['selectChannel']),
+    PrivateChannelActions: Filters.byProperties(['openPrivateChannel']),
+    ChannelSelector: Filters.byProperties(['selectGuild', 'selectChannel']),
 
     /* Current User Info, State and Settings */
-    UserInfoStore: Filters.byProperties(["getToken"]),
-    UserSettingsStore: Filters.byProperties(["guildPositions"]),
+    UserInfoStore: Filters.byProperties(['getToken']),
+    UserSettingsStore: Filters.byProperties(['guildPositions']),
     AccountManager: Filters.byProperties(['register', 'login']),
     UserSettingsUpdater: Filters.byProperties(['updateRemoteSettings']),
     OnlineWatcher: Filters.byProperties(['isOnline']),
     CurrentUserIdle: Filters.byProperties(['getIdleTime']),
     RelationshipStore: Filters.byProperties(['isBlocked']),
     RelationshipManager: Filters.byProperties(['addRelationship']),
-    MentionStore: Filters.byProperties(["getMentions"]),
+    MentionStore: Filters.byProperties(['getMentions']),
 
     /* User Stores and Utils */
     UserStore: Filters.byProperties(['getCurrentUser']),
@@ -64,18 +64,18 @@ const KnownModules = {
     EmojiStore: Filters.byProperties(['getByCategory', 'EMOJI_NAME_RE']),
 
     /* Invite Store and Utils */
-    InviteStore: Filters.byProperties(["getInvites"]),
+    InviteStore: Filters.byProperties(['getInvites']),
     InviteResolver: Filters.byProperties(['findInvite']),
     InviteActions: Filters.byProperties(['acceptInvite']),
 
     /* Discord Objects & Utils */
-    DiscordConstants: Filters.byProperties(["Permissions", "ActivityTypes", "StatusTypes"]),
+    DiscordConstants: Filters.byProperties(['Permissions', 'ActivityTypes', 'StatusTypes']),
     Permissions: Filters.byProperties(['getHighestRole']),
     ColorConverter: Filters.byProperties(['hex2int']),
     ColorShader: Filters.byProperties(['darken']),
-    ClassResolver: Filters.byProperties(["getClass"]),
-    ButtonData: Filters.byProperties(["ButtonSizes"]),
-    IconNames: Filters.byProperties(["IconNames"]),
+    ClassResolver: Filters.byProperties(['getClass']),
+    ButtonData: Filters.byProperties(['ButtonSizes']),
+    IconNames: Filters.byProperties(['IconNames']),
     NavigationUtils: Filters.byProperties(['transitionTo', 'replaceWith', 'getHistory']),
 
     /* Discord Messages */
@@ -94,36 +94,36 @@ const KnownModules = {
     CurrentExperiment: Filters.byProperties(['getExperimentId']),
 
     /* Images, Avatars and Utils */
-    ImageResolver: Filters.byProperties(["getUserAvatarURL"]),
+    ImageResolver: Filters.byProperties(['getUserAvatarURL']),
     ImageUtils: Filters.byProperties(['getSizedImageSrc']),
-    AvatarDefaults: Filters.byProperties(["getUserAvatarURL", "DEFAULT_AVATARS"]),
+    AvatarDefaults: Filters.byProperties(['getUserAvatarURL', 'DEFAULT_AVATARS']),
 
     /* Drag & Drop */
-    DNDActions: Filters.byProperties(["beginDrag"]),
-    DNDSources: Filters.byProperties(["addTarget"]),
-    DNDObjects: Filters.byProperties(["DragSource"]),
+    DNDActions: Filters.byProperties(['beginDrag']),
+    DNDSources: Filters.byProperties(['addTarget']),
+    DNDObjects: Filters.byProperties(['DragSource']),
 
     /* Electron & Other Internals with Utils */
-    ElectronModule: Filters.byProperties(["_getMainWindow"]),
+    ElectronModule: Filters.byProperties(['_getMainWindow']),
     Dispatcher: Filters.byProperties(['dirtyDispatch']),
-    PathUtils: Filters.byProperties(["hasBasename"]),
-    NotificationModule: Filters.byProperties(["showNotification"]),
-    RouterModule: Filters.byProperties(["Router"]),
-    APIModule: Filters.byProperties(["getAPIBaseURL"]),
-    AnalyticEvents: Filters.byProperties(["AnalyticEventConfigs"]),
+    PathUtils: Filters.byProperties(['hasBasename']),
+    NotificationModule: Filters.byProperties(['showNotification']),
+    RouterModule: Filters.byProperties(['Router']),
+    APIModule: Filters.byProperties(['getAPIBaseURL']),
+    AnalyticEvents: Filters.byProperties(['AnalyticEventConfigs']),
     KeyGenerator: Filters.byCode(/"binary"/),
     Buffers: Filters.byProperties(['Buffer', 'kMaxLength']),
     DeviceStore: Filters.byProperties(['getDevices']),
-    SoftwareInfo: Filters.byProperties(["os"]),
-    CurrentContext: Filters.byProperties(["setTagsContext"]),
+    SoftwareInfo: Filters.byProperties(['os']),
+    CurrentContext: Filters.byProperties(['setTagsContext']),
 
     /* Media Stuff (Audio/Video) */
-    MediaDeviceInfo: Filters.byProperties(["Codecs", "SUPPORTED_BROWSERS"]),
-    MediaInfo: Filters.byProperties(["getOutputVolume"]),
+    MediaDeviceInfo: Filters.byProperties(['Codecs', 'SUPPORTED_BROWSERS']),
+    MediaInfo: Filters.byProperties(['getOutputVolume']),
     MediaEngineInfo: Filters.byProperties(['MediaEngineFeatures']),
-    VoiceInfo: Filters.byProperties(["EchoCancellation"]),
-    VideoStream: Filters.byProperties(["getVideoStream"]),
-    SoundModule: Filters.byProperties(["playSound"]),
+    VoiceInfo: Filters.byProperties(['EchoCancellation']),
+    VideoStream: Filters.byProperties(['getVideoStream']),
+    SoundModule: Filters.byProperties(['playSound']),
 
     /* Window, DOM, HTML */
     WindowInfo: Filters.byProperties(['isFocused', 'windowSize']),
@@ -133,13 +133,13 @@ const KnownModules = {
     /* Locale/Location and Time */
     LocaleManager: Filters.byProperties(['setLocale']),
     Moment: Filters.byProperties(['parseZone']),
-    LocationManager: Filters.byProperties(["createLocation"]),
-    Timestamps: Filters.byProperties(["fromTimestamp"]),
+    LocationManager: Filters.byProperties(['createLocation']),
+    Timestamps: Filters.byProperties(['fromTimestamp']),
 
     /* Strings and Utils */
-    Strings: Filters.byProperties(["TEXT", "TEXTAREA_PLACEHOLDER"]),
+    Strings: Filters.byProperties(['TEXT', 'TEXTAREA_PLACEHOLDER']),
     StringFormats: Filters.byProperties(['a', 'z']),
-    StringUtils: Filters.byProperties(["toASCII"]),
+    StringUtils: Filters.byProperties(['toASCII']),
 
     /* URLs and Utils */
     URLParser: Filters.byProperties(['Url', 'parse']),
@@ -193,7 +193,7 @@ class WebpackModules {
     static getModule(filter, first = true, _modules) {
         const modules = _modules || this.getAllModules();
         const rm = [];
-        for (let index in modules) {
+        for (const index in modules) {
             if (!modules.hasOwnProperty(index)) continue;
             const module = modules[index];
             const { exports } = module;
@@ -317,7 +317,7 @@ class WebpackModules {
                 this.moduleLoadedEventTimeout = undefined;
 
                 // Emit a module-loaded event for every module
-                for (let module of this.modulesLoadingCache) {
+                for (const module of this.modulesLoadingCache) {
                     Events.emit('module-loaded', module);
                 }
 

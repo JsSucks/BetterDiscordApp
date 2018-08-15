@@ -1,28 +1,29 @@
-body:not(.bd-hide-button) {
-    [class*="guildsWrapper-"] {
+// sass-lint:disable-all
+body:not(.bd-hideButton) {
+    [class*='guildsWrapper-'] {
         padding-top: 49px !important;
     }
-    .platform-osx [class*="guildsWrapper-"] {
+    .platform-osx [class*='guildsWrapper-'] {
         margin-top: 26px;
     }
 
-    [class*="guildsWrapper-"] + [class*="flex"] {
+    [class*='guildsWrapper-'] + [class*='flex'] {
         border-radius: 0 0 0 5px;
     }
 
-    [class*="unreadMentionsIndicatorTop-"] {
+    [class*='unreadMentionsIndicatorTop-'] {
         top: 49px;
     }
-    .platform-osx [class*="unreadMentionsIndicatorTop-"] {
+    .platform-osx [class*='unreadMentionsIndicatorTop-'] {
         top: 50px;
     }
 }
 
 // Any layers need to be above the main layer (where the BD button is placed)
-[class*="layers-"] > * + * {
+[class*='layers-'] > * + * {
     z-index: 900;
 }
 
-.bd-settings-wrapper.platform-linux {
+.bd-settingsWrapper.platform-linux {
     transform: none;
 }

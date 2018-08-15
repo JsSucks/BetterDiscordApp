@@ -14,7 +14,7 @@ import Events from './events';
 export default class extends Module {
 
     events() {
-        for (let event of this.eventBindings) {
+        for (const event of this.eventBindings) {
             Events.on(event.id, event.callback);
         }
     }

@@ -9,11 +9,11 @@
 */
 
 <template>
-    <div class="bd-settings-wrapper" :class="[{active}, 'platform-' + this.platform]">
-        <div class="bd-settings-button" :class="{'bd-active': active, 'bd-animating': animating, 'bd-hide-button': hideButton}" @click="active = true">
-            <div v-if="updating === 0" v-tooltip.right="'Checking for updates'" class="bd-settings-button-btn bd-loading"></div>
-            <div v-else-if="updating === 2" v-tooltip.right="'Updates available!'" class="bd-settings-button-btn bd-updates"></div>
-            <div v-else class="bd-settings-button-btn" :class="[{'bd-loading': !loaded}]"></div>
+    <div class="bd-settingsWrapper" :class="[{'bd-active': active}, 'platform-' + this.platform]">
+        <div class="bd-settingsButton" :class="{'bd-active': active, 'bd-animating': animating, 'bd-hideButton': hideButton}" @click="active = true">
+            <div v-if="updating === 0" v-tooltip.right="'Checking for updates'" class="bd-settingsButtonBtn bd-loading"></div>
+            <div v-else-if="updating === 2" v-tooltip.right="'Updates available!'" class="bd-settingsButtonBtn bd-updates"></div>
+            <div v-else class="bd-settingsButtonBtn" :class="[{'bd-loading': !loaded}]"></div>
         </div>
         <BdSettings ref="settings" :active="active" @close="active = false" />
     </div>

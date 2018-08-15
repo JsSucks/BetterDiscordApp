@@ -41,7 +41,7 @@ export default class extends ContentManager {
         this.loaded = false;
         const loadAll = await this.loadAllContent(true);
         this.loaded = true;
-        for (let plugin of this.localPlugins) {
+        for (const plugin of this.localPlugins) {
             if (!plugin.enabled) continue;
             plugin.userConfig.enabled = false;
 
@@ -76,7 +76,7 @@ export default class extends ContentManager {
     static get loadContent() { return this.loadPlugin }
     static async loadPlugin(paths, configs, info, main, dependencies, permissions, mainExport) {
         if (permissions && permissions.length > 0) {
-            for (let perm of permissions) {
+            for (const perm of permissions) {
                 Logger.log(this.moduleName, `Permission: ${Permissions.permissionText(perm).HEADER} - ${Permissions.permissionText(perm).BODY}`);
             }
             try {

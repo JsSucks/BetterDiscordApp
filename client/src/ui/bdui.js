@@ -17,12 +17,13 @@ import { BdSettingsWrapper, BdModals, BdToasts } from './components';
 export default class {
 
     static initUiEvents() {
+        document.body.classList.add('bd-v2');
         const hideButtonSetting = Settings.getSetting('ui', 'default', 'hide-button');
         hideButtonSetting.on('setting-updated', event => {
-            if (event.value) document.body.classList.add('bd-hide-button');
-            else document.body.classList.remove('bd-hide-button');
+            if (event.value) document.body.classList.add('bd-hideButton');
+            else document.body.classList.remove('bd-hideButton');
         });
-        if (hideButtonSetting.value) document.body.classList.add('bd-hide-button');
+        if (hideButtonSetting.value) document.body.classList.add('bd-hideButton');
 
         this.pathCache = {
             isDm: null,

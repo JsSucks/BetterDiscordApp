@@ -86,14 +86,14 @@ export default class SettingsScheme {
      * @return {Boolean}
      */
     isActive(set) {
-        for (let schemeCategory of this.categories) {
+        for (const schemeCategory of this.categories) {
             const category = set.categories.find(c => c.id === (schemeCategory.id || schemeCategory.category));
             if (!category) {
                 Logger.warn('SettingsScheme', `Category ${schemeCategory.id || schemeCategory.category} does not exist`);
                 return false;
             }
 
-            for (let schemeSetting of schemeCategory.settings) {
+            for (const schemeSetting of schemeCategory.settings) {
                 const setting = category.settings.find(s => s.id === schemeSetting.id);
                 if (!setting) {
                     Logger.warn('SettingsScheme', `Setting ${category.category}/${schemeSetting.id} does not exist`);

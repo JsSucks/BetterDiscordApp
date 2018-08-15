@@ -58,10 +58,10 @@ export default class Database {
 
     async exec(cmd) {
         switch (cmd.action) {
-            case 'update':
-                return this.update(cmd);
-            case 'find':
-                return this.find(cmd);
+        case 'update':
+            return this.update(cmd);
+        case 'find':
+            return this.find(cmd);
         }
         throw 'Invalid Command';
     }

@@ -1,10 +1,10 @@
-.bd-modal-footer {
-    .bd-footer-alert {
+.bd-modalFooter {
+    .bd-footerAlert {
         margin: -64px 10px 10px;
         height: 0;
         display: flex;
-        background-color: rgba(32, 34, 37, 0.9);
-        box-shadow: 0 2px 10px 0 rgba(0,0,0,.2);
+        background-color: rgba(32, 34, 37, .9);
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .2);
         padding: 10px 10px 10px 16px;
         overflow: hidden;
         border-radius: 5px;
@@ -15,7 +15,7 @@
 
         &.bd-warn {
             background-color: $colerr;
-            animation: bd-warn-shake 0.4s;
+            animation: bd-warnShake .4s;
         }
 
         &.bd-active {
@@ -24,7 +24,7 @@
             transform: none;
         }
 
-        .bd-footer-alert-text {
+        .bd-footerAlertText {
             flex: 1 1 auto;
             color: #fff;
             font-weight: 700;

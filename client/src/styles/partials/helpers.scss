@@ -2,14 +2,18 @@
     color: $colerr;
 }
 
-.bd-p {
+%bd-p {
     color: $coldimwhite;
     font-size: 14px;
     font-weight: 500;
     margin: 10px 0;
 }
 
+.bd-p {
+    @extend %bd-p;
+}
+
 .bd-hint {
-    @extend .bd-p;
+    @extend %bd-p;
     color: #72767d;
 }

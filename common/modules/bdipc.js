@@ -57,7 +57,7 @@ const ClientIPC = new class ClientIPC {
     async send(channel, message, error) {
         channel = channel.startsWith('bd-') ? channel : `bd-${channel}`;
 
-        const eid = 'bd-' + Date.now().toString();
+        const eid = `bd-${Date.now().toString()}`;
         ipcRenderer.send(channel, { eid, message, error });
 
         return new Promise((resolve, reject) => {

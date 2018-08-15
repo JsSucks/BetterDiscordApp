@@ -9,10 +9,10 @@
 */
 
 <template>
-    <div class="bd-form-textinput">
+    <div class="bd-formTextinput">
         <div class="bd-title">
             <h3 v-if="setting.text">{{setting.text}}</h3>
-            <div class="bd-textinput-wrapper">
+            <div class="bd-textinputWrapper">
                 <input type="text" v-model="setting.value" @keyup.stop />
             </div>
         </div>

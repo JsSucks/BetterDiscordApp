@@ -10,34 +10,34 @@
 
 <template>
     <SettingsWrapper headertext="CSS Editor">
-        <div class="bd-css-editor">
-            <div v-if="error" class="bd-form-item">
+        <div class="bd-cssEditor">
+            <div v-if="error" class="bd-formItem">
                 <h5 style="margin-bottom: 10px;">Compiler error</h5>
-                <div class="bd-err bd-pre-wrap"><div class="bd-pre">{{ error.formatted }}</div></div>
-                <div class="bd-form-divider"></div>
+                <div class="bd-err bd-preWrap"><div class="bd-pre">{{ error.formatted }}</div></div>
+                <div class="bd-formDivider"></div>
             </div>
 
-            <div class="bd-form-item">
+            <div class="bd-formItem">
                 <h5>Custom Editor</h5>
                 <FormButton v-if="internalEditorIsInstalled" @click="openInternalEditor">Open</FormButton>
                 <template v-else>
-                    <div class="bd-form-warning">
+                    <div class="bd-formWarning">
                         <div class="bd-text">Custom Editor is not installed!</div>
                         <FormButton>Install</FormButton>
                     </div>
                     <span style="color: #fff; font-size: 12px; font-weight: 700;">* This is displayed if editor is not installed</span>
                 </template>
             </div>
-            <div class="bd-form-divider"></div>
+            <div class="bd-formDivider"></div>
 
-            <div class="bd-form-item">
+            <div class="bd-formItem">
                 <h5>System Editor</h5>
                 <FormButton @click="openSystemEditor">Open</FormButton>
                 <p class="bd-hint">This will open {{ systemEditorPath }} in your system's default editor.</p>
             </div>
-            <div class="bd-form-divider"></div>
+            <div class="bd-formDivider"></div>
 
-            <div class="bd-form-item">
+            <div class="bd-formItem">
                 <h5 style="margin-bottom: 10px;">Settings</h5>
             </div>
             <SettingsPanel :settings="settingsset" />

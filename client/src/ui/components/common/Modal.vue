@@ -9,25 +9,25 @@
 */
 
 <template>
-    <div :class="['bd-modal', {'bd-modal-scrolled': scrolled}]">
-        <div class="bd-modal-inner">
-            <div class="bd-modal-header">
-                <div class="bd-modal-icon">
+    <div :class="['bd-modal', {'bd-modalScrolled': scrolled}]">
+        <div class="bd-modalInner">
+            <div class="bd-modalHeader">
+                <div class="bd-modalIcon">
                     <slot name="icon" />
                 </div>
-                <span class="bd-modal-headertext">{{ headerText }}</span>
-                <div class="bd-modal-x" @click="$emit('close', $event.shiftKey, $event)">
+                <span class="bd-modalHeadertext">{{ headerText }}</span>
+                <div class="bd-modalX" @click="$emit('close', $event.shiftKey, $event)">
                     <MiClose size="18" />
                 </div>
             </div>
-            <div class="bd-modal-body">
-                <div class="bd-scroller-wrap">
+            <div class="bd-modalBody">
+                <div class="bd-scrollerWrap">
                     <div class="bd-scroller" @scroll="e => scrolled = e.target.scrollTop !== 0">
                         <slot name="body"></slot>
                      </div>
                 </div>
             </div>
-            <div class="bd-modal-footer">
+            <div class="bd-modalFooter">
                 <slot name="footer"></slot>
             </div>
         </div>

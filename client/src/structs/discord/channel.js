@@ -27,12 +27,12 @@ export class Channel {
 
     static from(channel) {
         switch (channel.type) {
-            default: return new Channel(channel);
-            case 0: return new GuildTextChannel(channel);
-            case 1: return new DirectMessageChannel(channel);
-            case 2: return new GuildVoiceChannel(channel);
-            case 3: return new GroupChannel(channel);
-            case 4: return new ChannelCategory(channel);
+        default: return new Channel(channel);
+        case 0: return new GuildTextChannel(channel);
+        case 1: return new DirectMessageChannel(channel);
+        case 2: return new GuildVoiceChannel(channel);
+        case 3: return new GroupChannel(channel);
+        case 4: return new ChannelCategory(channel);
         }
     }
 
@@ -156,9 +156,9 @@ export class PermissionOverwrite {
 
     static from(data, channel_id) {
         switch (data.type) {
-            default: return new PermissionOverwrite(data, channel_id);
-            case 'role': return new RolePermissionOverwrite(data, channel_id);
-            case 'member': return new MemberPermissionOverwrite(data, channel_id);
+        default: return new PermissionOverwrite(data, channel_id);
+        case 'role': return new RolePermissionOverwrite(data, channel_id);
+        case 'member': return new MemberPermissionOverwrite(data, channel_id);
         }
     }
 

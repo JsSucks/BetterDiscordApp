@@ -10,14 +10,14 @@
 
 <template>
     <div class="bd-dropdown" :class="{'bd-active': active, 'bd-disabled': disabled}">
-        <div class="bd-dropdown-current" @click="() => active = !active && !disabled">
-            <span class="bd-dropdown-text">{{ getSelectedText() }}</span>
-            <span class="bd-dropdown-arrow-wrap">
-                <span class="bd-dropdown-arrow"></span>
+        <div class="bd-dropdownCurrent" @click="() => active = !active && !disabled">
+            <span class="bd-dropdownText">{{ getSelectedText() }}</span>
+            <span class="bd-dropdownArrowWrap">
+                <span class="bd-dropdownArrow"></span>
             </span>
         </div>
-        <div class="bd-dropdown-options bd-flex bd-flex-col" ref="options" v-if="active">
-            <div class="bd-dropdown-option" v-for="option in options" :class="{'bd-dropdown-option-selected': value === option.value}" @click="select(option)">{{ option.text }}</div>
+        <div class="bd-dropdownOptions bd-flex bd-flexCol" ref="options" v-if="active">
+            <div class="bd-dropdownOption" v-for="option in options" :class="{'bd-dropdownOptionSelected': value === option.value}" @click="select(option)">{{ option.text }}</div>
         </div>
     </div>
 </template>

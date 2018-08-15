@@ -1,19 +1,22 @@
-.bd-form-settingsarray {
-    .bd-button.bd-button-primary {
-        padding: 3px 8px;
-        border-radius: 3px;
-        font-size: 12px;
-        font-weight: 400;
+// sass-lint:disable force-element-nesting force-pseudo-nesting
+.bd-formSettingsarray {
+    .bd-button {
+        .bd-buttonPrimary {
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 400;
+        }
     }
 
-    .bd-settingsarray-items {
+    .bd-settingsarrayItems {
         margin-top: 15px;
 
-        .bd-settingsarray-item {
+        .bd-settingsarrayItem {
             display: flex;
             margin-top: 10px;
 
-            .bd-settingsarray-item-marker {
+            .bd-settingsarrayItemMarker {
                 flex: 0 0 auto;
                 min-width: 15px;
                 margin-right: 5px;
@@ -21,26 +24,26 @@
                 font-size: 15px;
             }
 
-            .bd-settingsarray-item-contents {
+            .bd-settingsarrayItemContents {
                 flex: 1 1;
             }
 
-            .bd-settings-panel {
-                .bd-settings-categories:last-child .bd-form-item:last-child .bd-form-divider {
+            .bd-settingsPanel {
+                .bd-settingsCategories:last-child .bd-formItem:last-child .bd-formDivider {
                     margin-bottom: 0;
                 }
 
-                .bd-settings-category:only-child > div > .bd-form-item.bd-form-item-noheader:only-child {
-                    .bd-form-textinput,
-                    .bd-form-numberinput {
-                        + .bd-form-divider {
+                .bd-settingsCategory:only-child > div > .bd-formItem.bd-formItemNoheader:only-child {
+                    .bd-formTextinput,
+                    .bd-formNumberinput {
+                        + .bd-formDivider {
                             display: none;
                         }
                     }
                 }
             }
 
-            .bd-settingsarray-item-hint {
+            .bd-settingsarrayItemHint {
                 color: #aaa;
                 font-size: 15px;
                 font-style: italic;
@@ -49,13 +52,13 @@
                 max-width: 385px;
             }
 
-            .bd-settingsarray-item-controls {
+            .bd-settingsarrayItemControls {
                 flex: 0 0 auto;
                 margin-left: 5px;
             }
 
-            .bd-settingsarray-open,
-            .bd-settingsarray-remove {
+            .bd-settingsarrayOpen,
+            .bd-settingsarrayRemove {
                 margin-left: 5px;
 
                 svg {
@@ -70,13 +73,13 @@
                 }
             }
 
-            &:last-child .bd-settings-categories:last-child .bd-form-item:last-child .bd-form-divider {
+            &:last-child .bd-settingsCategories:last-child .bd-formItem:last-child .bd-formDivider {
                 display: none;
             }
         }
     }
 
-    &.bd-form-settingsarray-inline .bd-settingsarray-item {
+    &.bd-formSettingsarrayInline .bd-settingsarrayItem {
         margin-top: 10px;
     }
 }

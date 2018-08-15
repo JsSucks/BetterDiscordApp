@@ -9,14 +9,14 @@
 */
 
 <template>
-    <div class="bd-window-preferences">
-        <div v-if="disabled" class="bd-form-item bd-window-preferences-disabled">
+    <div class="bd-windowPreferences">
+        <div v-if="disabled" class="bd-formItem bd-windowPreferencesDisabled">
             <p>You can't edit your window preferences here as you are using a JavaScript file to set window preferences.</p>
             <FormButton @click="openFile">Open</FormButton>
             <p class="bd-hint">This will open {{ filePath }} in your system's default editor.</p>
         </div>
 
-        <div v-else-if="settingsSet" class="bd-form-item">
+        <div v-else-if="settingsSet" class="bd-formItem">
             <SettingsPanel :settings="settingsSet" />
 
             <p class="bd-hint">You must fully restart Discord for changes here to take effect.</p>

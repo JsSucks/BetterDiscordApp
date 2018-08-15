@@ -58,7 +58,7 @@ export default new class EmoteModule {
 
     async load(dataPath) {
         const emotes = await FileUtils.readJsonFromFile(dataPath);
-        for (let [index, emote] of emotes.entries()) {
+        for (const [index, emote] of emotes.entries()) {
             // Pause every 10000 emotes so the window doesn't freeze
             if ((index % 10000) === 0)
                 await Utils.wait();
@@ -179,7 +179,7 @@ export default new class EmoteModule {
         let startIndex = 0;
 
         const matching = this.searchCache[key] = [];
-        for (let emote of this.emotes.values()) {
+        for (const emote of this.emotes.values()) {
             if (index >= limit) break;
             if (regex.test(emote.id)) {
                 if (startIndex < start) {
@@ -195,7 +195,7 @@ export default new class EmoteModule {
     }
 
     async patchMessageContent() {
-        const selector = '.' + WebpackModules.getClassName('container', 'containerCozy', 'containerCompact', 'edited');
+        const selector = `.${WebpackModules.getClassName('container', 'containerCozy', 'containerCompact', 'edited')}`;
         const MessageContent = await ReactComponents.getComponent('MessageContent', {selector});
 
         this.unpatchRender = MonkeyPatch('BD:EmoteModule', MessageContent.component.prototype).after('render', (component, args, retVal) => {
@@ -213,7 +213,7 @@ export default new class EmoteModule {
     }
 
     async patchChannelTextArea() {
-        const selector = '.' + WebpackModules.getClassName('channelTextArea', 'emojiButton');
+        const selector = `.${WebpackModules.getClassName('channelTextArea', 'emojiButton')}`;
         const ChannelTextArea = await ReactComponents.getComponent('ChannelTextArea', {selector});
 
         this.unpatchChannelTextArea = MonkeyPatch('BD:EmoteModule', ChannelTextArea.component.prototype).after('render', (component, args, retVal) => {
