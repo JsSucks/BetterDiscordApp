@@ -59,7 +59,7 @@ export default class FileSetting extends Setting {
     }
 
     /**
-     * Returns the mime type of this setting's value in an Array
+     * Returns an array with the mime type of files in this setting's value
      * @return {Array|Promise}
      */
     async filetype() {
@@ -79,7 +79,7 @@ export default class FileSetting extends Setting {
     }
 
     /**
-     * Returns An array with the contents of files in this file setting's value
+     * Returns an array with the contents of files in this file setting's value
      * @return {Promise}
      */
     async read() {
@@ -93,12 +93,12 @@ export default class FileSetting extends Setting {
                 data
             ]);
         }
-        
+
         return files;
     }
 
     /**
-     * Returns An array with the contents of files in this file setting's value
+     * Returns an array with the contents of files in this file setting's value
      * @param {Object} options Additional options to pass to FileUtils.readFileBuffer
      * @return {Promise}
      */
@@ -113,7 +113,7 @@ export default class FileSetting extends Setting {
                 data
             ]);
         }
-        
+
         return files;
     }
 
