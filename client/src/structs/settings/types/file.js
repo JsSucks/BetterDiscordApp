@@ -67,7 +67,12 @@ export default class FileSetting extends Setting {
 
         const files = [];
         for (const filepath of this.value) {
-            const type = await FileUtils.getFileType(path.resolve(this.path, filepath));
+            const resolvedPath = path.resolve(this.path, filepath);
+            const type = await FileUtils.getFileType(resolvedPath);
+
+            if (type === null)
+                throw {message: `Unknown mime type for file ${resolvedPath}`};
+
             files.push([
                 filepath,
                 type.ext,
