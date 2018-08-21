@@ -68,11 +68,11 @@ export default class FileSetting extends Setting {
         const files = [];
         for (const filepath of this.value) {
             const type = await FileUtils.getFileType(path.resolve(this.path, filepath));
-            files.push({
-                'filepath': filepath,
-                'ext': type.ext,
-                'mime': type.mime
-            });
+            files.push([
+                filepath,
+                type.ext,
+                type.mime
+            ]);
         }
 
         return files;
