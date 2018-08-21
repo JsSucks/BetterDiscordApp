@@ -58,4 +58,24 @@ export default class FileSetting extends Setting {
         return files.length ? files.join(', ') : '()';
     }
 
+    /**
+     * Returns the mime type of this setting's value in an Array
+     * @return {Array|Promise}
+     */
+    async filetype() {
+        if (!this.value || !this.value.length) return [];
+        
+        const files = [];
+        for (const filepath of this.value) {
+            const type = await FileUtils.getFileType(path.resolve(this.path, filepath));
+            files.push({
+                'filepath': filepath,
+                'ext': type.ext,
+                'mime': type.mime
+            });
+        }
+
+        return files;
+    }
+
 }
