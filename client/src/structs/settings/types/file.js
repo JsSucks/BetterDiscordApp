@@ -64,7 +64,7 @@ export default class FileSetting extends Setting {
      */
     async filetype() {
         if (!this.value || !this.value.length) return [];
-        
+
         const files = [];
         for (const filepath of this.value) {
             const type = await FileUtils.getFileType(path.resolve(this.path, filepath));
@@ -75,6 +75,45 @@ export default class FileSetting extends Setting {
             });
         }
 
+        return files;
+    }
+
+    /**
+     * Returns An array with the contents of files in this file setting's value
+     * @return {Promise}
+     */
+    async read() {
+        if (!this.value || !this.value.length) return [];
+
+        const files = [];
+        for (const filepath of this.value) {
+            const data = await FileUtils.readFile(path.resolve(this.path, filepath));
+            files.push([
+                filepath,
+                data
+            ]);
+        }
+        
+        return files;
+    }
+
+    /**
+     * Returns An array with the contents of files in this file setting's value
+     * @param {Object} options Additional options to pass to FileUtils.readFileBuffer
+     * @return {Promise}
+     */
+    async readBuffer(options) {
+        if (!this.value || !this.value.length) return [];
+
+        const files = [];
+        for (const filepath of this.value) {
+            const data = await FileUtils.readFileBuffer(path.resolve(this.path, filepath), options);
+            files.push([
+                filepath,
+                data
+            ]);
+        }
+        
         return files;
     }
 
