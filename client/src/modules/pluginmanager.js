@@ -124,6 +124,7 @@ export default class extends ContentManager {
         return instance;
     }
 
+    static get deletePlugin() { return this.deleteContent }
     static get unloadPlugin() { return this.unloadContent }
     static get reloadPlugin() { return this.reloadContent }
 

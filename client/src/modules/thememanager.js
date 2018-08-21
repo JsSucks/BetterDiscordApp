@@ -53,6 +53,7 @@ export default class ThemeManager extends ContentManager {
         }
     }
 
+    static get deleteTheme() { return this.deleteContent }
     static get unloadTheme() { return this.unloadContent }
     static async reloadTheme(theme) {
         theme = await this.reloadContent(theme);

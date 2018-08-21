@@ -257,6 +257,36 @@ export default class {
     }
 
     /**
+     * Delete content.
+     * @param {Content|String} content Content to delete
+     * @param {Boolean} force If true the content will be deleted even if an exception is thrown when disabling/unloading/deleting
+     */
+    static async deleteContent(content, force) {
+        content = this.findContent(content);
+        if (!content) throw {message: `Could not find a ${this.contentType} from ${content}.`};
+
+        try {
+            await Modals.confirm(`Delete ${this.contentType} ?`, `Are you sure you want to delete ${content.info.name} ?`, 'Delete').promise;
+        } catch (err) {
+            return false;
+        }
+
+        try {
+            const unload = this.unloadContent(content, force, false);
+
+            if (!force)
+                await unload;
+
+            await FileUtils.directoryExists(content.paths.contentPath);
+            FileUtils.deleteDirectory(content.paths.contentPath);
+            return true;
+        } catch (err) {
+            Logger.err(this.moduleName, err);
+            throw err;
+        }
+    }
+
+    /**
      * Unload content.
      * @param {Content|String} content Content to unload
      * @param {Boolean} force If true the content will be unloaded even if an exception is thrown when disabling/unloading

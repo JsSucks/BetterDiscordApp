@@ -58,4 +58,68 @@ export default class FileSetting extends Setting {
         return files.length ? files.join(', ') : '()';
     }
 
+    /**
+     * Returns an array with the mime type of files in this setting's value
+     * @return {Array|Promise}
+     */
+    async filetype() {
+        if (!this.value || !this.value.length) return [];
+
+        const files = [];
+        for (const filepath of this.value) {
+            const resolvedPath = path.resolve(this.path, filepath);
+            const type = await FileUtils.getFileType(resolvedPath);
+
+            if (type === null)
+                throw {message: `Unknown mime type for file ${resolvedPath}`};
+
+            files.push([
+                filepath,
+                type.ext,
+                type.mime
+            ]);
+        }
+
+        return files;
+    }
+
+    /**
+     * Returns an array with the contents of files in this file setting's value
+     * @return {Promise}
+     */
+    async read() {
+        if (!this.value || !this.value.length) return [];
+
+        const files = [];
+        for (const filepath of this.value) {
+            const data = await FileUtils.readFile(path.resolve(this.path, filepath));
+            files.push([
+                filepath,
+                data
+            ]);
+        }
+
+        return files;
+    }
+
+    /**
+     * Returns an array with the contents of files in this file setting's value
+     * @param {Object} options Additional options to pass to FileUtils.readFileBuffer
+     * @return {Promise}
+     */
+    async readBuffer(options) {
+        if (!this.value || !this.value.length) return [];
+
+        const files = [];
+        for (const filepath of this.value) {
+            const data = await FileUtils.readFileBuffer(path.resolve(this.path, filepath), options);
+            files.push([
+                filepath,
+                data
+            ]);
+        }
+
+        return files;
+    }
+
 }
