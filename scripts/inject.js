@@ -15,7 +15,7 @@ const discordPath = (function() {
         return dir;
     }
     else if (process.platform == 'darwin') {
-        const dir = path.join('Applications', `${release}.app`, 'Contents', 'Resources');
+        const dir = path.join('/Applications', `${release}.app`, 'Contents', 'Resources');
         if (!fs.existsSync(dir)) throw new Error(`Cannot find directory for ${release}`);
         return dir;
     }
