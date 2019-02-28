@@ -52,8 +52,10 @@
         }
 
         input[type="checkbox"] {
-            margin: 0 6px 0 0;
-            cursor: pointer;
+            display: none;
+            &:checked + span::before {
+                background-image: $checkmark;
+            }
         }
 
         span {
@@ -61,6 +63,22 @@
             font-weight: 500;
             color: #bac9d2;
             font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+            &::before {
+                content: '';
+                position: relative;
+                display: inline-block;
+                top: 1px;
+                width: 12px;
+                height: 12px;
+                margin-right: 6px;
+                border-radius: 3px;
+                background-color: #36393f;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            &:hover::before {
+                background-color: #44474e;
+            }
         }
     }
 }
