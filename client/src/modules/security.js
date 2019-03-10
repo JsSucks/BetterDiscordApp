@@ -108,4 +108,9 @@ export default class Security {
         return ecdh.computeSecret(otherPublicKey, 'base64', 'base64');
     }
 
+    static isBase64(text) {
+        const reg = /^(?:[a-zA-Z0-9+/]{4})*(?:[a-zA-Z0-9+/]{3}=|[a-zA-Z0-9+/]{2}==)?$/;
+        return reg.test(text);
+    }
+
 }
