@@ -1,13 +1,13 @@
 // sass-lint:disable-all
 body:not(.bd-hideButton) {
-    [class*='guildsWrapper-'] {
-        padding-top: 49px !important;
+    .wrapper-1Rf91z {
+        padding-top: 50px !important;
     }
-    .platform-osx [class*='guildsWrapper-'] {
-        margin-top: 26px;
+    .platform-osx .wrapper-1Rf91z {
+        margin-top: 25px;
     }
 
-    [class*='guildsWrapper-'] + [class*='flex'] {
+    .wrapper-1Rf91z + [class*='flex'] {
         border-radius: 0 0 0 5px;
     }
 
