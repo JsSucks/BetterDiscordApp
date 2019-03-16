@@ -318,6 +318,9 @@ export default class {
             if (!reload && this.getContentById(content.id))
                 throw { message: `A ${this.contentType} with the ID ${content.id} already exists.` };
 
+            if (!reload && readConfig.permissions && readConfig.permissions.length && content.type === 'plugin')
+                content.savePermissions();
+
             if (reload) this.localContent.splice(index, 1, content);
             else this.localContent.push(content);
             return content;
@@ -336,7 +339,7 @@ export default class {
         if (!content) throw {message: `Could not find a ${this.contentType} from ${content}.`};
 
         try {
-            await Modals.confirm(`Delete ${this.contentType}?`, `Are you sure you want to delete ${content.info.name} ?`, 'Delete').promise;
+            await Modals.confirm(`Delete ${this.contentType} ?`, `Are you sure you want to delete ${content.info.name} ?`, 'Delete').promise;
         } catch (err) {
             return false;
         }

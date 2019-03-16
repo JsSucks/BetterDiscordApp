@@ -10,6 +10,9 @@
 
 import PluginManager from './pluginmanager';
 import Content from './content';
+import Database from './database';
+import { ClientLogger as Logger } from 'common';
+import { Permissions } from 'modules';
 
 export default class Plugin extends Content {
 
@@ -24,6 +27,25 @@ export default class Plugin extends Content {
 
     unload(force) {
         return PluginManager.unloadPlugin(this, force);
+    }
+
+    /**
+     * Saves the plugin's permissions
+     */
+    savePermissions() {
+        try {
+            const permissions = Permissions.getAll(this.id);
+            if (!permissions.length)
+                return;
+
+            Database.insertOrUpdate({ type: `plugin-permissions`, id: this.id }, {
+                type: `plugin-permissions`,
+                id: this.id,
+                permissions: permissions
+            });
+        } catch (err) {
+            Logger.err(this.name, ['Failed to save permissions', err]);
+        }
     }
 
 }

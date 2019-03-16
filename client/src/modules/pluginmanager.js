@@ -18,6 +18,7 @@ import ExtModuleManager from './extmodulemanager';
 import Plugin from './plugin';
 import PluginApi from './pluginapi';
 import Vendor from './vendor';
+import Database from './database';
 
 export default class extends ContentManager {
 
@@ -75,12 +76,26 @@ export default class extends ContentManager {
 
     static get loadContent() { return this.loadPlugin }
     static async loadPlugin(paths, configs, info, main, dependencies, permissions, mainExport, packed = false) {
-        if (permissions && permissions.length > 0) {
-            for (const perm of permissions) {
-                Logger.log(this.moduleName, `Permission: ${Permissions.permissionText(perm).HEADER} - ${Permissions.permissionText(perm).BODY}`);
+        try {
+            const readPermissions = await Database.find({ type: `plugin-permissions`, id: info.id });
+            if (permissions && permissions.length && readPermissions.length) {
+                for (const dbPermsIndex in readPermissions[0].permissions) {
+                    for (let i = permissions.length - 1; i >= 0; --i) {
+                        if (readPermissions[0].permissions[dbPermsIndex] === permissions[i]) {
+                            Permissions.add(info.id, permissions[i]);
+                            permissions.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
             }
+        } catch (err) {
+            Logger.warn(this.moduleName, [`Failed reading permissions for ${this.contentType} ${info.name} in ${paths.dirName}`, err]);
+        }
+
+        if (permissions && permissions.length) {
             try {
-                const allowed = await Modals.permissions(`${info.name} wants to:`, info.name, permissions).promise;
+                await Modals.permissions(`${info.name} wants to:`, info.name, permissions).promise;
             } catch (err) {
                 return;
             }
@@ -116,6 +131,12 @@ export default class extends ContentManager {
             instance.userConfig.enabled = false;
             instance.start(false);
         }
+
+        if (permissions && permissions.length)
+            Permissions.addMultiple(info.id, permissions);
+
+        instance.once('unload', () => Permissions.removeAll(instance.id));
+
         return instance;
     }
 

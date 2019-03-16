@@ -24,6 +24,7 @@ import Reflection from './reflection/index';
 import DiscordApi from './discordapi';
 import { ReactComponents, ReactHelpers } from './reactcomponents';
 import { Patcher, MonkeyPatch } from './patcher';
+import { Permissions } from 'modules';
 import GlobalAc from '../ui/autocomplete';
 import Vue from 'vue';
 import path from 'path';
@@ -255,12 +256,13 @@ export default class PluginApi {
     }
     deleteStyle(id) {
         const styleid = `plugin-${this.plugin.id}-${id}`;
-        this.injectedStyles.splice(this.injectedStyles.indexOf(styleid), 1);
+        const index = this.injectedStyles.indexOf(id);
+        if (index !== -1) this.injectedStyles.splice(index, 1);
         DOM.deleteStyle(styleid);
     }
     deleteAllStyles(id) {
-        for (const id of this.injectedStyles) {
-            this.deleteStyle(id);
+        for (let i = this.injectedStyles.length - 1; i >= 0; i--) {
+            this.deleteStyle(this.injectedStyles[i]);
         }
     }
     get CssUtils() {
@@ -500,7 +502,9 @@ export default class PluginApi {
      */
 
     async getPlugin(plugin_id) {
-        // This should require extra permissions
+        if (!Permissions.get(this.pluginInfo.id, 'GET_INSTALLED_COMPONENT'))
+            throw {message: 'Missing GET_INSTALLED_COMPONENT permission'};
+
         return PluginManager.waitForPlugin(plugin_id);
     }
     listPlugins() {
@@ -518,7 +522,9 @@ export default class PluginApi {
      */
 
     async getTheme(theme_id) {
-        // This should require extra permissions
+        if (!Permissions.get(this.pluginInfo.id, 'GET_INSTALLED_COMPONENT'))
+            throw {message: 'Missing GET_INSTALLED_COMPONENT permission'};
+
         return ThemeManager.waitForContent(theme_id);
     }
     listThemes() {
@@ -536,7 +542,9 @@ export default class PluginApi {
      */
 
     async getModule(module_id) {
-        // This should require extra permissions
+        if (!Permissions.get(this.pluginInfo.id, 'GET_INSTALLED_COMPONENT'))
+            throw {message: 'Missing GET_INSTALLED_COMPONENT permission'};
+
         return ExtModuleManager.waitForContent(module_id);
     }
     listModules() {
