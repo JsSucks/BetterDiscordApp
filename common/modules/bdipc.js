@@ -104,6 +104,10 @@ const ClientIPC = new class ClientIPC {
         return this.send('native-open', options);
     }
 
+    getNativeModuleErrors() {
+        return this.send('getNativeModuleErrors');
+    }
+
     compileSass(options) {
         return this.send('compileSass', options);
     }

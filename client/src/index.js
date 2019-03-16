@@ -13,6 +13,7 @@ import BdCss from './styles/index.scss';
 import { Events, Globals, Settings, Database, Updater, ModuleManager, PluginManager, ThemeManager, ExtModuleManager, Vendor, Patcher, MonkeyPatch, ReactComponents, ReactHelpers, ReactAutoPatcher, DiscordApi, BdWebApi, Connectivity, Cache, Reflection, PackageInstaller } from 'modules';
 import { ClientLogger as Logger, ClientIPC, Utils, Axi } from 'common';
 import { BuiltinManager, EmoteModule, ReactDevtoolsModule, VueDevtoolsModule, TrackingProtection, E2EE } from 'builtin';
+import { ErrorEvent } from 'structs';
 import electron from 'electron';
 import path from 'path';
 
@@ -70,6 +71,9 @@ class BetterDiscord {
         this.globalReady = this.globalReady.bind(this);
         Events.on('global-ready', this.globalReady);
         Globals.initg();
+
+        this.showNativeModuleErrors = this.showNativeModuleErrors.bind(this);
+        Events.on('show-native-module-errors', this.showNativeModuleErrors);
     }
 
     globalReady() {
@@ -80,12 +84,19 @@ class BetterDiscord {
 
     async init() {
         try {
+            Logger.log('main', ['Native module errors', Globals.nativeModuleErrors]);
+            Events.emit('show-native-module-errors');
+
             await Database.init();
             await Settings.loadSettings();
             await ModuleManager.initModules();
             BuiltinManager.initAll();
 
             if (tests) this.initTests();
+
+            if (Globals.nativeModuleErrors.keytar) {
+                Settings.getSetting('security', 'default', 'use-keytar').disabled = true;
+            }
 
             if (!ignoreExternal) {
                 await ExtModuleManager.loadAllModules(true);
@@ -96,11 +107,28 @@ class BetterDiscord {
             Events.emit('ready');
             Events.emit('discord-ready');
 
-            if (!Settings.get('core', 'advanced', 'ignore-content-manager-errors'))
+            if (!Settings.get('core', 'advanced', 'ignore-content-manager-errors') && !Globals.nativeModuleErrorCount)
                 Modals.showContentManagerErrors();
         } catch (err) {
             Logger.err('main', ['FAILED TO LOAD!', err]);
         }
+    }
+
+    showNativeModuleErrors() {
+        if (!Globals.nativeModuleErrorCount) return;
+
+        return Modals.error({
+            header: `${Globals.nativeModuleErrorCount} native module${Globals.nativeModuleErrorCount !== 1 ? 's' : ''} failed to load`,
+            module: 'core',
+            type: 'err',
+            message: 'Some features will be unavailable. This normally happens when Discord updates Electron. Make sure you\'re running the latest version of Discord and BetterDiscord and try again.'
+                + (tests ? ' You can also try recompiling native modules.' : ''),
+            content: Object.entries(Globals.nativeModuleErrors).map(([name, err]) => new ErrorEvent({
+                module: name,
+                message: `Failed to load ${name}`,
+                err
+            }))
+        });
     }
 
     initTests() {

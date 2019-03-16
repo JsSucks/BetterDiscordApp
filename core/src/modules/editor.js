@@ -14,8 +14,9 @@ import { BrowserWindow } from 'electron';
 import Module from './modulebase';
 import { WindowUtils, FileUtils } from './utils';
 import BDIpc from './bdipc';
-import sass from 'node-sass';
 import chokidar from 'chokidar';
+
+import { sass, native_module_errors } from '.';
 
 export default class Editor extends Module {
 
@@ -120,6 +121,11 @@ export default class Editor extends Module {
             if (mode !== 'scss') {
                 await this.sendToDiscord('editor-injectStyle', { id, style });
                 event.reply('ok');
+                return;
+            }
+
+            if (!sass) {
+                event.reject(native_module_errors['node-sass']);
                 return;
             }
 

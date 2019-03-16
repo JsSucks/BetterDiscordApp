@@ -46,13 +46,12 @@ const TEST_EDITOR = TESTS && true;
 import process from 'process';
 import os from 'os';
 import path from 'path';
-import sass from 'node-sass';
 import { BrowserWindow as OriginalBrowserWindow, dialog, session, shell } from 'electron';
 import deepmerge from 'deepmerge';
 import ContentSecurityPolicy from 'csp-parse';
-import keytar from 'keytar';
 
 import { FileUtils, BDIpc, Config, WindowUtils, Updater, Editor, Database } from './modules';
+import { sass, keytar, native_module_errors } from './modules';
 
 const sparkplug = path.resolve(__dirname, 'sparkplug.js');
 
@@ -83,7 +82,14 @@ class Comms {
             });
         });
 
+        BDIpc.on('bd-getNativeModuleErrors', () => native_module_errors, true);
+
         BDIpc.on('bd-compileSass', (event, options) => {
+            if (!sass) {
+                event.reject(native_module_errors['node-sass']);
+                return;
+            }
+
             if (typeof options.path === 'string' && typeof options.data === 'string') {
                 options.data = `${options.data} @import '${options.path.replace(/\\/g, '\\\\').replace(/'/g, '\\\'')}';`;
                 options.path = undefined;
@@ -97,10 +103,22 @@ class Comms {
 
         BDIpc.on('bd-dba', (event, options) => this.bd.database.exec(options), true);
 
-        BDIpc.on('bd-keytar-get', (event, { service, account }) => keytar.getPassword(service, account), true);
-        BDIpc.on('bd-keytar-set', (event, { service, account, password }) => keytar.setPassword(service, account, password), true);
-        BDIpc.on('bd-keytar-delete', (event, { service, account }) => keytar.deletePassword(service, account), true);
-        BDIpc.on('bd-keytar-find-credentials', (event, { service }) => keytar.findCredentials(service), true);
+        BDIpc.on('bd-keytar-get', (event, { service, account }) => {
+            if (!keytar) throw native_module_errors.keytar;
+            return keytar.getPassword(service, account);
+        }, true);
+        BDIpc.on('bd-keytar-set', (event, { service, account, password }) => {
+            if (!keytar) throw native_module_errors.keytar;
+            return keytar.setPassword(service, account, password);
+        }, true);
+        BDIpc.on('bd-keytar-delete', (event, { service, account }) => {
+            if (!keytar) throw native_module_errors.keytar;
+            return keytar.deletePassword(service, account);
+        }, true);
+        BDIpc.on('bd-keytar-find-credentials', (event, { service }) => {
+            if (!keytar) throw native_module_errors.keytar;
+            return keytar.findCredentials(service);
+        }, true);
 
         BDIpc.on('bd-readDataFile', async (event, fileName) => {
             const rf = await FileUtils.readFile(path.resolve(configProxy().getPath('data'), fileName));

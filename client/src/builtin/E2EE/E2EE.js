@@ -8,7 +8,7 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import { Settings, Cache, Events } from 'modules';
+import { Settings, Cache, Events, Globals } from 'modules';
 import BuiltinModule from '../BuiltinModule';
 import { Reflection, ReactComponents, DiscordApi, Security } from 'modules';
 import { VueInjector, Modals, Toasts } from 'ui';
@@ -62,7 +62,7 @@ export default new class E2EE extends BuiltinModule {
     /* Methods */
     async fetchMasterKey() {
         try {
-            if (Settings.get('security', 'default', 'use-keytar')) {
+            if (Settings.get('security', 'default', 'use-keytar') && !Globals.nativeModuleErrors.keytar) {
                 const master = await ClientIPC.getPassword('betterdiscord', 'master');
                 if (master) return this.setMaster(master);
 

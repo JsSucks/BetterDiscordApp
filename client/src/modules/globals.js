@@ -38,6 +38,9 @@ export default new class extends Module {
         const config = await ClientIPC.send('getConfig');
         this.setState({ config });
 
+        const nativeModuleErrors = await ClientIPC.getNativeModuleErrors();
+        this.setState({ nativeModuleErrors });
+
         // This is for Discord to stop error reporting :3
         window.BetterDiscord = {
             version: config.version,
@@ -99,6 +102,14 @@ export default new class extends Module {
 
     get version() {
         return this.config.versions.core;
+    }
+
+    get nativeModuleErrors() {
+        return this.state.nativeModuleErrors;
+    }
+
+    get nativeModuleErrorCount() {
+        return Object.keys(this.nativeModuleErrors).length;
     }
 
 }

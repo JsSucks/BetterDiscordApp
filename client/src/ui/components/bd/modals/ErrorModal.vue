@@ -3,6 +3,8 @@
            :class="{'bd-err': modal.event.type && modal.event.type === 'err'}">
         <MiError v-if="modal.event.type === 'err'" slot="icon" size="20"/>
         <div slot="body">
+            <p v-if="modal.event.message">{{ modal.event.message }}</p>
+
             <div v-for="(content, index) in modal.event.content">
                 <div class="bd-modalError" :class="{'bd-open': content.showStack}">
                     <div class="bd-modalErrorTitle bd-flex">
