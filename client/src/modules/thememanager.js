@@ -113,7 +113,7 @@ export default class ThemeManager extends ContentManager {
         const name = setting.id.replace(/[^a-zA-Z0-9-]/g, '-').replace(/--/g, '-');
         const scss = await setting.toSCSS();
 
-        if (scss) return [name, scss];
+        if (typeof scss !== 'undefined') return [name, scss];
     }
 
     /**

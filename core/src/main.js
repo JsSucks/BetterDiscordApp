@@ -52,6 +52,10 @@ import deepmerge from 'deepmerge';
 import ContentSecurityPolicy from 'csp-parse';
 import keytar from 'keytar';
 
+import postcss from 'postcss';
+import postcssUrl from 'postcss-url';
+import postcssScss from 'postcss-scss';
+
 import { FileUtils, BDIpc, Config, WindowUtils, Updater, Editor, Database } from './modules';
 
 const sparkplug = path.resolve(__dirname, 'sparkplug.js');
@@ -83,15 +87,41 @@ class Comms {
             });
         });
 
+        const sassImporter = async (context, url, prev, inlinedFiles) => {
+            let file = path.resolve(path.dirname(prev), url);
+
+            const scss = await FileUtils.readFile(file)
+                .catch(err => FileUtils.readFile(file += '.scss'))
+                .catch(err => FileUtils.readFile(file = path.join(path.dirname(file), '_' + path.basename(file).substr(0, path.basename(file).length - 5))))
+                .catch(err => FileUtils.readFile(file += '.scss'));
+
+            const result = await postcss([postcssUrl({url: 'inline', encodeType: 'base64', optimizeSvgEncode: true})])
+                .process(scss, {from: file, syntax: postcssScss});
+
+            for (const message of result.messages) {
+                if (message.type !== 'dependency') continue;
+                inlinedFiles.push(message.file);
+            }
+
+            return {file, contents: result.css};
+        };
+
         BDIpc.on('bd-compileSass', (event, options) => {
             if (typeof options.path === 'string' && typeof options.data === 'string') {
                 options.data = `${options.data} @import '${options.path.replace(/\\/g, '\\\\').replace(/'/g, '\\\'')}';`;
                 options.path = undefined;
             }
 
+            const inlinedFiles = [];
+
+            options.importer = function (url, prev, done) {
+                sassImporter(this, url, prev, inlinedFiles).then(done, done);
+            };
+
             sass.render(options, (err, result) => {
-                if (err) event.reject(err);
-                else event.reply(result);
+                if (err) return event.reject(err);
+                result.stats.includedFiles = result.stats.includedFiles.concat(inlinedFiles);
+                event.reply(result);
             });
         });
 
