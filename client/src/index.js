@@ -139,3 +139,7 @@ if (window.BetterDiscord) {
     Events.on('autopatcher', () => instance = new BetterDiscord());
     ReactAutoPatcher.autoPatch().then(() => Events.emit('autopatcher'));
 }
+
+if (module.hot) {
+    module.hot.accept('./styles/index.scss', () => DOM.injectStyle(BdCss, 'bdmain'));
+}

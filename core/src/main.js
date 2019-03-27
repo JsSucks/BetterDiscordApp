@@ -41,7 +41,9 @@ const TEST_ARGS = () => {
         }
     }
 }
+
 const TEST_EDITOR = TESTS && true;
+const TEST_HMR = TESTS && true;
 
 import process from 'process';
 import os from 'os';
@@ -221,7 +223,7 @@ export class BetterDiscord {
 
         this.bindings();
         this.extraPaths();
-        this.parseClientPackage();
+        if (!TEST_HMR) this.parseClientPackage();
         this.parseEditorPackage();
         this.parseCorePackage();
 
@@ -359,6 +361,11 @@ export class BetterDiscord {
      * @param {Boolean} reload Whether the main window was reloaded
      */
     async injectScripts(reload = false) {
+        if (TEST_HMR) {
+            console.log(`[BetterDiscord] injecting webpack ${path.resolve(__dirname, '..', '..', 'client', 'src', 'hmr.js')}. Reload: ${reload}`);
+            return this.windowUtils.injectScript(path.resolve(__dirname, '..', '..', 'client', 'src', 'hmr.js'));
+        }
+
         console.log(`[BetterDiscord] injecting ${this.config.getPath('client_script')}. Reload: ${reload}`);
         return this.windowUtils.injectScript(this.config.getPath('client_script'));
     }
@@ -399,6 +406,67 @@ export class BetterDiscord {
             callback({ responseHeaders: details.responseHeaders });
         });
     }
+}
+
+if (TEST_HMR) {
+    const { app, ipcMain } = require('electron');
+    const webpack = require('webpack');
+    const WebpackDevServer = require('webpack-dev-server');
+    const webpackConfig = require('../../client/webpack.config');
+
+    const address = '127.0.0.1';
+    const port = 8091;
+    const http_path = `https://127.0.0.1:${port}`;
+    const ws_path = `wss://127.0.0.1:${port}`;
+
+    const compiler = webpack(Object.assign({}, webpackConfig, {
+        entry: [`webpack-dev-server/client?${http_path}`, 'webpack/hot/dev-server', './src/index.js'],
+        plugins: webpackConfig.plugins.concat([
+            new webpack.HotModuleReplacementPlugin()
+        ]),
+        output: Object.assign({}, webpackConfig.output, {
+            publicPath: `${http_path}/`
+        })
+    }));
+    const server = new WebpackDevServer(compiler, Object.assign({}, webpackConfig.devServer, {
+        stats: {
+            colors: true
+        },
+        public: http_path,
+        hot: true,
+
+        // The connection will be upgraded to HTTPS so this is required
+        https: true,
+
+        // By default webpack checks the Origin header, which will fail as the origin will be https://discordapp.com, not https://localhost:8091
+        disableHostCheck: true,
+        headers: {
+            'Access-Control-Allow-Origin': 'https://discordapp.com'
+        }
+    }));
+
+    server.listen(port, address, () => {
+        console.log(`[BetterDiscord] Running webpack dev server at ${http_path}`);
+    });
+
+    CSP['script-src'].push(http_path);
+    CSP['connect-src'].push(http_path);
+    CSP['connect-src'].push(ws_path);
+
+    app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+        console.log('[BetterDiscord] certificate error', url, error);
+        if (url.startsWith(`${http_path}/`) || url.startsWith(`${ws_path}/`)) {
+            console.log('[BetterDiscord] continuing anyway');
+            event.preventDefault();
+            callback(true);
+        } else {
+            callback(false);
+        }
+    });
+
+    ipcMain.on('--bd-webpack-server', event => {
+        event.returnValue = http_path;
+    });
 }
 
 BetterDiscord.patchBrowserWindow();

@@ -22,6 +22,7 @@ const scssLoader = {
 };
 
 module.exports = {
+    context: __dirname,
     entry: './src/index.js',
     module: {
         rules: [jsLoader, vueLoader, scssLoader]
@@ -40,16 +41,16 @@ module.exports = {
     },
     resolve: {
         alias: {
-            vue$: path.resolve('..', 'node_modules', 'vue', 'dist', 'vue.esm.js')
+            vue$: path.resolve(__dirname, '..', 'node_modules', 'vue', 'dist', 'vue.esm.js')
         },
         modules: [
-            path.resolve('..', 'node_modules'),
-            path.resolve('..', 'common', 'modules'),
-            path.resolve('src', 'modules'),
-            path.resolve('src', 'ui'),
-            path.resolve('src', 'plugins'),
-            path.resolve('src', 'structs'),
-            path.resolve('src', 'builtin')
+            path.resolve(__dirname, '..', 'node_modules'),
+            path.resolve(__dirname, '..', 'common', 'modules'),
+            path.resolve(__dirname, 'src', 'modules'),
+            path.resolve(__dirname, 'src', 'ui'),
+            path.resolve(__dirname, 'src', 'plugins'),
+            path.resolve(__dirname, 'src', 'structs'),
+            path.resolve(__dirname, 'src', 'builtin')
         ]
     },
     node: {
