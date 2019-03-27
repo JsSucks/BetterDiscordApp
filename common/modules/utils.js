@@ -311,6 +311,24 @@ export class FileUtils {
     }
 
     /**
+     * Gets a files real path.
+     * @param {String} path The file's path
+     * @return {Promise}
+     */
+    static async realpath(path) {
+        return new Promise((resolve, reject) => {
+            fs.realpath(path, (err, realpath) => {
+                if (err) return reject({
+                    message: `No such file or directory: ${err.path}`,
+                    err
+                });
+
+                resolve(realpath);
+            });
+        });
+    }
+
+    /**
      * Checks if a file exists and is a file.
      * @param {String} path The file's path
      * @return {Promise}

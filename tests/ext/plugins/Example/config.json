@@ -22,14 +22,14 @@
             },
             "Just a string"
         ],
-        "version": "1.0",
+        "version": "2.0",
         "description": "Example Plugin Description.\n\nDescriptions are preformatted (you can use newlines).",
         "icon": "icon.svg",
         "icon_type": "image/svg+xml"
     },
     "main": "index.js",
     "dependencies": {
-        "Example Module": "1.0"
+        "Example Module": "^1.0"
     },
     "defaultConfig": [
         {

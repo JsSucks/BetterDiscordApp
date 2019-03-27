@@ -28,6 +28,7 @@ export default class {
      * jQuery
      */
     static get jQuery() { return jQuery }
+    static get jquery() { return jQuery }
     static get $() { return this.jQuery }
 
     /**
@@ -40,6 +41,7 @@ export default class {
      * Vue
      */
     static get Vue() { return Vue }
+    static get vue() { return Vue }
 
     static get axios() { return Axi.axios }
 
@@ -49,5 +51,8 @@ export default class {
     static get filetype() { return filetype }
     static get filewatcher() { return filewatcher }
     static get VTooltip() { return VTooltip }
+    static get combokeys() { return Combokeys }
+    static get 'file-type'() { return filetype }
+    static get 'v-tooltip'() { return VTooltip }
 
 }

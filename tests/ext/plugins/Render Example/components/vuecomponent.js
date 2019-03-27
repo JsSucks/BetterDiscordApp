@@ -1,5 +1,7 @@
-module.exports = (VueWrap, props) => {
-    return VueWrap('somecomponent', {
+const { Vuewrap } = require('betterdiscord/plugin-api');
+
+module.exports = props => {
+    return Vuewrap('somecomponent', {
         render: function (createElement) {
             return createElement('button', {
                 class: 'exampleCustomElement',

@@ -250,6 +250,10 @@ export default class ArraySetting extends Setting {
                 setting.setContentPath(contentPath);
             }
         }
+
+        for (const scheme of this.schemes) {
+            scheme.setContentPath(contentPath);
+        }
     }
 
     /**

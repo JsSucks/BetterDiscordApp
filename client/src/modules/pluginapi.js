@@ -25,9 +25,7 @@ import DiscordApi from './discordapi';
 import { ReactComponents, ReactHelpers } from './reactcomponents';
 import { Patcher, MonkeyPatch } from './patcher';
 import GlobalAc from '../ui/autocomplete';
-import Vue from 'vue';
-import path from 'path';
-import Globals from './globals';
+import semver from 'semver';
 
 export default class PluginApi {
 
@@ -47,8 +45,18 @@ export default class PluginApi {
         return PluginManager.getPluginByPath(this.pluginPath);
     }
 
-    async bridge(plugin_id) {
+    async bridge(plugin_id, request_version) {
         const plugin = await PluginManager.waitForPlugin(plugin_id);
+        if (!request_version) return plugin.bridge;
+
+        if (plugin.bridges) for (const version of Object.keys(plugin.bridges)) {
+            if (semver.satisfies(version, request_version)) return plugin.bridges[version];
+        }
+
+        if (!semver.satisfies(plugin.version, request_version)) {
+            throw new Error(`Requested version ${request_version} not satisfied by plugin.`);
+        }
+
         return plugin.bridge;
     }
 
@@ -84,7 +92,7 @@ export default class PluginApi {
      */
 
     get Logger() {
-        return {
+        return Object.defineProperty(this, 'Logger', {value: {
             log: (...message) => Logger.log(this.plugin.name, message),
             error: (...message) => Logger.err(this.plugin.name, message),
             err: (...message) => Logger.err(this.plugin.name, message),
@@ -92,7 +100,7 @@ export default class PluginApi {
             info: (...message) => Logger.info(this.plugin.name, message),
             debug: (...message) => Logger.dbg(this.plugin.name, message),
             dbg: (...message) => Logger.dbg(this.plugin.name, message)
-        };
+        }}).Logger;
     }
 
     /**
@@ -100,7 +108,7 @@ export default class PluginApi {
      */
 
     get Utils() {
-        return {
+        return Object.defineProperty(this, 'Utils', {value: {
             overload: (...args) => Utils.overload.apply(Utils, args),
             tryParseJson: (...args) => Utils.tryParseJson.apply(Utils, args),
             toCamelCase: (...args) => Utils.toCamelCase.apply(Utils, args),
@@ -113,7 +121,7 @@ export default class PluginApi {
             until: (...args) => Utils.until.apply(Utils, args),
             findInTree: (...args) => Utils.findInTree.apply(Utils, args),
             findInReactTree: (...args) => Utils.findInReactTree.apply(Utils, args)
-        };
+        }}).Utils;
     }
 
     /**
@@ -133,12 +141,12 @@ export default class PluginApi {
         return new SettingsScheme(args);
     }
     get Settings() {
-        return {
+        return Object.defineProperty(this, 'Settings', {value: {
             createSet: this.createSettingsSet.bind(this),
             createCategory: this.createSettingsCategory.bind(this),
             createSetting: this.createSetting.bind(this),
             createScheme: this.createSettingsScheme.bind(this)
-        };
+        }}).Settings;
     }
 
     /**
@@ -149,9 +157,9 @@ export default class PluginApi {
         return Settings.get(set, category, setting);
     }
     get InternalSettings() {
-        return {
+        return Object.defineProperty(this, 'InternalSettings', {value: {
             get: this.getInternalSetting.bind(this)
-        };
+        }}).InternalSettings;
     }
 
     /**
@@ -159,12 +167,12 @@ export default class PluginApi {
      */
 
     get BdMenu() {
-        return {
+        return Object.defineProperty(this, 'BdMenu', {value: {
             open: BdMenu.open.bind(BdMenu),
             close: BdMenu.close.bind(BdMenu),
             items: this.BdMenuItems,
             BdMenuItems: this.BdMenuItems
-        };
+        }}).BdMenu;
     }
 
     /**
@@ -194,7 +202,7 @@ export default class PluginApi {
             BdMenu.items.remove(item);
     }
     get BdMenuItems() {
-        return Object.defineProperty({
+        return Object.defineProperty(this, 'BdMenuItems', {value: Object.defineProperty({
             add: this.addMenuItem.bind(this),
             addSettingsSet: this.addMenuSettingsSet.bind(this),
             addVueComponent: this.addMenuVueComponent.bind(this),
@@ -202,7 +210,7 @@ export default class PluginApi {
             removeAll: this.removeAllMenuItems.bind(this)
         }, 'items', {
             get: () => this.menuItems
-        });
+        })}).BdMenuItems;
     }
 
     /**
@@ -217,11 +225,11 @@ export default class PluginApi {
         return this._activeMenu || (this._activeMenu = { menu: null });
     }
     get BdContextMenu() {
-        return Object.defineProperty({
+        return Object.defineProperty(this, 'BdContextMenu', {value: Object.defineProperty({
             show: this.showContextMenu.bind(this)
         }, 'activeMenu', {
             get: () => this.activeMenu
-        });
+        })}).BdContextMenu;
     }
 
     /**
@@ -264,7 +272,7 @@ export default class PluginApi {
         }
     }
     get CssUtils() {
-        return {
+        return Object.defineProperty(this, 'CssUtils', {value: {
             compileSass: this.compileSass.bind(this),
             getConfigAsSCSS: this.getConfigAsSCSS.bind(this),
             getConfigAsSCSSMap: this.getConfigAsSCSSMap.bind(this),
@@ -272,7 +280,7 @@ export default class PluginApi {
             injectSass: this.injectSass.bind(this),
             deleteStyle: this.deleteStyle.bind(this),
             deleteAllStyles: this.deleteAllStyles.bind(this)
-        };
+        }}).CssUtils;
     }
 
     /**
@@ -308,7 +316,7 @@ export default class PluginApi {
         return this.addModal(Modals.createSettingsModal(settingsset, headertext, options));
     }
     get Modals() {
-        return Object.defineProperties({
+        return Object.defineProperty(this, 'Modals', {value: Object.defineProperties({
             add: this.addModal.bind(this),
             close: this.closeModal.bind(this),
             closeAll: this.closeAllModals.bind(this),
@@ -322,7 +330,7 @@ export default class PluginApi {
             baseComponent: {
                 get: () => Modals.baseComponent
             }
-        });
+        })}).Modals;
     }
 
     /**
@@ -345,14 +353,14 @@ export default class PluginApi {
         return Toasts.warning(message, options);
     }
     get Toasts() {
-        return {
+        return Object.defineProperty(this, 'Toasts', {value: {
             push: this.showToast.bind(this),
             success: this.showSuccessToast.bind(this),
             error: this.showErrorToast.bind(this),
             info: this.showInfoToast.bind(this),
             warning: this.showWarningToast.bind(this),
             get enabled() { return Toasts.enabled }
-        };
+        }}).Toasts;
     }
 
     /**
@@ -380,13 +388,13 @@ export default class PluginApi {
         }
     }
     get Notifications() {
-        return Object.defineProperty({
+        return Object.defineProperty(this, 'Notifications', {value: Object.defineProperty({
             add: this.addNotification.bind(this),
             dismiss: this.dismissNotification.bind(this),
             dismissAll: this.dismissAllNotifications.bind(this)
         }, 'stack', {
             get: () => this.notificationStack
-        });
+        })}).Notifications;
     }
 
     /**
@@ -422,7 +430,7 @@ export default class PluginApi {
         return GlobalAc.items(prefix, sterm);
     }
     get Autocomplete() {
-        return Object.defineProperty({
+        return Object.defineProperty(this, 'Autocomplete', {value: Object.defineProperty({
             add: this.addAutocompleteController.bind(this),
             remove: this.removeAutocompleteController.bind(this),
             removeAll: this.removeAllAutocompleteControllers.bind(this),
@@ -431,7 +439,7 @@ export default class PluginApi {
             search: this.searchAutocomplete.bind(this)
         }, 'sets', {
             get: () => this.autocompleteSets
-        });
+        })}).Autocomplete;
     }
 
     /**
@@ -473,7 +481,7 @@ export default class PluginApi {
         return EmoteModule.search(regex, limit);
     }
     get Emotes() {
-        return Object.defineProperties({
+        return Object.defineProperty(this, 'Emotes', {value: Object.defineProperties({
             setFavourite: this.setFavouriteEmote.bind(this),
             addFavourite: this.addFavouriteEmote.bind(this),
             removeFavourite: this.removeFavouriteEmote.bind(this),
@@ -492,7 +500,7 @@ export default class PluginApi {
             mostused: {
                 get: () => this.mostUsedEmotes
             }
-        });
+        })}).Emotes;
     }
 
     /**
@@ -507,10 +515,10 @@ export default class PluginApi {
         return PluginManager.localContent.map(plugin => plugin.id);
     }
     get Plugins() {
-        return {
+        return Object.defineProperty(this, 'Plugins', {value: {
             getPlugin: this.getPlugin.bind(this),
             listPlugins: this.listPlugins.bind(this)
-        };
+        }}).Plugins;
     }
 
     /**
@@ -525,10 +533,10 @@ export default class PluginApi {
         return ThemeManager.localContent.map(theme => theme.id);
     }
     get Themes() {
-        return {
+        return Object.defineProperty(this, 'Themes', {value: {
             getTheme: this.getTheme.bind(this),
             listThemes: this.listThemes.bind(this)
-        };
+        }}).Themes;
     }
 
     /**
@@ -543,10 +551,10 @@ export default class PluginApi {
         return ExtModuleManager.localContent.map(module => module.id);
     }
     get ExtModules() {
-        return {
+        return Object.defineProperty(this, 'ExtModules', {value: {
             getModule: this.getModule.bind(this),
             listModules: this.listModules.bind(this)
-        };
+        }}).ExtModules;
     }
 
     /**
@@ -566,7 +574,7 @@ export default class PluginApi {
         return Patcher.unpatchAll(patches || this.plugin.id);
     }
     get Patcher() {
-        return Object.defineProperty({
+        return Object.defineProperty(this, 'Patcher', {value: Object.defineProperty({
             before: this.patchBefore.bind(this),
             after: this.patchAfter.bind(this),
             instead: this.patchInstead.bind(this),
@@ -575,10 +583,10 @@ export default class PluginApi {
             monkeyPatch: this.monkeyPatch.bind(this)
         }, 'patches', {
             get: () => this.patches
-        });
+        })}).Patcher;
     }
     get monkeyPatch() {
-        return m => MonkeyPatch(this.plugin.id, m);
+        return Object.defineProperty(this, 'monkeyPatch', {value: m => MonkeyPatch(this.plugin.id, m)}).monkeyPatch;
     }
 
     /**
@@ -603,17 +611,32 @@ export default class PluginApi {
         }
     }
     get DiscordContextMenu() {
-        return Object.defineProperty({
+        return Object.defineProperty(this, 'DiscordContextMenu', {value: Object.defineProperty({
             add: this.addDiscordContextMenu.bind(this),
             remove: this.removeDiscordContextMenu.bind(this),
             removeAll: this.removeAllDiscordContextMenus.bind(this)
         }, 'menus', {
             get: () => this.discordContextMenus
-        });
+        })}).DiscordContextMenu;
     }
 
-    Vuewrap(id, component, props) {
-        return VueInjector.createReactElement(Vue.component(id, component), props);
+    get Vuewrap() {
+        return Object.defineProperty(this, 'Vuewrap', {value: (id, component, props) => {
+            if (!component.name) component.name = id;
+            return VueInjector.createReactElement(component, props);
+        }}).Vuewrap;
+    }
+
+    unloadAll(closeModals = true) {
+        this.Events.unsubscribeAll();
+        this.observer.unsubscribeAll();
+        this.BdMenuItems.removeAll();
+        this.CssUtils.deleteAllStyles();
+        if (closeModals) this.Modals.closeAll();
+        if (closeModals) this.Notifications.dismissAll();
+        this.Autocomplete.removeAll();
+        this.Patcher.unpatchAll();
+        this.DiscordContextMenu.removeAll();
     }
 
 }

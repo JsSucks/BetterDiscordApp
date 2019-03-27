@@ -2,9 +2,13 @@
     "info": {
         "name": "Example Module",
         "authors": [ "Jiiks" ],
-        "version": "1.0",
+        "version": "2.0.0",
         "description": "Module Example"
     },
     "main": "index.js",
-    "type":  "module" 
+    "type": "module",
+    "alternateVersions": {
+        "3.0.0": "index-v3.js",
+        "1.0.0": "index-v1.js"
+    }
 }

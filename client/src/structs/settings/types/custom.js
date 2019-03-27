@@ -67,11 +67,14 @@ export default class CustomSetting extends Setting {
      * @param {String} classExport The name of a property of the file's exports that will be used (optional)
      */
     setClass(class_file, class_export) {
-        const component = Globals.require(path.join(this.path, class_file));
-        const setting_class = class_export ? component[class_export](CustomSetting) : component.default ? component.default(CustomSetting) : component(CustomSetting);
+        const class_exports = Globals.require(path.resolve(this.path, class_file));
+        let setting_class = class_export ? class_exports[class_export] : class_exports.default ? class_exports.default : class_exports;
+
+        if (typeof setting_class === 'function' && !(setting_class.prototype instanceof CustomSetting))
+            setting_class = setting_class.call(class_exports, CustomSetting);
 
         if (!(setting_class.prototype instanceof CustomSetting))
-            throw {message: 'Custom setting class function returned a class that doesn\'t extend from CustomSetting.'};
+            throw {message: 'Custom setting class doesn\'t extend from CustomSetting.'};
 
         this.__proto__ = setting_class.prototype;
     }

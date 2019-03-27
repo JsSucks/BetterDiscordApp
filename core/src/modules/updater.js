@@ -38,21 +38,21 @@ class ReleaseInfo {
 
     get core() {
         const f = this.files.find(f => f.id === 'core');
-        f.upToDate = semver.satisfies(this.versions.core, `>=${f.version}`, { includePrerelease: true });
+        f.upToDate = semver.gte(this.versions.core, f.version, { includePrerelease: true });
         f.currentVersion = this.versions.core;
         return f;
     }
 
     get client() {
         const f = this.files.find(f => f.id === 'client');
-        f.upToDate = semver.satisfies(this.versions.client, `>=${f.version}`, { includePrerelease: true });
+        f.upToDate = semver.gte(this.versions.client, f.version, { includePrerelease: true });
         f.currentVersion = this.versions.client;
         return f;
     }
 
     get editor() {
         const f = this.files.find(f => f.id === 'editor');
-        f.upToDate = semver.satisfies(this.versions.editor, `>=${f.version}`, { includePrerelease: true });
+        f.upToDate = semver.gte(this.versions.editor, f.version, { includePrerelease: true });
         f.currentVersion = this.versions.editor;
         return f;
     }

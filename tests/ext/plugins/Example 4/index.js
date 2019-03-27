@@ -1,4 +1,7 @@
-exports.main = (Plugin, { Logger, Settings, Modals, BdMenu: { BdMenuItems }, CommonComponents, DiscordContextMenu, Autocomplete, Notifications, Api }) => class extends Plugin {
+const Plugin = require('betterdiscord/plugin');
+const { Logger, Settings, Modals, BdMenuItems, CommonComponents, DiscordContextMenu, Autocomplete, Notifications, Api } = require('betterdiscord/plugin-api');
+
+exports.main = class extends Plugin {
     async onstart() {
         this.keybindEvent = this.keybindEvent.bind(this);
 
@@ -141,4 +144,4 @@ exports.main = (Plugin, { Logger, Settings, Modals, BdMenu: { BdMenuItems }, Com
     get api() {
         return Api;
     }
-};
+}

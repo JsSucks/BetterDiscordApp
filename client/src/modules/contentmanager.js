@@ -21,6 +21,7 @@ import { SettingsSet, ErrorEvent } from 'structs';
 import { Modals } from 'ui';
 import Combokeys from 'combokeys';
 import Settings from './settings';
+import semver from 'semver';
 
 /**
  * Base class for managing external content
@@ -148,7 +149,7 @@ export default class {
      * @param {bool} suppressErrors Suppress any errors that occur during loading of content
      */
     static async refreshContent(suppressErrors = false) {
-        if (!this.localContent.length) return this.loadAllContent();
+        if (!this.localContent.length) return this.loadAllContent(suppressErrors);
 
         try {
             await FileUtils.ensureDirectory(this.contentPath);
@@ -251,7 +252,7 @@ export default class {
                 throw 'Blocked unsafe content';
             }
 
-            const contentPath = packed ? dirName.contentPath : path.join(this.contentPath, dirName);
+            const contentPath = packed ? dirName.contentPath : await FileUtils.realpath(path.join(this.contentPath, dirName));
 
             await FileUtils.directoryExists(contentPath);
 
@@ -261,6 +262,8 @@ export default class {
             const configPath = path.resolve(contentPath, 'config.json');
             const readConfig = packed ? dirName.config : await FileUtils.readJsonFromFile(configPath);
             const mainPath = path.join(contentPath, readConfig.main || 'index.js');
+
+            readConfig.info.version = semver.coerce(`${readConfig.info.version || .1}`).version;
 
             const defaultConfig = new SettingsSet({
                 settings: readConfig.defaultConfig,
@@ -289,16 +292,6 @@ export default class {
             userConfig.config = defaultConfig.clone({ settings: userConfig.config });
             userConfig.config.setSaved();
 
-            for (const setting of userConfig.config.findSettings(() => true)) {
-                // This will load custom settings
-                // Setting the content's path on only the live config (and not the default config) ensures that custom settings will not be loaded on the default settings
-                setting.setContentPath(contentPath);
-            }
-
-            for (const scheme of userConfig.config.schemes) {
-                scheme.setContentPath(contentPath);
-            }
-
             Utils.deepfreeze(defaultConfig, object => object instanceof Combokeys);
 
             const configs = {
@@ -313,10 +306,20 @@ export default class {
                 mainPath
             };
 
-            const content = await this.loadContent(paths, configs, readConfig.info, readConfig.main, readConfig.dependencies, readConfig.permissions, readConfig.mainExport, packed ? dirName : false);
+            const content = await this.loadContent(paths, configs, readConfig.info, readConfig.main, readConfig.alternateVersions, readConfig.dependencies, readConfig.permissions, readConfig.mainExport, packed ? dirName : false);
             if (!content) return undefined;
             if (!reload && this.getContentById(content.id))
                 throw { message: `A ${this.contentType} with the ID ${content.id} already exists.` };
+
+            for (const setting of userConfig.config.findSettings(() => true)) {
+                // This will load custom settings
+                // Setting the content's path on only the live config (and not the default config) ensures that custom settings will not be loaded on the default settings
+                setting.setContentPath(contentPath);
+            }
+
+            for (const scheme of userConfig.config.schemes) {
+                scheme.setContentPath(contentPath);
+            }
 
             if (reload) this.localContent.splice(index, 1, content);
             else this.localContent.push(content);

@@ -10,6 +10,8 @@
 
 import Globals from './globals';
 import Content from './content';
+import path from 'path';
+import semver from 'semver';
 
 export default class ExtModule extends Content {
 
@@ -19,5 +21,19 @@ export default class ExtModule extends Content {
     }
 
     get type() { return 'module' }
+    get alternateVersions() { return this.__internals.alternateVersions }
 
+    getVersion(value) {
+        if (this.alternateVersions) for (const version of Object.keys(this.alternateVersions)) {
+            if (semver.satisfies(version, value)) {
+                return Globals.require(path.join(this.contentPath, this.alternateVersions[version]));
+            }
+        }
+
+        if (semver.satisfies(this.version, value)) {
+            return this.__require;
+        }
+
+        throw new Error(`Module cannot satisfy version ${value}.`);
+    }
 }
