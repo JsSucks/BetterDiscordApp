@@ -38,7 +38,7 @@
                         "id": "debugger-keybind",
                         "type": "keybind",
                         "text": "Debugger keybind",
-                        "hint": "Open developer tools and pause"
+                        "hint": "Open developer tools and pause."
                     },
                     {
                         "id": "ignore-content-manager-errors",
@@ -51,14 +51,14 @@
                         "id": "react-devtools",
                         "type": "bool",
                         "text": "React Developer Tools",
-                        "hint": "Place extension in ext/extensions/rdt",
+                        "hint": "Place extension in ext/extensions/rdt. You can download the extension from the Chrome Web Store or from https://github.com/facebook/react-devtools/releases/download/3.4.2/chrome-extension.zip.",
                         "value": false
                     },
                     {
                         "id": "vue-devtools",
                         "type": "bool",
                         "text": "Vue Developer Tools",
-                        "hint": "Place extension in ext/extensions/vdt",
+                        "hint": "Place extension in ext/extensions/vdt. You can download the extension from the Chrome Web Store.",
                         "value": false
                     }
                 ]

@@ -6,9 +6,9 @@
     ],
     "style-src": [
         "https://fonts.googleapis.com"
-    ], 
+    ],
     "script-src": [
-        "'sha256-fSHKdpQGCHaIqWP3SpJOuUHrLp49jy4dWHzZ/RBJ/p4='",
+        "'sha256-X/Vxe0xwD5NYeow8fOCVjqJUWNTO7SDq8P9C4N88/cM='",
         "'sha256-VFJcfKY5B3EBkFDgQnv3CozPwBlZcxwssfLVWlPFfZU='",
         "'sha256-VzDmLZ4PxPkOS/KY7ITzLQsSWhfCnvUrNculcj8UNgE='",
         "'sha256-l6K+77Z1cmldR9gIvaVWlboF/zr5MXCQHcsEHfnr5TU='"

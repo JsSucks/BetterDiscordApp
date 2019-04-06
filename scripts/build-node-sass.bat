@@ -4,11 +4,14 @@ set "ELECTRON=%4"
 set "PLATFORM=%1"
 set "ARCH=%2"
 set "VER=%3"
-set "VENDOR_PATH=.\node_modules\node-sass\vendor"
-set "BUILD_PATH=.\node_modules\node-sass\build\Release\binding.node"
+set "ELECTRON_URL=https://atom.io/download/electron"
+set "VENDOR_PATH=.\vendor"
+set "BUILD_PATH=.\build\Release\binding.node"
+
+cd .\node_modules\node-sass
 
 echo Building %PLATFORM%-%ARCH% bindings
-call ./node_modules/.bin/electron-rebuild -v=%ELECTRON% -a=%ARCH% -m ./node_modules/node-sass
+call ../.bin/node-gyp rebuild --target=%ELECTRON% --arch %ARCH% --dist-url=%ELECTRON_URL%
 
 if exist %VENDOR_PATH%\%PLATFORM%-%ARCH%-%VER%\binding.node (
     echo Deleting old %VENDOR_PATH%\%PLATFORM%-%ARCH%-%VER%\binding.node
