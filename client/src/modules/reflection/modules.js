@@ -155,6 +155,7 @@ const KnownModules = {
     /* DOM/React Components */
     /* ==================== */
     LayerManager: Filters.byProperties(['popLayer', 'pushLayer']),
+    Tooltips: m => m.hide && m.show && !m.search && !m.submit && !m.search && !m.activateRagingDemon && !m.dismiss,
     UserSettingsWindow: Filters.byProperties(['open', 'updateAccount']),
     ChannelSettingsWindow: Filters.byProperties(['open', 'updateChannel']),
     GuildSettingsWindow: Filters.byProperties(['open', 'updateGuild']),

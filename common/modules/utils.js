@@ -55,6 +55,24 @@ export class Utils {
     }
 
     /**
+     * Format strings with placeholders (`{{placeholder}}`) into full strings.
+     * Quick example: `formatString("Hello, {{user}}", {user: "Zerebos"})`
+     * would return "Hello, Zerebos".
+     * @param {string} string - string to format
+     * @param {object} values - object literal of placeholders to replacements
+     * @returns {string} the properly formatted string
+     */
+    static formatString(string, values) {
+        for (const val in values) {
+            let replacement = values[val];
+            if (Array.isArray(replacement)) replacement = JSON.stringify(replacement);
+            if (typeof(replacement) === 'object' && replacement !== null) replacement = replacement.toString();
+            string = string.replace(new RegExp(`{{${val}}}`, 'g'), replacement);
+        }
+        return string;
+    }
+
+    /**
      * Finds a value, subobject, or array from a tree that matches a specific filter. Great for patching render functions.
      * @param {object} tree React tree to look through. Can be a rendered object or an internal instance.
      * @param {callable} searchFilter Filter function to check subobjects against.
@@ -97,6 +115,18 @@ export class Utils {
     }
 
     /**
+     * Gets a nested property (if it exists) safely. Path should be something like `prop.prop2.prop3`.
+     * Numbers can be used for arrays as well like `prop.prop2.array.0.id`.
+     * @param {Object} obj - object to get nested property of
+     * @param {string} path - representation of the property to obtain
+     */
+    static getNestedProp(obj, path) {
+        return path.split(/\s?\.\s?/).reduce(function(obj, prop) {
+            return obj && obj[prop];
+        }, obj);
+    }
+
+    /**
      * Checks if two or more values contain the same data.
      * @param {Any} ...value The value to compare
      * @return {Boolean}
@@ -124,6 +154,28 @@ export class Utils {
         }
 
         return true;
+    }
+
+    /**
+     * Deep extends an object with a set of other objects. Objects later in the list
+     * of `extenders` have priority, that is to say if one sets a key to be a primitive,
+     * it will be overwritten with the next one with the same key. If it is an object,
+     * and the keys match, the object is extended. This happens recursively.
+     * @param {object} extendee - Object to be extended
+     * @param {...object} extenders - Objects to extend with
+     * @returns {object} - A reference to `extendee`
+     */
+    static extend(extendee, ...extenders) {
+        for (let i = 0; i < extenders.length; i++) {
+            for (const key in extenders[i]) {
+                if (extenders[i].hasOwnProperty(key)) {
+                    if (typeof extendee[key] === 'object' && typeof extenders[i][key] === 'object') this.extend(extendee[key], extenders[i][key]);
+                    else if (typeof extenders[i][key] === 'object') extendee[key] = {}, this.extend(extendee[key], extenders[i][key]);
+                    else extendee[key] = extenders[i][key];
+                }
+            }
+        }
+        return extendee;
     }
 
     /**
@@ -212,6 +264,36 @@ export class Utils {
         });
     }
 
+    /**
+     * Generates an automatically memoizing version of an object.
+     * @param {Object} object - object to memoize
+     * @returns {Proxy} the proxy to the object that memoizes properties
+     */
+    static memoizeObject(object) {
+        const proxy = new Proxy(object, {
+            get: function(obj, mod) {
+                if (!obj.hasOwnProperty(mod)) return undefined;
+                if (Object.getOwnPropertyDescriptor(obj, mod).get) {
+                    const value = obj[mod];
+                    delete obj[mod];
+                    obj[mod] = value;
+                }
+                return obj[mod];
+            },
+            set: function(obj, mod, value) {
+                if (obj.hasOwnProperty(mod)) return;
+                obj[mod] = value;
+                return obj[mod];
+            }
+        });
+
+        Object.defineProperty(proxy, 'hasOwnProperty', {value: function(prop) {
+            return this[prop] !== undefined;
+        }});
+
+        return proxy;
+    }
+
     static wait(time = 0) {
         return new Promise(resolve => setTimeout(resolve, time));
     }
@@ -225,6 +307,33 @@ export class Utils {
             i++;
         } while (!value);
         return value;
+    }
+
+    /**
+     * Stably sorts arrays since `.sort()` has issues.
+     * @param {Array} list - array to sort
+     * @param {function} comparator - comparator to sort by
+     */
+    static stableSort(list, comparator) {
+        const length = list.length;
+        const entries = Array(length);
+        let index;
+
+        // wrap values with initial indices
+        for (index = 0; index < length; index++) {
+            entries[index] = [index, list[index]];
+        }
+
+        // sort with fallback based on initial indices
+        entries.sort(function (a, b) {
+            const comparison = Number(this(a[1], b[1]));
+            return comparison || a[0] - b[0];
+        }.bind(comparator));
+
+        // re-map original array to stable sorted values
+        for (index = 0; index < length; index++) {
+            list[index] = entries[index][1];
+        }
     }
 
     /**

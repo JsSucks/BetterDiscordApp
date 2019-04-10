@@ -9,8 +9,8 @@
 */
 
 import { EmoteModule } from 'builtin';
-import { SettingsSet, SettingsCategory, Setting, SettingsScheme } from 'structs';
-import { BdMenu, Modals, DOM, DOMObserver, VueInjector, Toasts, Notifications, BdContextMenu, DiscordContextMenu } from 'ui';
+import { SettingsSet, SettingsCategory, Setting, SettingsScheme, Screen } from 'structs';
+import { BdMenu, Modals, DOM, DOMObserver, VueInjector, Toasts, Notifications, BdContextMenu, DiscordContextMenu, Tooltip } from 'ui';
 import * as CommonComponents from 'commoncomponents';
 import { default as Components } from '../ui/components/generic';
 import { Utils, Filters, ClientLogger as Logger, ClientIPC, AsyncEventEmitter } from 'common';
@@ -28,6 +28,7 @@ import GlobalAc from '../ui/autocomplete';
 import Vue from 'vue';
 import path from 'path';
 import Globals from './globals';
+import { remote } from 'electron';
 
 export default class PluginApi {
 
@@ -74,6 +75,7 @@ export default class PluginApi {
     get Reflection() { return Reflection }
     get DOM() { return DOM }
     get VueInjector() { return VueInjector }
+    get Screen() { return Screen }
 
     get observer() {
         return this._observer || (this._observer = new DOMObserver());
@@ -112,7 +114,12 @@ export default class PluginApi {
             wait: (...args) => Utils.wait.apply(Utils, args),
             until: (...args) => Utils.until.apply(Utils, args),
             findInTree: (...args) => Utils.findInTree.apply(Utils, args),
-            findInReactTree: (...args) => Utils.findInReactTree.apply(Utils, args)
+            findInReactTree: (...args) => Utils.findInReactTree.apply(Utils, args),
+            formatString: (...args) => Utils.formatString.apply(Utils, args),
+            getNestedProp: (...args) => Utils.getNestedProp.apply(Utils, args),
+            extend: (...args) => Utils.extend.apply(Utils, args),
+            memoizeObject: (...args) => Utils.memoizeObject.apply(Utils, args),
+            stableSort: (...args) => Utils.stableSort.apply(Utils, args)
         };
     }
 
@@ -356,6 +363,17 @@ export default class PluginApi {
     }
 
     /**
+     * Tooltips
+     */
+
+    addTooltip(node, text, options = {}) {
+        return new Tooltip(node, text, options);
+    }
+    get Tooltip() {
+        return Tooltip;
+    }
+
+    /**
      * Notifications
      */
 
@@ -550,6 +568,26 @@ export default class PluginApi {
     }
 
     /**
+     * NodeModules
+     */
+
+    getNodeModule(module_id) {
+        return {}; // Don't give open access, when plugin permissions available remove this line
+        // This should require extra permissions
+        //return require(module_id);
+    }
+    listNodeModules() {
+        return []; // Don't give open access, when plugin permissions available implement this properly
+    }
+    get NodeModules() {
+        return {
+            getModule: this.getNodeModule.bind(this),
+            listModules: this.listNodeModules.bind(this)
+            // path: path (Perhaps we add this stuff here as well)
+        };
+    }
+
+    /**
      * Patcher
      */
 
@@ -614,6 +652,22 @@ export default class PluginApi {
 
     Vuewrap(id, component, props) {
         return VueInjector.createReactElement(Vue.component(id, component), props);
+    }
+
+    /**
+     * Adds a callback to a set of listeners for onSwitch.
+     * @param {callable} callback - basic callback to happen on channel switch
+     */
+    static addOnSwitchListener(callback) {
+        remote.getCurrentWebContents().on('did-navigate-in-page', callback);
+    }
+
+    /**
+     * Removes the listener added by {@link addOnSwitchListener}.
+     * @param {callable} callback - callback to remove from the listener list
+     */
+    static removeOnSwitchListener(callback) {
+        remote.getCurrentWebContents().removeListener('did-navigate-in-page', callback);
     }
 
 }

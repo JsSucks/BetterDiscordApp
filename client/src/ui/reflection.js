@@ -12,6 +12,8 @@ import { Filters, ClientLogger as Logger } from 'common';
 import { ReactComponents } from 'modules';
 
 class Reflection {
+    static get reactRootInstance() {return document.getElementById('app-mount')._reactRootContainer._internalRoot.current;}
+
     static reactInternalInstance(node) {
         if (!node) return null;
         if (!Object.keys(node) || !Object.keys(node).length) return null;

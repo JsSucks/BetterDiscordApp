@@ -3,6 +3,7 @@ export { default as BdUI } from './bdui';
 export { default as BdMenu, BdMenuItems } from './bdmenu';
 export { default as Modals } from './modals';
 export { default as Toasts } from './toasts';
+export { default as Tooltip } from './tooltip';
 export { default as Notifications } from './notifications';
 export * from './contextmenus';
 
