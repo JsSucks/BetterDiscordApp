@@ -39,6 +39,9 @@ export class Role {
     get colour() { return this.discordObject.color }
     get colourString() { return this.discordObject.colorString }
 
+    /**
+     * @type {Guild}
+     */
     get guild() {
         return Guild.fromId(this.guildId);
     }
@@ -71,6 +74,9 @@ export class Emoji {
     get url() { return this.discordObject.url }
     get roles() { return this.discordObject.roles }
 
+    /**
+     * @type {Guild}
+     */
     get guild() {
         return Guild.fromId(this.guildId);
     }
@@ -122,15 +128,24 @@ export class Guild {
     get splash() { return this.discordObject.splash }
     get features() { return this.discordObject.features }
 
+    /**
+     * @type {GuildMember}
+     */
     get owner() {
         return this.members.find(m => m.userId === this.ownerId);
     }
 
+    /**
+     * @type {List<Role>}
+     */
     get roles() {
-        return List.from(Object.entries(this.discordObject.roles), ([i, r]) => new Role(r, this.id))
+        return List.from(Object.values(this.discordObject.roles), r => new Role(r, this.id))
             .sort((r1, r2) => r1.position === r2.position ? 0 : r1.position > r2.position ? 1 : -1);
     }
 
+    /**
+     * @type {List<GuildChannel>}
+     */
     get channels() {
         const channels = Modules.GuildChannelsStore.getChannels(this.id);
         const returnChannels = new List();
@@ -150,6 +165,7 @@ export class Guild {
 
     /**
      * Channels that don't have a parent. (Channel categories and any text/voice channel not in one.)
+     * @type {List<GuildChannel>}
      */
     get mainChannels() {
         return this.channels.filter(c => !c.parentId);
@@ -157,6 +173,7 @@ export class Guild {
 
     /**
      * The guild's default channel. (Usually the first in the list.)
+     * @type {?GuildTextChannel}
      */
     get defaultChannel() {
         return Channel.from(Modules.GuildChannelsStore.getDefaultChannel(this.id));
@@ -164,6 +181,7 @@ export class Guild {
 
     /**
      * The guild's AFK channel.
+     * @type {?GuildVoiceChannel}
      */
     get afkChannel() {
         return this.afkChannelId ? Channel.fromId(this.afkChannelId) : null;
@@ -171,6 +189,7 @@ export class Guild {
 
     /**
      * The channel system messages are sent to.
+     * @type {?GuildTextChannel}
      */
     get systemChannel() {
         return this.systemChannelId ? Channel.fromId(this.systemChannelId) : null;
@@ -178,6 +197,7 @@ export class Guild {
 
     /**
      * A list of GuildMember objects.
+     * @type {List<GuildMember>}
      */
     get members() {
         const members = Modules.GuildMemberStore.getMembers(this.id);
@@ -186,6 +206,7 @@ export class Guild {
 
     /**
      * The current user as a GuildMember of this guild.
+     * @type {GuildMember}
      */
     get currentUser() {
         return this.members.find(m => m.user === DiscordApi.currentUser);
@@ -193,6 +214,7 @@ export class Guild {
 
     /**
      * The total number of members in the guild.
+     * @type {number}
      */
     get memberCount() {
         return Modules.MemberCountStore.getMemberCount(this.id);
@@ -200,6 +222,7 @@ export class Guild {
 
     /**
      * An array of the guild's custom emojis.
+     * @type {List<Emoji>}
      */
     get emojis() {
         return List.from(Modules.EmojiUtils.getGuildEmoji(this.id), e => new Emoji(e, this.id));
@@ -215,6 +238,7 @@ export class Guild {
 
     /**
      * The current user's permissions on this guild.
+     * @type {number}
      */
     get permissions() {
         return Modules.GuildPermissions.getGuildPermissions(this.id);
@@ -222,8 +246,8 @@ export class Guild {
 
     /**
      * Returns the GuildMember object for a user.
-     * @param {User|GuildMember|Number} user A User or GuildMember object or a user ID
-     * @return {GuildMember}
+     * @param {(User|GuildMember|number)} user A User or GuildMember object or a user ID
+     * @return {?GuildMember}
      */
     getMember(user) {
         const member = Modules.GuildMemberStore.getMember(this.id, user.userId || user.id || user);
@@ -232,8 +256,8 @@ export class Guild {
 
     /**
      * Checks if a user is a member of this guild.
-     * @param {User|GuildMember|Number} user A User or GuildMember object or a user ID
-     * @return {Boolean}
+     * @param {(User|GuildMember|number)} user A User or GuildMember object or a user ID
+     * @return {boolean}
      */
     isMember(user) {
         return Modules.GuildMemberStore.isMember(this.id, user.userId || user.id || user);
@@ -241,6 +265,7 @@ export class Guild {
 
     /**
      * Whether the user has not restricted direct messages from members of this guild.
+     * @type {boolean}
      */
     get allowPrivateMessages() {
         return !DiscordApi.UserSettings.restrictedGuildIds.includes(this.id);
@@ -262,6 +287,7 @@ export class Guild {
 
     /**
      * Whether this guild is currently selected.
+     * @type {boolean}
      */
     get isSelected() {
         return DiscordApi.currentGuild === this;
@@ -269,16 +295,16 @@ export class Guild {
 
     /**
      * Opens this guild's settings window.
-     * @param {String} section The section to open (see DiscordConstants.GuildSettingsSections)
+     * @param {string} section The section to open (see DiscordConstants.GuildSettingsSections)
      */
     openSettings(section = 'OVERVIEW') {
-        Modules.GuildSettingsWindow.setSection(section);
         Modules.GuildSettingsWindow.open(this.id);
+        Modules.GuildSettingsWindow.setSection(section);
     }
 
     /**
      * Kicks members who don't have any roles and haven't been seen in the number of days passed.
-     * @param {Number} days
+     * @param {number} days
      */
     pruneMembers(days) {
         this.assertPermissions('KICK_MEMBERS', Modules.DiscordPermissions.KICK_MEMBERS);
@@ -302,12 +328,56 @@ export class Guild {
     }
 
     /**
-     * Creates a channel in this guild.
-     * @param {Number} type The type of channel to create - either 0 (text), 2 (voice) or 4 (category)
-     * @param {String} name A name for the new channel
+     * Opens the create channel modal for this guild.
      * @param {ChannelCategory} category The category to create the channel in
-     * @param {Array} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
-     * @return {Promise => GuildChannel}
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     */
+    openCreateTextChannelModal(category, clone) {
+        return this.openCreateChannelModal(Channel.GUILD_TEXT, category, clone);
+    }
+
+    /**
+     * Opens the create channel modal for this guild.
+     * @param {ChannelCategory} category The category to create the channel in
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     */
+    openCreateVoiceChannelModal(category, clone) {
+        return this.openCreateChannelModal(Channel.GUILD_VOICE, category, clone);
+    }
+
+    /**
+     * Opens the create channel modal for this guild.
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     */
+    openCreateChannelCategoryModal(clone) {
+        return this.openCreateChannelModal(Channel.GUILD_CATEGORY, undefined, clone);
+    }
+
+    /**
+     * Opens the create channel modal for this guild.
+     * @param {ChannelCategory} category The category to create the channel in
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     */
+    openCreateNewsChannelModal(category, clone) {
+        return this.openCreateChannelModal(Channel.GUILD_NEWS, category, clone);
+    }
+
+    /**
+     * Opens the create channel modal for this guild.
+     * @param {ChannelCategory} category The category to create the channel in
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     */
+    openCreateStoreChannelModal(category, clone) {
+        return this.openCreateChannelModal(Channel.GUILD_STORE, category, clone);
+    }
+
+    /**
+     * Creates a channel in this guild.
+     * @param {number} type The type of channel to create - either 0 (text), 2 (voice), 4 (category), 5 (news) or 6 (store)
+     * @param {string} name A name for the new channel
+     * @param {ChannelCategory} category The category to create the channel in
+     * @param {Object[]} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
+     * @return {Promise<GuildChannel>}
      */
     async createChannel(type, name, category, permission_overwrites) {
         this.assertPermissions('MANAGE_CHANNELS', Modules.DiscordPermissions.MANAGE_CHANNELS);
@@ -326,6 +396,60 @@ export class Guild {
         });
 
         return Channel.fromId(response.body.id);
+    }
+
+    /**
+     * Creates a channel in this guild.
+     * @param {string} name A name for the new channel
+     * @param {ChannelCategory} category The category to create the channel in
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     * @return {Promise<GuildTextChannel>}
+     */
+    createTextChannel(name, category, clone) {
+        return this.createChannel(Channel.GUILD_TEXT, name, category, clone);
+    }
+
+    /**
+     * Creates a channel in this guild.
+     * @param {string} name A name for the new channel
+     * @param {ChannelCategory} category The category to create the channel in
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     * @return {Promise<GuildVoiceChannel>}
+     */
+    createVoiceChannel(name, category, clone) {
+        return this.createChannel(Channel.GUILD_VOICE, name, category, clone);
+    }
+
+    /**
+     * Creates a channel in this guild.
+     * @param {string} name A name for the new channel
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     * @return {Promise<GuildTextChannel>}
+     */
+    createChannelCategory(name, clone) {
+        return this.createChannel(Channel.GUILD_CATEGORY, name, clone);
+    }
+
+    /**
+     * Creates a channel in this guild.
+     * @param {string} name A name for the new channel
+     * @param {ChannelCategory} category The category to create the channel in
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     * @return {Promise<GuildNewsChannel>}
+     */
+    createNewsChannel(name, category, clone) {
+        return this.createChannel(Channel.GUILD_NEWS, name, category, clone);
+    }
+
+    /**
+     * Creates a channel in this guild.
+     * @param {string} name A name for the new channel
+     * @param {ChannelCategory} category The category to create the channel in
+     * @param {GuildChannel} clone A channel to clone permissions, topic, bitrate and user limit of
+     * @return {Promise<GuildStoreChannel>}
+     */
+    createStoreChannel(name, category, clone) {
+        return this.createChannel(Channel.GUILD_STORE, name, category, clone);
     }
 
     openNotificationSettingsModal() {
