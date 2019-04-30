@@ -36,6 +36,8 @@ export class Channel {
         case 2: return new GuildVoiceChannel(channel);
         case 3: return new GroupChannel(channel);
         case 4: return new ChannelCategory(channel);
+        case 5: return new GuildNewsChannel(channel);
+        case 6: return new GuildStoreChannel(channel);
         }
     }
 
@@ -48,6 +50,8 @@ export class Channel {
     static get GuildTextChannel() { return GuildTextChannel }
     static get GuildVoiceChannel() { return GuildVoiceChannel }
     static get ChannelCategory() { return ChannelCategory }
+    static get GuildNewsChannel() { return GuildNewsChannel }
+    static get GuildStoreChannel() { return GuildStoreChannel }
     static get PrivateChannel() { return PrivateChannel }
     static get DirectMessageChannel() { return DirectMessageChannel }
     static get GroupChannel() { return GroupChannel }
@@ -59,9 +63,9 @@ export class Channel {
 
     /**
      * Send a message in this channel.
-     * @param {String} content The new message's content
-     * @param {Boolean} parse Whether to parse the message or send it as it is
-     * @return {Promise => Message}
+     * @param {string} content The new message's content
+     * @param {boolean} [parse=false] Whether to parse the message or send it as it is
+     * @return {Promise<Message>}
      */
     async sendMessage(content, parse = false) {
         if (this.assertPermissions) this.assertPermissions('SEND_MESSAGES', Modules.DiscordPermissions.VIEW_CHANNEL | Modules.DiscordPermissions.SEND_MESSAGES);
@@ -77,7 +81,7 @@ export class Channel {
 
     /**
      * Send a bot message in this channel that only the current user can see.
-     * @param {String} content The new message's content
+     * @param {string} content The new message's content
      * @return {Message}
      */
     sendBotMessage(content) {
@@ -111,8 +115,8 @@ export class Channel {
 
     /**
      * Sends an invite in this channel.
-     * @param {String} code The invite code
-     * @return {Promise => Messaage}
+     * @param {string} code The invite code
+     * @return {Promise<Message>}
      */
     async sendInvite(code) {
         if (this.assertPermissions) this.assertPermissions('SEND_MESSAGES', Modules.DiscordPermissions.VIEW_CHANNEL | Modules.DiscordPermissions.SEND_MESSAGES);
@@ -130,7 +134,7 @@ export class Channel {
 
     /**
      * Whether this channel is currently selected.
-     * @type {Boolean}
+     * @type {boolean}
      */
     get isSelected() {
         return DiscordApi.currentChannel === this;
@@ -138,6 +142,7 @@ export class Channel {
 
     /**
      * Updates this channel.
+     * @param {Object} body Data to send in the API request
      * @return {Promise}
      */
     async updateChannel(body) {
@@ -153,12 +158,25 @@ export class Channel {
 
 }
 
+Channel.GUILD_TEXT = 0;
+Channel.DM = 1;
+Channel.GUILD_VOICE = 2;
+Channel.GROUP_DM = 3;
+Channel.GUILD_CATEGORY = 4;
+Channel.GUILD_NEWS = 5;
+Channel.GUILD_STORE = 6;
+
 export class PermissionOverwrite {
     constructor(data, channel_id) {
         this.discordObject = data;
         this.channelId = channel_id;
     }
 
+    /**
+     * @param {Object} data
+     * @param {number} channel_id
+     * @return {PermissionOverwrite}
+     */
     static from(data, channel_id) {
         switch (data.type) {
         default: return new PermissionOverwrite(data, channel_id);
@@ -174,10 +192,16 @@ export class PermissionOverwrite {
     get allow() { return this.discordObject.allow }
     get deny() { return this.discordObject.deny }
 
+    /**
+     * @type {?Channel}
+     */
     get channel() {
         return Channel.fromId(this.channelId);
     }
 
+    /**
+     * @type {?Guild}
+     */
     get guild() {
         return this.channel ? this.channel.guild : null;
     }
@@ -186,6 +210,9 @@ export class PermissionOverwrite {
 export class RolePermissionOverwrite extends PermissionOverwrite {
     get roleId() { return this.discordObject.id }
 
+    /**
+     * @type {?Role}
+     */
     get role() {
         return this.guild ? this.guild.roles.find(r => r.id === this.roleId) : null;
     }
@@ -194,6 +221,9 @@ export class RolePermissionOverwrite extends PermissionOverwrite {
 export class MemberPermissionOverwrite extends PermissionOverwrite {
     get memberId() { return this.discordObject.id }
 
+    /**
+     * @type {GuildMember}
+     */
     get member() {
         return GuildMember.fromId(this.memberId);
     }
@@ -208,34 +238,45 @@ export class GuildChannel extends Channel {
     get nicks() { return this.discordObject.nicks }
 
     checkPermissions(perms) {
-        return Modules.PermissionUtils.can(perms, DiscordApi.currentUser, this.discordObject);
+        return Modules.PermissionUtils.can(perms, DiscordApi.currentUser.discordObject, this.discordObject);
     }
 
     assertPermissions(name, perms) {
         if (!this.checkPermissions(perms)) throw new InsufficientPermissions(name);
     }
 
+    /**
+     * @type {?ChannelCategory}
+     */
     get category() {
         return Channel.fromId(this.parentId);
     }
 
     /**
      * The current user's permissions on this channel.
+     * @type {number}
      */
     get permissions() {
         return Modules.GuildPermissions.getChannelPermissions(this.id);
     }
 
+    /**
+     * @type {List<PermissionOverwrite>}
+     */
     get permissionOverwrites() {
-        return List.from(Object.entries(this.discordObject.permissionOverwrites), ([i, p]) => PermissionOverwrite.from(p, this.id));
+        return List.from(Object.values(this.discordObject.permissionOverwrites), p => PermissionOverwrite.from(p, this.id));
     }
 
+    /**
+     * @type {Guild}
+     */
     get guild() {
         return Guild.fromId(this.guildId);
     }
 
     /**
      * Whether this channel is the guild's default channel.
+     * @type {boolean}
      */
     get isDefaultChannel() {
         return Modules.GuildChannelsStore.getDefaultChannel(this.guildId).id === this.id;
@@ -243,16 +284,16 @@ export class GuildChannel extends Channel {
 
     /**
      * Opens this channel's settings window.
-     * @param {String} section The section to open (see DiscordConstants.ChannelSettingsSections)
+     * @param {string} section The section to open (see DiscordConstants.ChannelSettingsSections)
      */
     openSettings(section = 'OVERVIEW') {
-        Modules.ChannelSettingsWindow.setSection(section);
         Modules.ChannelSettingsWindow.open(this.id);
+        Modules.ChannelSettingsWindow.setSection(section);
     }
 
     /**
      * Updates this channel's name.
-     * @param {String} name The channel's new name
+     * @param {string} name The channel's new name
      * @return {Promise}
      */
     updateName(name) {
@@ -261,7 +302,7 @@ export class GuildChannel extends Channel {
 
     /**
      * Changes the channel's position.
-     * @param {Number} position The channel's new position
+     * @param {(GuildChannel|number)} [position=0] The channel's new position
      * @return {Promise}
      */
     changeSortLocation(position = 0) {
@@ -271,7 +312,7 @@ export class GuildChannel extends Channel {
 
     /**
      * Updates this channel's permission overwrites.
-     * @param {Array} permissionOverwrites An array of permission overwrites
+     * @param {Object[]} permission_overwrites An array of permission overwrites
      * @return {Promise}
      */
     updatePermissionOverwrites(permission_overwrites) {
@@ -280,7 +321,7 @@ export class GuildChannel extends Channel {
 
     /**
      * Updates this channel's category.
-     * @param {ChannelCategory} category The new channel category
+     * @param {?(ChannelCategory|number)} category The new channel category
      * @return {Promise}
      */
     updateCategory(category) {
@@ -296,7 +337,7 @@ export class GuildTextChannel extends GuildChannel {
 
     /**
      * Updates this channel's topic.
-     * @param {String} topc The new channel topic
+     * @param {string} topic The new channel topic
      * @return {Promise}
      */
     updateTopic(topic) {
@@ -305,13 +346,17 @@ export class GuildTextChannel extends GuildChannel {
 
     /**
      * Updates this channel's not-safe-for-work flag.
-     * @param {Boolean} nsfw Whether the channel should be marked as NSFW
+     * @param {boolean} [nsfw=true] Whether the channel should be marked as NSFW
      * @return {Promise}
      */
     setNsfw(nsfw = true) {
         return this.updateChannel({ nsfw });
     }
 
+    /**
+     * Updates this channel's not-safe-for-work flag.
+     * @return {Promise}
+     */
     setNotNsfw() {
         return this.setNsfw(false);
     }
@@ -328,11 +373,13 @@ export class GuildVoiceChannel extends GuildChannel {
     jumpToPresent() { throw new Error('Cannot select a voice channel.'); }
     get hasMoreAfter() { return false; }
     sendInvite() { throw new Error('Cannot invite someone to a voice channel.'); }
+
+    // TODO: can select a voice/video channel when guild video is enabled
     select() { throw new Error('Cannot select a voice channel.'); }
 
     /**
      * Updates this channel's bitrate.
-     * @param {Number} bitrate The new bitrate
+     * @param {number} bitrate The new bitrate
      * @return {Promise}
      */
     updateBitrate(bitrate) {
@@ -341,7 +388,7 @@ export class GuildVoiceChannel extends GuildChannel {
 
     /**
      * Updates this channel's user limit.
-     * @param {Number} userLimit The new user limit
+     * @param {number} user_limit The new user limit
      * @return {Promise}
      */
     updateUserLimit(user_limit) {
@@ -365,6 +412,7 @@ export class ChannelCategory extends GuildChannel {
 
     /**
      * A list of channels in this category.
+     * @type {List<GuildChannel>}
      */
     get channels() {
         return List.from(this.guild.channels.filter(c => c.parentId === this.id));
@@ -372,23 +420,105 @@ export class ChannelCategory extends GuildChannel {
 
     /**
      * Opens the create channel modal for this guild.
-     * @param {Number} type The type of channel to create - either 0 (text), 2 (voice) or 4 (category)
+     * @param {number} type The type of channel to create - either 0 (text), 2 (voice/video), 5 (news) or 6 (store)
      * @param {GuildChannel} clone A channel to clone permissions of
      */
-    openCreateChannelModal(type, category, clone) {
+    openCreateChannelModal(type, clone) {
         this.guild.openCreateChannelModal(type, this.id, this, clone);
     }
 
     /**
+     * Opens the create channel modal for this guild with type 0 (text).
+     * @param {GuildChannel} clone A channel to clone permissions of
+     */
+    openCreateTextChannelModal(clone) {
+        this.guild.openCreateChannelModal(Channel.GUILD_TEXT, this.id, this, clone);
+    }
+
+    /**
+     * Opens the create channel modal for this guild with type 2 (voice).
+     * @param {GuildChannel} clone A channel to clone permissions of
+     */
+    openCreateVoiceChannelModal(clone) {
+        this.guild.openCreateChannelModal(Channel.GUILD_VOICE, this.id, this, clone);
+    }
+
+    /**
+     * Opens the create channel modal for this guild with type 5 (news).
+     * @param {GuildChannel} clone A channel to clone permissions of
+     */
+    openCreateNewsChannelModal(clone) {
+        this.guild.openCreateChannelModal(Channel.GUILD_NEWS, this.id, this, clone);
+    }
+
+    /**
+     * Opens the create channel modal for this guild with type 6 (store).
+     * @param {GuildChannel} clone A channel to clone permissions of
+     */
+    openCreateStoreChannelModal(clone) {
+        this.guild.openCreateChannelModal(Channel.GUILD_STORE, this.id, this, clone);
+    }
+
+    /**
      * Creates a channel in this category.
-     * @param {Number} type The type of channel to create - either 0 (text) or 2 (voice)
-     * @param {String} name A name for the new channel
-     * @param {Array} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
-     * @return {Promise => GuildChannel}
+     * @param {number} type The type of channel to create - either 0 (text) or 2 (voice)
+     * @param {string} name A name for the new channel
+     * @param {Object[]} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
+     * @return {Promise<GuildChannel>}
      */
     createChannel(type, name, permission_overwrites) {
         return this.guild.createChannel(type, name, this, permission_overwrites);
     }
+
+    /**
+     * Creates a channel in this category.
+     * @param {string} name A name for the new channel
+     * @param {Object[]} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
+     * @return {Promise<GuildTextChannel>}
+     */
+    createTextChannel(name, permission_overwrites) {
+        return this.guild.createChannel(Channel.GUILD_TEXT, name, this, permission_overwrites);
+    }
+
+    /**
+     * Creates a channel in this category.
+     * @param {string} name A name for the new channel
+     * @param {Object[]} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
+     * @return {Promise<GuildVoiceChannel>}
+     */
+    createVoiceChannel(name, permission_overwrites) {
+        return this.guild.createChannel(Channel.GUILD_VOICE, name, this, permission_overwrites);
+    }
+
+    /**
+     * Creates a channel in this category.
+     * @param {string} name A name for the new channel
+     * @param {Object[]} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
+     * @return {Promise<GuildNewsChannel>}
+     */
+    createNewsChannel(name, permission_overwrites) {
+        return this.guild.createChannel(Channel.GUILD_NEWS, name, this, permission_overwrites);
+    }
+
+    /**
+     * Creates a channel in this category.
+     * @param {string} name A name for the new channel
+     * @param {Object[]} permission_overwrites An array of PermissionOverwrite-like objects - leave to use the permissions of the category
+     * @return {Promise<GuildStoreChannel>}
+     */
+    createStoreChannel(name, permission_overwrites) {
+        return this.guild.createChannel(Channel.GUILD_STORE, name, this, permission_overwrites);
+    }
+}
+
+// Type 5 - GUILD_NEWS
+export class GuildNewsChannel extends GuildTextChannel {
+    get type() { return 'GUILD_NEWS' }
+}
+
+// Type 6 - GUILD_STORE
+export class GuildStoreChannel extends GuildChannel {
+    get type() { return 'GUILD_STORE' }
 }
 
 export class PrivateChannel extends Channel {
@@ -403,6 +533,7 @@ export class DirectMessageChannel extends PrivateChannel {
 
     /**
      * The other user of this direct message channel.
+     * @type {User}
      */
     get recipient() {
         return User.fromId(this.recipientId);
@@ -418,6 +549,7 @@ export class GroupChannel extends PrivateChannel {
 
     /**
      * A list of the other members of this group direct message channel.
+     * @type {List<User>}
      */
     get members() {
         return List.from(this.discordObject.recipients, id => User.fromId(id));
@@ -425,6 +557,7 @@ export class GroupChannel extends PrivateChannel {
 
     /**
      * The owner of this group direct message channel. This is usually the person who created it.
+     * @type {User}
      */
     get owner() {
         return User.fromId(this.ownerId);
@@ -432,7 +565,7 @@ export class GroupChannel extends PrivateChannel {
 
     /**
      * Updates this channel's name.
-     * @param {String} name The channel's new name
+     * @param {string} name The channel's new name
      * @return {Promise}
      */
     updateName(name) {
