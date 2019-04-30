@@ -9,13 +9,13 @@
 */
 
 <template>
-    <div class="bd-button" :class="classes" @click="onClick">
+    <div class="bd-button" @click="$emit('click')">
         {{text}}
     </div>
 </template>
 
 <script>
     export default {
-        props: ['classes', 'text', 'onClick']
+        props: ['text']
     }
 </script>

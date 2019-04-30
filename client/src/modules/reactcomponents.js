@@ -262,7 +262,7 @@ export class ReactComponents {
                 }
 
                 if (!component && filter) {
-                    Logger.log('ReactComponents', ['Found elements matching the query selector but no components passed the filter']);
+                    Logger.log('ReactComponents', ['Found elements matching the query selector but no components passed the filter', name, important, filter]);
                     return;
                 }
 

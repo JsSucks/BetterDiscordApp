@@ -1,16 +1,21 @@
-const bdinfo = require('./bd.json');
+const bdinfo = require('./bd');
 const { app } = require('electron');
 const path = require('path');
-const fs = require('fs');
+const os = require('os');
 const Module = require('module');
 
-const packagePath = path.join(__dirname, '..', 'app.asar');
+const packagePath = path.resolve(__dirname, '..', 'app.asar');
 app.getAppPath = () => packagePath;
 
 function loadBd() {
-    const { paths } = bdinfo;
-    const { BetterDiscord } = require(paths.core);
-    const instance = new BetterDiscord(bdinfo);
+    const userconfig = (() => {
+        try {
+            return require(path.resolve(os.homedir(), bdinfo.paths.userconfig));
+        } catch (err) {}
+    })() || {};
+
+    const { BetterDiscord } = require(path.resolve(os.homedir(), (userconfig.paths || {}).core || bdinfo.paths.core));
+    const instance = new BetterDiscord(bdinfo, userconfig);
 }
 
 app.on('ready', loadBd);

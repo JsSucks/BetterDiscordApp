@@ -9,15 +9,15 @@
 */
 
 <template>
-    <div class="bd-buttonGroup" :class="classes">
-        <Button v-for="(button, index) in buttons" :text="button.text" :classes="button.classes" :onClick="button.onClick" :key="index"/>
+    <div class="bd-buttonGroup">
+        <Button v-for="(button, index) in buttons" :text="button.text" :classes="button.class" @click="button.onClick" :key="index"/>
     </div>
 </template>
 
 <script>
     import Button from './Button.vue';
     export default {
-        props: ['buttons', 'classes'],
+        props: ['buttons'],
         components: { Button }
     }
 </script>

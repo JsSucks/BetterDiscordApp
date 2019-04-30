@@ -37,7 +37,6 @@ const TEST_ARGS = () => {
             'data': path.resolve(_baseDataPath, 'data'),
             'editor': path.resolve(_basePath, 'editor', 'dist'),
             // tmp: path.join(_basePath, 'tmp')
-            tmp: path.join(os.tmpdir(), 'betterdiscord', `${process.getuid()}`)
         }
     }
 }
@@ -83,6 +82,12 @@ class Comms {
             });
         });
 
+        BDIpc.on('bd-native-save', (event, options) => {
+            dialog.showSaveDialog(OriginalBrowserWindow.fromWebContents(event.ipcEvent.sender), options, filename => {
+                event.reply(filename);
+            });
+        });
+
         BDIpc.on('bd-compileSass', (event, options) => {
             if (typeof options.path === 'string' && typeof options.data === 'string') {
                 options.data = `${options.data} @import '${options.path.replace(/\\/g, '\\\\').replace(/'/g, '\\\'')}';`;
@@ -103,7 +108,7 @@ class Comms {
         BDIpc.on('bd-keytar-find-credentials', (event, { service }) => keytar.findCredentials(service), true);
 
         BDIpc.on('bd-readDataFile', async (event, fileName) => {
-            const rf = await FileUtils.readFile(path.resolve(configProxy().getPath('data'), fileName));
+            const rf = await FileUtils.readFile(path.resolve(this.bd.config.getPath('data'), fileName));
             event.reply(rf);
         });
 
@@ -197,6 +202,11 @@ class BrowserWindow extends OriginalBrowserWindow {
     }
 }
 
+// Some Electron APIs depend on browserWindow.constructor being BrowserWindow
+Object.defineProperty(BrowserWindow.prototype, 'constructor', {
+    value: OriginalBrowserWindow
+});
+
 export class BetterDiscord {
 
     get comms() { return this._comms ? this._comms : (this._commas = new Comms(this)); }
@@ -207,9 +217,13 @@ export class BetterDiscord {
     get updater() { return this._updater ? this._updater : (this._updater = new Updater(this)); }
     get sendToDiscord() { return this.windowUtils.send; }
 
-    constructor(args) {
-        if (TESTS) args = TEST_ARGS();
+    constructor(...args) {
+        if (TESTS) args.unshift(TEST_ARGS());
+
+        args = deepmerge.all(args);
+
         console.log('[BetterDiscord|args] ', JSON.stringify(args, null, 4));
+
         if (BetterDiscord.loaded) {
             console.log('[BetterDiscord] Creating two BetterDiscord objects???');
             return null;
@@ -337,6 +351,10 @@ export class BetterDiscord {
         this.config.addPath('userfiles', userfiles);
         this.config.addPath('snippets', snippets);
         if (!this.config.getPath('editor')) this.config.addPath('editor', path.resolve(base, 'editor'));
+
+        if (!this.config.getPath('tmp')) this.config.addPath('tmp', process.platform !== 'win32' ?
+            path.join(os.tmpdir(), 'betterdiscord', `${process.getuid()}`) :
+            path.join(os.tmpdir(), 'betterdiscord'));
     }
 
     /**

@@ -279,8 +279,6 @@ export default new class EmoteModule extends BuiltinModule {
         const { content } = args[1];
         if (!content) return orig(...args);
 
-        Logger.log('EmoteModule', ['Sending message', MessageActions, args, orig]);
-
         const emoteAsImage = Settings.getSetting('emotes', 'default', 'emoteasimage').value &&
             (DiscordApi.currentChannel.type === 'DM' || DiscordApi.currentChannel.type === 'GROUP_DM' || DiscordApi.currentChannel.checkPermissions(DiscordApi.modules.DiscordPermissions.ATTACH_FILES));
 

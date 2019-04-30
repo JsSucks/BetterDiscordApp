@@ -1,16 +1,17 @@
 .bd-pluginsview,
 .bd-themesview {
-    .bd-localPh {
-        .bd-scroller {
-            padding: 0 20px 0 0;
-        }
-    }
+    flex-grow: 1;
 
     .bd-onlinePh,
     .bd-localPh {
         display: flex;
         flex-direction: column;
-        margin: 10px 0;
+        flex-grow: 1;
+
+        > .bd-scrollerWrap > .bd-scroller {
+            padding: 0 20px 0 0;
+            overflow-y: scroll;
+        }
 
         .bd-spinnerContainer {
             display: flex;
@@ -19,8 +20,9 @@
 
         .bd-onlinePhHeader {
             display: flex;
-            padding: 0 20px 0 10px;
+            padding: 0 20px 0 0;
             min-height: 80px;
+            margin-top: 20px;
 
             .bd-flexRow {
                 min-height: 40px;
@@ -81,15 +83,9 @@
         }
 
         .bd-onlinePhBody {
-            margin-top: 10px;
-
             .bd-spinnerContainer {
                 min-height: 40px;
                 padding: 0;
-            }
-
-            .bd-scroller {
-                padding: 0 20px 0 0;
             }
         }
 

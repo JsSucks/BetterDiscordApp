@@ -17,18 +17,13 @@
         flex-direction: column;
         flex-grow: 1;
 
-        > .bd-scrollerWrap {
-            flex-grow: 1;
-
-            > .bd-scroller {
-                overflow-y: scroll;
-            }
+        > .bd-scrollerWrap > .bd-scroller {
+            overflow-y: scroll;
         }
 
-        .bd-settings & {
-            .platform-darwin & { // sass-lint:disable-line class-name-format
-                padding-top: 22px;
-            }
+        .platform-darwin .bd-settings &.bd-settingswrapNoscroller, // sass-lint:disable-line class-name-format
+        .platform-darwin .bd-settings & > .bd-scrollerWrap > .bd-scroller { // sass-lint:disable-line class-name-format
+            padding-top: 22px;
         }
 
         .bd-settingswrapHeader {

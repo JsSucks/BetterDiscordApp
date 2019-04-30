@@ -22,9 +22,19 @@ export default class Theme extends Content {
 
         const watchfiles = Settings.getSetting('css', 'default', 'watch-files');
         if (watchfiles.value) this.watchfiles = this.files;
-        watchfiles.on('setting-updated', event => {
+
+        watchfiles.on('setting-updated', this.__watchFilesSettingUpdated = event => {
             if (event.value) this.watchfiles = this.files;
             else this.watchfiles = [];
+        });
+
+        this.on('unload', () => {
+            watchfiles.off('setting-updated', this.__watchFilesSettingUpdated);
+
+            if (this._filewatcher) {
+                this._filewatcher.removeAll();
+                delete this._filewatcher;
+            }
         });
     }
 
@@ -61,7 +71,7 @@ export default class Theme extends Content {
     async compile() {
         Logger.log(this.name, 'Compiling CSS');
 
-        if (this.info.type === 'sass') {
+        if (this.info.type === 'sass' || this.info.type === 'scss') {
             const config = await ThemeManager.getConfigAsSCSS(this.settings);
 
             const result = await ClientIPC.send('bd-compileSass', {
@@ -147,7 +157,7 @@ export default class Theme extends Content {
      * @param {Array} files Files to watch
      */
     set watchfiles(files) {
-        if (this.packed) {
+        if (this.unloaded || this.packed) {
             // Don't watch files for packed themes
             return;
         }

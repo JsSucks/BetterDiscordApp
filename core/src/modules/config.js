@@ -9,6 +9,8 @@
 */
 
 import Module from './modulebase';
+import path from 'path';
+import os from 'os';
 
 export default class Config extends Module {
 
@@ -72,6 +74,9 @@ export default class Config extends Module {
 
     // Compatibility with old client code and new installer args
     compatibility() {
-        this.args.paths = Object.entries(this.args.paths).map(([id, path]) => ({ id, path }));
+        this.args.paths = Object.entries(this.args.paths).map(([id, _path]) => ({
+            id, path: path.resolve(os.homedir(), _path)
+        }));
     }
+
 }

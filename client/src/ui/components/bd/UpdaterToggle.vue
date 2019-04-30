@@ -12,7 +12,7 @@
     <div class="bd-settingSwitch">
         <div class="bd-title">
             <h3>{{item.text}}</h3>
-            <div class="bd-switchWrapper" @click="() => toggle(item)">
+            <div class="bd-switchWrapper" @click="$emit('toggle', item)">
                 <input type="checkbox" class="bd-switchCheckbox" />
                 <div class="bd-switch" :class="{'bd-checked': item.status.update}" />
             </div>
@@ -23,6 +23,6 @@
 
 <script>
     export default {
-        props: ['item', 'toggle']
+        props: ['item']
     }
 </script>

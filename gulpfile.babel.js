@@ -84,14 +84,7 @@ gulp.task('client-pkg', function() {
     ]);
 });
 
-gulp.task('client-sparkplug', function() {
-    return pump([
-        gulp.src('core/dist/sparkplug.js'),
-        gulp.dest('release/client')
-    ]);
-});
-
-gulp.task('client-release', gulp.parallel('client-main', 'client-pkg', 'client-sparkplug'));
+gulp.task('client-release', gulp.parallel('client-main', 'client-pkg'));
 
 // Editor
 

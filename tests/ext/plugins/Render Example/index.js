@@ -101,15 +101,15 @@ module.exports = (Plugin, Api, Vendor) => {
             if (!returnValue.props.children instanceof Array) returnValue.props.children = [returnValue.props.children];
             // Add a generic Button component provided by BD
             returnValue.props.children.push(Api.Components.ButtonGroup({
-                classes: [ 'exampleBtnGroup' ], // Additional classes for button group
+                class: [ 'exampleBtnGroup' ], // Additional classes for button group
                 buttons: [
                     {
-                        classes: ['exampleBtn'], // Additional classes for button
+                        class: ['exampleBtn'], // Additional classes for button
                         text: 'Hello World!', // Text for button
                         onClick: e => Logger.log('Hello World!') // Button click handler
                     },
                     {
-                        classes: ['exampleBtn'],
+                        class: ['exampleBtn'],
                         text: 'Button',
                         onClick: e => Logger.log('Button!')
                     }

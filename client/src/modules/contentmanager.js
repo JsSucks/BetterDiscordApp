@@ -16,7 +16,7 @@ import { remote } from 'electron';
 import Content from './content';
 import Globals from './globals';
 import Database from './database';
-import { Utils, FileUtils, ClientLogger as Logger } from 'common';
+import { Utils, FileUtils, ClientLogger as Logger, ClientIPC } from 'common';
 import { SettingsSet, ErrorEvent } from 'structs';
 import { Modals } from 'ui';
 import Combokeys from 'combokeys';
@@ -73,23 +73,23 @@ export default class {
     }
 
     static async packContent(path, contentPath) {
-        return new Promise((resolve, reject) => {
-            remote.dialog.showSaveDialog({
-                title: 'Save Package',
-                defaultPath: path,
-                filters: [
-                    {
-                        name: 'BetterDiscord Package',
-                        extensions: ['bd']
-                    }
-                ]
-            }, filepath => {
-                if (!filepath) return;
+        const filepath = await ClientIPC.send('bd-native-save', {
+            title: 'Save Package',
+            defaultPath: path,
+            filters: [
+                {
+                    name: 'BetterDiscord Package',
+                    extensions: ['bd']
+                }
+            ]
+        });
 
-                asar.uncache(filepath);
-                asar.createPackage(contentPath, filepath, () => {
-                    resolve(filepath);
-                });
+        if (!filepath) return;
+
+        return new Promise((resolve, reject) => {
+            asar.uncache(filepath);
+            asar.createPackage(contentPath, filepath, () => {
+                resolve(filepath);
             });
         });
     }
@@ -104,13 +104,8 @@ export default class {
             const directories = await FileUtils.listDirectory(this.contentPath);
 
             for (const dir of directories) {
-                const packed = dir.endsWith('.bd');
-
-                if (!packed) {
-                    try {
-                        await FileUtils.directoryExists(path.join(this.contentPath, dir));
-                    } catch (err) { continue; }
-                }
+                const stat = await FileUtils.stat(path.join(this.contentPath, dir));
+                const packed = stat.isFile();
 
                 try {
                     if (packed) {
@@ -148,6 +143,8 @@ export default class {
      * @param {bool} suppressErrors Suppress any errors that occur during loading of content
      */
     static async refreshContent(suppressErrors = false) {
+        this.loaded = true;
+
         if (!this.localContent.length) return this.loadAllContent();
 
         try {
@@ -155,18 +152,18 @@ export default class {
             const directories = await FileUtils.listDirectory(this.contentPath);
 
             for (const dir of directories) {
-                const packed = dir.endsWith('.bd');
-
                 // If content is already loaded this should resolve
                 if (this.getContentByDirName(dir)) continue;
 
-                try {
-                    await FileUtils.directoryExists(path.join(this.contentPath, dir));
-                } catch (err) { continue; }
+                const stat = await FileUtils.stat(path.join(this.contentPath, dir));
+                const packed = stat.isFile();
 
                 try {
-                    // Load if not
-                    await this.preloadContent(dir);
+                    if (packed) {
+                        await this.preloadPackedContent(dir);
+                    } else {
+                        await this.preloadContent(dir);
+                    }
                 } catch (err) {
                     // We don't want every plugin/theme to fail loading when one does
                     this.errors.push(new ErrorEvent({
@@ -217,7 +214,8 @@ export default class {
             await FileUtils.fileExists(packagePath);
 
             const config = JSON.parse(asar.extractFile(packagePath, 'config.json').toString());
-            const unpackedPath = path.join(Globals.getPath('tmp'), packageName);
+            const id = config.info.id || config.info.name.toLowerCase().replace(/[^a-zA-Z0-9-]/g, '-').replace(/--/g, '-');
+            const unpackedPath = path.join(Globals.getPath('tmp'), this.pathId, id);
 
             asar.extractAll(packagePath, unpackedPath);
 
@@ -348,7 +346,7 @@ export default class {
                 await unload;
 
             await FileUtils.recursiveDeleteDirectory(content.paths.contentPath);
-            if (content.packed) await FileUtils.recursiveDeleteDirectory(content.packagePath);
+            if (content.packed) await FileUtils.deleteFile(content.packagePath);
             return true;
         } catch (err) {
             Logger.err(this.moduleName, err);
@@ -368,6 +366,8 @@ export default class {
         if (!content) throw {message: `Could not find a ${this.contentType} from ${content}.`};
 
         try {
+            Object.defineProperty(content, 'unloaded', {configurable: true, value: true});
+
             const disablePromise = content.disable(false);
             const unloadPromise = content.emit('unload', reload);
 
@@ -380,8 +380,14 @@ export default class {
 
             if (this.unloadContentHook) this.unloadContentHook(content);
 
-            if (reload) return content.packed ? this.preloadPackedContent(content.packagePath, true, index) : this.preloadContent(content.dirName, true, index);
+            if (reload) {
+                const newcontent = content.packed ? this.preloadPackedContent(content.dirName.pkg, true, index) :
+                    this.preloadContent(content.dirName, true, index);
+                Object.defineProperty(content, 'unloaded', {value: newcontent});
+                return newcontent;
+            }
 
+            Object.defineProperty(content, 'unloaded', {value: true});
             this.localContent.splice(index, 1);
         } catch (err) {
             Logger.err(this.moduleName, err);
@@ -433,7 +439,7 @@ export default class {
 
     static getContentIndex(content) { return this.localContent.findIndex(c => c === content) }
     static getContentById(id) { return this.localContent.find(c => c.id === id) }
-    static getContentByDirName(dirName) { return this.localContent.find(c => c.dirName === dirName) }
+    static getContentByDirName(dirName) { return this.localContent.find(c => !c.packed ? c.dirName === dirName : c.dirName.pkg === dirName) }
     static getContentByPath(path) { return this.localContent.find(c => c.contentPath === path) }
     static getContentByName(name) { return this.localContent.find(c => c.name === name) }
 
