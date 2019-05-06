@@ -27,7 +27,8 @@
     "node-sass": "^4.11.0",
     "original-fs": "^1.0.0",
     "semver": "^5.6.0",
-    "tar-fs": "^2.0.0"
+    "tar-fs": "^2.0.0",
+    "snyk": "^1.161.1"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
@@ -100,6 +101,9 @@
     "release": "npm run lint && npm run build_release && gulp release && npm run package_release",
     "release_test": "npm run build_release && gulp release",
     "update_release": "npm run build_release && gulp release",
-    "inject": "node scripts/inject.js"
-  }
+    "inject": "node scripts/inject.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
