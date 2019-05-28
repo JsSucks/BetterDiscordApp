@@ -1,13 +1,40 @@
 language: node_js
 
 node_js:
-- stable
-
-branches:
-  only:
-  - master
+- 11
 
 addons:
   apt:
     packages:
     - libsecret-1-dev
+
+jobs:
+  include:
+    - stage: test
+    - stage: release
+      script:
+        - npm run update_release
+        - npm run package_release
+        - npm run build_debs
+      deploy:
+        provider: releases
+        api_key: "$GITHUB_OAUTH_TOKEN"
+        draft: true
+        file:
+          # BetterDiscord installer/updater
+          - release/releaseinfo.json
+          - release/core.tar.gz
+          - release/client.tar.gz
+          - release/editor.tar.gz
+
+          # dpkg
+          - release/betterdiscord_*.deb
+          - release/betterdiscord-ptb_*.deb
+          - release/betterdiscord-canary_*.deb
+          - release/betterdiscord-core_*.deb
+          - release/betterdiscord-client_*.deb
+          - release/betterdiscord-editor_*.deb
+        file_glob: true
+        skip_cleanup: true
+        on:
+          tags: true

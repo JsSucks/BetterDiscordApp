@@ -1,0 +1,6 @@
+Package: betterdiscord
+Version: 1.0.0
+Architecture: all
+Maintainer: -
+Description: BetterDiscord v2
+Depends: discord, betterdiscord-core, betterdiscord-client, betterdiscord-editor

@@ -1,0 +1,6 @@
+Package: betterdiscord-core
+Version: ${VERSION}
+Architecture: all
+Maintainer: -
+Description: BetterDiscord v2 core files
+Depends: libsecret-1-0

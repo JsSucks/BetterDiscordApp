@@ -1,0 +1,6 @@
+Package: betterdiscord-ptb
+Version: 1.0.0
+Architecture: all
+Maintainer: -
+Description: BetterDiscord v2 for Discord PTB
+Depends: discord-ptb, betterdiscord-core, betterdiscord-client, betterdiscord-editor

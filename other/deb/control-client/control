@@ -1,0 +1,5 @@
+Package: betterdiscord-client
+Version: ${VERSION}
+Architecture: all
+Maintainer: -
+Description: BetterDiscord v2 client bundle

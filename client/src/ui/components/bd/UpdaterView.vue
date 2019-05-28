@@ -18,15 +18,14 @@
                     </div>
                     <div class="bd-formDivider"></div>
                     <div v-for="update in bdUpdates">
-                        <UpdaterStatus :item="update" v-if="update.status.updating" />
+                        <UpdaterStatus :item="update" :disabled="isDisabled(update)" v-if="update.status.updating || isDisabled(update)" />
                         <UpdaterToggle :item="update" :toggle="() => updater.toggleUpdate(update)" v-else />
                         <div class="bd-formDivider"></div>
                     </div>
                 </div>
             </div>
-            <div class="bd-formButton bd-button" @click="update">
-                Update
-            </div>
+
+            <FormButton @click="update" :disabled="!updatesSelected || updating">Update</FormButton>
         </div>
     </SettingsWrapper>
 </template>
@@ -37,6 +36,7 @@
     import SettingsWrapper from './SettingsWrapper.vue';
     import UpdaterToggle from './UpdaterToggle.vue';
     import UpdaterStatus from './UpdaterStatus.vue';
+    import FormButton from '../common/FormButton.vue';
 
     export default {
         data() {
@@ -49,7 +49,8 @@
         components: {
             SettingsWrapper,
             UpdaterToggle,
-            UpdaterStatus
+            UpdaterStatus,
+            FormButton
         },
         computed: {
             updatesAvailable() {
@@ -66,11 +67,20 @@
             },
             bdUpdates() {
                 return this.updater.bdUpdates;
+            },
+            updatesSelected() {
+                return this.updater.updates.bd.find(update => update.status.update);
+            },
+            updating() {
+                return this.updater.updates.bd.find(update => update.status.updating);
             }
         },
         methods: {
             update() {
                 this.updater.startUpdate();
+            },
+            isDisabled(update) {
+                return Globals.disableUpdater.includes(update.id);
             }
         }
     }

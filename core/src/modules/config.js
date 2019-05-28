@@ -66,7 +66,8 @@ export default class Config extends Module {
         return {
             version: this.version,
             versions: this.versions,
-            paths: this.paths
+            paths: this.paths,
+            disableUpdater: this.disableUpdater
         };
     }
 
@@ -74,4 +75,9 @@ export default class Config extends Module {
     compatibility() {
         this.args.paths = Object.entries(this.args.paths).map(([id, path]) => ({ id, path }));
     }
+
+    get disableUpdater() {
+        return this.args.disableUpdater || (this.args.disableUpdater = []);
+    }
+
 }

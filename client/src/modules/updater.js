@@ -98,7 +98,7 @@ export default new class extends Module {
                 update.text = `${update.id.charAt(0).toUpperCase()}${update.id.slice(1)}`;
                 update.hint = `Current: ${update.currentVersion} | Latest: ${update.version}`;
                 update.status = {
-                    update: true,
+                    update: !Globals.disableUpdater.includes(update.id),
                     updating: false,
                     updated: false,
                     error: null
@@ -164,7 +164,7 @@ export default new class extends Module {
     }
 
     toggleUpdate(update) {
-        update.status.update = !update.status.update;
+        update.status.update = !update.status.update && !Globals.disableUpdater.includes(update.id);
     }
 
     async startUpdate() {

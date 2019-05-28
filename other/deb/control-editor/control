@@ -1,0 +1,5 @@
+Package: betterdiscord-editor
+Version: ${VERSION}
+Architecture: all
+Maintainer: -
+Description: BetterDiscord v2 editor bundle

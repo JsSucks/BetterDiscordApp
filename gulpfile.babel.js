@@ -1,3 +1,5 @@
+import path from 'path';
+import fs from 'fs';
 import gulp from 'gulp';
 import pump from 'pump';
 import del from 'del';
@@ -8,6 +10,7 @@ import replace from 'gulp-replace';
 import copydeps from './scripts/copydeps';
 import file from 'gulp-file';
 import editjson from 'gulp-json-editor';
+import {mkdeb} from './scripts/dpkg';
 
 import corepkg from './core/package';
 import clientpkg from './client/package';
@@ -153,3 +156,50 @@ gulp.task('del-release', function() {
 gulp.task('dependencies', gulp.series('node-modules', gulp.parallel('node-sass-bindings', 'keytar-bindings')));
 gulp.task('build-release', gulp.parallel('core-release', 'client-release', 'editor-release', 'dependencies'));
 gulp.task('release', gulp.series('del-release', 'build-release'));
+
+// Debian packages
+
+gulp.task('build-inject-deb', function () {
+    const control = fs.readFileSync(path.join(__dirname, 'other', 'deb', 'control', 'control'), 'utf-8');
+    const version = (control.match(/^Version:\s*(.*)$/m) || [, '1.0.0'])[1];
+    const arch = (control.match(/^Architecture:\s*(.*)$/m) || [, 'all'])[1];
+
+    return mkdeb(`betterdiscord_${version}-${arch}`, 'other/deb/injector/**/*', '/usr/share/discord/resources/app', 'other/deb/control/**/*');
+});
+
+gulp.task('build-inject-deb-ptb', function () {
+    const control = fs.readFileSync(path.join(__dirname, 'other', 'deb', 'control-ptb', 'control'), 'utf-8');
+    const version = (control.match(/^Version:\s*(.*)$/m) || [, '1.0.0'])[1];
+    const arch = (control.match(/^Architecture:\s*(.*)$/m) || [, 'all'])[1];
+
+    return mkdeb(`betterdiscord-ptb_${version}-${arch}`, 'other/deb/injector/**/*', '/usr/share/discord-ptb/resources/app', 'other/deb/control-ptb/**/*');
+});
+
+gulp.task('build-inject-deb-canary', function () {
+    const control = fs.readFileSync(path.join(__dirname, 'other', 'deb', 'control-canary', 'control'), 'utf-8');
+    const version = (control.match(/^Version:\s*(.*)$/m) || [, '1.0.0'])[1];
+    const arch = (control.match(/^Architecture:\s*(.*)$/m) || [, 'all'])[1];
+
+    return mkdeb(`betterdiscord-canary_${version}-${arch}`, 'other/deb/injector/**/*', '/usr/share/discord-canary/resources/app', 'other/deb/control-canary/**/*');
+});
+
+gulp.task('build-inject-debs', gulp.series('build-inject-deb', 'build-inject-deb-ptb', 'build-inject-deb-canary'));
+
+gulp.task('build-core-deb', function () {
+    return mkdeb(`betterdiscord-core_${corepkg.version}-all`, 'release/core/**/*', '/usr/lib/betterdiscord/core', 'other/deb/control-core/**/*', {
+        VERSION: corepkg.version
+    });
+});
+
+gulp.task('build-client-deb', function () {
+    return mkdeb(`betterdiscord-client_${clientpkg.version}-all`, 'release/client/**/*', '/usr/lib/betterdiscord/client', 'other/deb/control-client/**/*', {
+        VERSION: clientpkg.version
+    });
+});
+
+gulp.task('build-editor-deb', function () {
+    return mkdeb(`betterdiscord-editor_${editorpkg.version}-all`, 'release/editor/**/*', '/usr/lib/betterdiscord/editor', 'other/deb/control-editor/**/*', {
+        VERSION: editorpkg.version
+    });
+});
+gulp.task('build-debs', gulp.series('build-inject-debs', 'build-core-deb', 'build-client-deb', 'build-editor-deb'));

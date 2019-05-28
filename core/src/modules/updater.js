@@ -90,6 +90,10 @@ export default class Updater extends Module {
 
     async updateBd(update) {
         try {
+            if (this.bd.config.disableUpdater.includes(update.id)) {
+                throw {message: `Not installing ${update.id} as updates are disabled. Use your package manager to install updates instead.`};
+            }
+
             console.log('[BetterDiscord:Updater] Updating', update.id);
             await this.downloadTarGz(`https://github.com/JsSucks/BetterDiscordApp${update.remote}`, this.bd.config.getPath('base'));
             this.updateFinished(update);
@@ -117,6 +121,12 @@ export default class Updater extends Module {
         // TODO cleaner
         if (bd.length) {
             for (const update of bd) {
+                if (this.bd.config.disableUpdater.includes(update.id)) {
+                    update.error = {message: `Not installing ${update.id} as updates are disabled. Use your package manager to install updates instead.`};
+                    this.bd.sendToDiscord('updater-updateError', update);
+                    continue;
+                }
+
                 try {
                     await FileUtils.rm(`${this.bd.config.getPath(update.id)}_old`);
                     // Try to rename dirs first

@@ -101,4 +101,8 @@ export default new class extends Module {
         return this.config.versions.core;
     }
 
+    get disableUpdater() {
+        return this.config.disableUpdater;
+    }
+
 }

@@ -38,7 +38,10 @@ const TEST_ARGS = () => {
             'editor': path.resolve(_basePath, 'editor', 'dist'),
             // tmp: path.join(_basePath, 'tmp')
             tmp: path.join(os.tmpdir(), 'betterdiscord', `${process.getuid()}`)
-        }
+        },
+        disableUpdater: [
+            'core', 'client', 'editor'
+        ]
     }
 }
 const TEST_EDITOR = TESTS && true;

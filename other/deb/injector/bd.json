@@ -1,0 +1,19 @@
+{
+    "options": {
+        "autoInject": true,
+        "commonCore": true,
+        "commonData": true
+    },
+    "paths": {
+        "core": "/usr/lib/betterdiscord/core",
+        "client": "/usr/lib/betterdiscord/client",
+        "editor": "/usr/lib/betterdiscord/editor",
+        "data": ".config/betterdiscord/data",
+        "userconfig": ".config/betterdiscord/bd"
+    },
+    "disableUpdater": [
+        "core",
+        "client",
+        "editor"
+    ]
+}

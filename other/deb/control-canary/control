@@ -1,0 +1,6 @@
+Package: betterdiscord-canary
+Version: 1.0.0
+Architecture: all
+Maintainer: -
+Description: BetterDiscord v2 for Discord Canary
+Depends: discord-canary, betterdiscord-core, betterdiscord-client, betterdiscord-editor
