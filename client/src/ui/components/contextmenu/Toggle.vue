@@ -22,6 +22,6 @@
 
 <script>
     export default {
-        props: ['item', 'onClick', 'checked']
+        props: ['item', 'checked']
     }
 </script>

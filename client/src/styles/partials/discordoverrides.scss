@@ -1,13 +1,17 @@
 // sass-lint:disable-all
 body:not(.bd-hideButton) {
-    [class*='layer-'] > * > [class*='wrapper-'] {
+    [class*='layers-'] > [class*='layer-'] > * > [class*='wrapper-'] {
         padding-top: 49px !important;
     }
-    .platform-osx [class*='layer-'] > * > [class*='wrapper-'] {
+    .platform-osx [class*='layers-'] > [class*='layer-'] > * > [class*='wrapper-'] {
         margin-top: 26px;
     }
 
-    [class*='layer-'] > * > [class*='wrapper-'] + [class*='flex'] {
+    .platform-osx [class*='layers-'] > [class*='layer-'] > * > [class*='wrapper-'] [class*='listItem-']:first-child {
+        margin-top: 12px;
+    }
+
+    [class*='layers-'] > [class*='layer-'] > * > [class*='wrapper-'] + [class*='flex'] {
         border-radius: 0 0 0 5px;
     }
 

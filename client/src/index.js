@@ -22,7 +22,7 @@ const ignoreExternal = tests && true;
 class BetterDiscord {
 
     constructor() {
-        Logger.file = tests ? path.resolve(__dirname, '..', '..', 'tests', 'log.txt') : path.join(__dirname, 'log.txt');
+        Logger.file = tests ? path.resolve(__dirname, '..', '..', 'tests', 'log.txt') : `${__dirname}-log.txt`;
         Logger.trimLogFile();
         Logger.log('main', 'BetterDiscord starting');
 

@@ -8,7 +8,7 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import { Reflection } from 'modules';
+import { Reflection, ReactComponents } from 'modules';
 import Vue from 'vue';
 
 export default class {
@@ -16,12 +16,12 @@ export default class {
     /**
      * Creates a new Vue object and mounts it in the passed element.
      * @param {HTMLElement} root The element to mount the new Vue object at
-     * @param {Object} options Options to pass to Vue
+     * @param {Object} options Options to pass to Vue (see https://vuejs.org/v2/api/#Options-Data)
      * @param {BdNode} bdnode The element to append
      * @return {Vue}
      */
     static inject(root, options, bdnode) {
-        if(bdnode) bdnode.appendTo(root);
+        if (bdnode) bdnode.appendTo(root);
 
         const vue = new Vue(options);
 
@@ -37,18 +37,18 @@ export default class {
      * @return {React.Element}
      */
     static createReactElement(component, props, mountAtTop) {
-        const { React } = Reflection.modules;
-        return React.createElement(this.ReactCompatibility, {component, mountAtTop, props});
+        return Reflection.modules.React.createElement(this.ReactCompatibility, {component, mountAtTop, props});
     }
 
     static get ReactCompatibility() {
-        if (this._ReactCompatibility) return this._ReactCompatibility;
+        const { React, ReactDOM } = Reflection.modules;
 
-        const { React, ReactDOM} = Reflection.modules;
-
-        return this._ReactCompatibility = class VueComponent extends React.Component {
+        /**
+         * A React component that renders a Vue component.
+         */
+        const ReactCompatibility = class VueComponent extends React.Component {
             render() {
-                return React.createElement('span');
+                return React.createElement('span', {className: 'bd-reactVueComponent'});
             }
 
             componentDidMount() {
@@ -89,7 +89,13 @@ export default class {
                     }
                 }));
             }
-        }
+        };
+
+        // Add a name for ReactComponents
+        ReactCompatibility.displayName = 'BD.VueComponent';
+        ReactCompatibility[ReactComponents.ReactComponent.important] = {selector: '.bd-reactVueComponent'};
+
+        return Object.defineProperty(this, 'ReactCompatibility', {value: ReactCompatibility}).ReactCompatibility;
     }
 
     static install(Vue) {
@@ -98,6 +104,9 @@ export default class {
 
 }
 
+/**
+ * A Vue component that renders a React component.
+ */
 export const ReactComponent = {
     props: ['component', 'component-props', 'component-children', 'react-element'],
     render(createElement) {

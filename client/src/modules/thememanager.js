@@ -40,7 +40,7 @@ export default class ThemeManager extends ContentManager {
             });
             if (instance.enabled) {
                 instance.userConfig.enabled = false;
-                instance.enable();
+                instance.enable(false);
             }
             return instance;
         } catch (err) {

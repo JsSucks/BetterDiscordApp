@@ -15,7 +15,7 @@
             <Button v-if="devmode && !theme.packed" v-tooltip="'Package Theme'" @click="package"><MiBoxDownload size="18" /></Button>
             <Button v-tooltip="'Settings (shift + click to open settings without cloning the set)'" v-if="theme.hasSettings" @click="$emit('show-settings', $event.shiftKey)"><MiSettings size="18" /></Button>
             <Button v-tooltip="'Recompile (shift + click to reload)'" @click="$emit('reload-theme', $event.shiftKey)"><MiRefresh size="18" /></Button>
-            <Button v-tooltip="'Edit'" @click="editTheme"><MiPencil size="18" /></Button>
+            <Button v-if="devmode && !theme.packed" v-tooltip="'Edit'" @click="editTheme"><MiPencil size="18" /></Button>
             <Button v-tooltip="'Uninstall (shift + click to unload)'" @click="$emit('delete-theme', $event.shiftKey)" type="err"><MiDelete size="18" /></Button>
         </ButtonGroup>
     </Card>
@@ -33,13 +33,18 @@
     export default {
         data() {
             return {
-                devmode: Settings.getSetting('core', 'advanced', 'developer-mode').value
-            }
+                devmodeSetting: Settings.getSetting('core', 'advanced', 'developer-mode')
+            };
         },
         props: ['theme', 'online'],
         components: {
             Card, Button, ButtonGroup, SettingSwitch,
             MiSettings, MiRefresh, MiPencil, MiDelete, MiExtension, MiBoxDownload
+        },
+        computed: {
+            devmode() {
+                return this.devmodeSetting.value;
+            }
         },
         methods: {
             async package() {

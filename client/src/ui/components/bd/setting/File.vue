@@ -51,7 +51,7 @@
             },
             removeItem(file_path) {
                 if (this.setting.disabled) return;
-                this.setting.value = Utils.removeFromArray(this.setting.value, file_path);
+                this.setting.value = this.setting.value.filter(f => f !== file_path);
             }
         }
     }

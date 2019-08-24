@@ -12,18 +12,50 @@ import { Module, Reflection } from 'modules';
 
 const normalizedPrefix = 'da';
 const randClass = new RegExp(`^(?!${normalizedPrefix}-)((?:[A-Za-z]|[0-9]|-)+)-(?:[A-Za-z]|[0-9]|-|_){6}$`);
+const normalisedClass = /^(([a-zA-Z0-9]+)-[^\s]{6}) da-([a-zA-Z0-9]+)$/;
 
 export default class ClassNormaliser extends Module {
 
     init() {
         this.patchClassModules(Reflection.module.getModule(this.moduleFilter.bind(this), false));
         this.normalizeElement(document.querySelector('#app-mount'));
+        this.patchDOMMethods();
     }
 
     patchClassModules(modules) {
         for (const module of modules) {
             this.patchClassModule(normalizedPrefix, module);
         }
+    }
+
+    patchDOMMethods() {
+        const add = DOMTokenList.prototype.add;
+
+        DOMTokenList.prototype.add = function(...tokens) {
+            for (const token of tokens) {
+                let match;
+                if (typeof token === 'string' && (match = token.match(normalisedClass)) && match[2] === match[3]) return add.call(this, match[1]);
+                return add.call(this, token);
+            }
+        };
+
+        const remove = DOMTokenList.prototype.remove;
+
+        DOMTokenList.prototype.remove = function(...tokens) {
+            for (const token of tokens) {
+                let match;
+                if (typeof token === 'string' && (match = token.match(normalisedClass)) && match[2] === match[3]) return remove.call(this, match[1]);
+                return remove.call(this, token);
+            }
+        };
+
+        const contains = DOMTokenList.prototype.contains;
+
+        DOMTokenList.prototype.contains = function(token) {
+            let match;
+            if (typeof token === 'string' && (match = token.match(normalisedClass)) && match[2] === match[3]) return contains.call(this, match[1]);
+            return contains.call(this, token);
+        };
     }
 
     shouldIgnore(value) {

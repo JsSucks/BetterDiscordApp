@@ -17,7 +17,7 @@ const config = {
         })
     ],
     externals: {
-        sparkplug: 'require("./sparkplug")'
+        sparkplug: 'require("../core/sparkplug")'
     }
 };
 

@@ -27,7 +27,7 @@
         <div class="bd-flexRow bd-flex bd-flexGrow">
             <div class="bd-flexGrow bd-remoteCardTags">
                 <div v-for="(tag, index) in item.tags" class="bd-remoteCardTag">
-                    <div @click="tagClicked(tag)">{{tag}}</div><span v-if="index + 1 < item.tags.length">, </span>
+                    <div @click="$emit('tagclicked', tag)">{{tag}}</div><span v-if="index + 1 < item.tags.length">, </span>
                 </div>
             </div>
             <div class="bd-buttonGroup">
@@ -44,7 +44,7 @@
     import { shell } from 'electron';
 
     export default {
-        props: ['item', 'tagClicked'],
+        props: ['item'],
         data() {
             return {}
         },

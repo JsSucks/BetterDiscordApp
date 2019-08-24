@@ -9,8 +9,8 @@
 */
 
 <template>
-    <div class="bd-settingswrap">
-        <div v-if="noscroller" class="bd-flex bd-flexCol">
+    <div class="bd-settingswrap" :class="{'bd-settingswrapNoscroller': noscroller}">
+        <div v-if="noscroller" class="bd-flex bd-flexCol bd-flexGrow">
             <div class="bd-settingswrapHeader">
                 <span class="bd-settingswrapHeaderText">{{ headertext }}</span>
                 <slot name="header" />
@@ -19,7 +19,7 @@
                 <slot />
             </div>
         </div>
-        <ScrollerWrap v-else :scrollend="scrollend">
+        <ScrollerWrap v-else @scrollend="$emit('scrollend', $event)">
             <div class="bd-settingswrapHeader">
                 <span class="bd-settingswrapHeaderText">{{ headertext }}</span>
                 <slot name="header" />
@@ -36,7 +36,7 @@
     import { ScrollerWrap } from '../common';
 
     export default {
-        props: ['headertext', 'scrollend', 'noscroller'],
+        props: ['headertext', 'noscroller'],
         components: {
             ScrollerWrap
         }

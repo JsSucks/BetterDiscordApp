@@ -31,7 +31,7 @@
                         "id": "developer-mode",
                         "type": "bool",
                         "text": "Developer mode",
-                        "hint": "Adds some of BetterDiscord's internal modules to `global._bd`.",
+                        "hint": "Adds some of BetterDiscord's internal modules to `global._bd` and enable additional options in plugin and theme settings.",
                         "value": false
                     },
                     {

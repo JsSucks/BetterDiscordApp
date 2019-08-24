@@ -10,13 +10,13 @@
 
 <template>
     <div class="bd-dropdown" :class="{'bd-active': active, 'bd-disabled': disabled}">
-        <div class="bd-dropdownCurrent" @click="() => active = !active && !disabled">
-            <span class="bd-dropdownText">{{ getSelectedText() }}</span>
+        <div class="bd-dropdownCurrent" @click.stop="() => active = !active && !disabled">
+            <span class="bd-dropdownText">{{ selectedText }}</span>
             <span class="bd-dropdownArrowWrap">
                 <span class="bd-dropdownArrow"></span>
             </span>
         </div>
-        <div class="bd-dropdownOptions bd-flex bd-flexCol" ref="options" v-if="active">
+        <div class="bd-dropdownOptions bd-flex bd-flexCol" ref="options" v-if="active && !disabled">
             <div class="bd-dropdownOption" v-for="option in options" :class="{'bd-dropdownOptionSelected': value === option.value}" @click="select(option)">{{ option.text }}</div>
         </div>
     </div>
@@ -31,11 +31,15 @@
                 clickHandler: null
             };
         },
-        methods: {
-            getSelectedText() {
-                const selected_option = this.options.find(option => option.value === this.value);
-                return selected_option ? selected_option.text : this.value;
+        computed: {
+            selectedOption() {
+                return this.options.find(option => option.value === this.value);
             },
+            selectedText() {
+                return this.selectedOption ? this.selectedOption.text : this.value;
+            }
+        },
+        methods: {
             select(option) {
                 this.$emit('input', option.value);
                 this.active = false;

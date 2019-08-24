@@ -118,7 +118,7 @@ export default class Content extends AsyncEventEmitter {
      * @return {Promise}
      */
     async enable(save = true) {
-        if (this.enabled) return;
+        if (this.enabled || this.unloaded) return;
         await this.emit('enable');
         await this.emit('start');
 

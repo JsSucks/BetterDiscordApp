@@ -71,7 +71,7 @@ export default class extends Module {
             const c = contributors.find(c => c.id === user.id);
             if (!c) return;
 
-            const nameTag = retVal.props.children.props.children[1].props.children[0];
+            const nameTag = retVal.props.children[1].props.children[0].props.children[0];
             nameTag.type = this.PatchedNameTag || nameTag.type;
         });
 
@@ -89,26 +89,24 @@ export default class extends Module {
 
         const NameTag = await ReactComponents.getComponent('NameTag');
 
-        this.PatchedNameTag = class extends NameTag.component {
-            render() {
-                const retVal = NameTag.component.prototype.render.call(this, arguments);
-                try {
-                    if (!retVal.props || !retVal.props.children) return;
+        this.PatchedNameTag = function (props) {
+            const retVal = NameTag.component.apply(this, arguments);
+            try {
+                if (!retVal.props || !retVal.props.children) return retVal;
 
-                    const user = ReactHelpers.findProp(this, 'user');
-                    if (!user) return;
-                    const contributor = contributors.find(c => c.id === user.id);
-                    if (!contributor) return;
+                const user = ReactHelpers.findProp(props, 'user');
+                if (!user) return retVal;
+                const contributor = contributors.find(c => c.id === user.id);
+                if (!contributor) return retVal;
 
-                    retVal.props.children.splice(1, 0, VueInjector.createReactElement(BdBadge, {
-                        contributor,
-                        type: 'nametag'
-                    }));
-                } catch (err) {
-                    Logger.err('ProfileBadges', ['Error thrown while rendering a NameTag', err]);
-                }
-                return retVal;
+                retVal.props.children.splice(1, 0, VueInjector.createReactElement(BdBadge, {
+                    contributor,
+                    type: 'nametag'
+                }));
+            } catch (err) {
+                Logger.err('ProfileBadges', ['Error thrown while rendering a NameTag', err]);
             }
+            return retVal;
         };
 
         // Rerender all channel members

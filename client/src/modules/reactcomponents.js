@@ -190,15 +190,34 @@ class ReactComponent {
     }
 }
 
+ReactComponent.important = Symbol('BD.ReactComponent.important');
+
 export class ReactComponents {
+    /** @type {ReactComponent[]} */
     static get components() { return this._components || (this._components = []) }
+
+    /** @type {Reflection.modules.React.Component[]} */
     static get unknownComponents() { return this._unknownComponents || (this._unknownComponents = []) }
+
+    /** @type {{id: string, listeners: function[]}[]} */
     static get listeners() { return this._listeners || (this._listeners = []) }
+
+    /** @type {<{name: string, filter: function}[]>} */
     static get nameSetters() { return this._nameSetters || (this._nameSetters = []) }
-    static get componentAliases() { return this._componentAliases || (this._componentAliases = []) }
+
+    /** @type {Object.<string, string>} */
+    static get componentAliases() { return this._componentAliases || (this._componentAliases = {}) }
 
     static get ReactComponent() { return ReactComponent }
 
+    /**
+     * Processes a React component.
+     * @param {Reflection.modules.React.Component} component The React component class
+     * @param {object} retVal
+     * @param {object} important
+     * @param {string} important.selector A query selector the component will render elements matching (used to select all component instances to force them to rerender)
+     * @return {ReactComponent}
+     */
     static push(component, retVal, important) {
         if (!(component instanceof Function)) return null;
         const { displayName } = component;
@@ -211,6 +230,8 @@ export class ReactComponents {
             if (!have.important) have.important = important;
             return component;
         }
+
+        if (!important) important = component[ReactComponent.important];
 
         const c = new ReactComponent(displayName, component, retVal, important);
         this.components.push(c);
@@ -226,16 +247,19 @@ export class ReactComponents {
 
     /**
      * Finds a component from the components array or by waiting for it to be mounted.
-     * @param {String} name The component's name
-     * @param {Object} important An object containing a selector to look for
-     * @param {Function} filter A function to filter components if a single element is rendered by multiple components
-     * @return {Promise => ReactComponent}
+     * @param {string} name The component's name
+     * @param {object} important An object containing a selector to look for
+     * @param {function} filter A function to filter components if a single element is rendered by multiple components
+     * @return {Promise<ReactComponent>}
      */
     static async getComponent(name, important, filter) {
         name = this.getComponentName(name);
 
         const have = this.components.find(c => c.id === name);
-        if (have) return have;
+        if (have) {
+            if (!have.important) have.important = important;
+            return have;
+        }
 
         if (important) {
             const callback = () => {
@@ -262,7 +286,7 @@ export class ReactComponents {
                 }
 
                 if (!component && filter) {
-                    Logger.log('ReactComponents', ['Found elements matching the query selector but no components passed the filter']);
+                    Logger.log('ReactComponents', ['Found elements matching the query selector but no components passed the filter', name, important, filter]);
                     return;
                 }
 
@@ -321,8 +345,12 @@ export class ReactComponents {
         return this.nameSetters.push({ name, filter });
     }
 
+    /**
+     * Processes a React component that isn't known.
+     * @param {Reflection.modules.React.Component} component
+     * @param {} retVal
+     */
     static processUnknown(component, retVal) {
-        const have = this.unknownComponents.find(c => c.component === component);
         for (const [fi, filter] of this.nameSetters.entries()) {
             if (filter.filter.filter(component)) {
                 Logger.log('ReactComponents', 'Filter match!');
@@ -331,9 +359,8 @@ export class ReactComponents {
                 return this.push(component, retVal);
             }
         }
-        if (have) return have;
-        this.unknownComponents.push(component);
-        return component;
+
+        if (!this.unknownComponents.includes(component)) this.unknownComponents.push(component);
     }
 }
 
@@ -441,13 +468,13 @@ export class ReactAutoPatcher {
     }
 
     static async patchNameTag() {
-        const { selector } = Reflection.resolve('nameTag', 'username', 'discriminator', 'ownerIcon');
+        const { selector } = Reflection.resolve('nameTag', 'username', 'discriminator', 'bot');
         this.NameTag = await ReactComponents.getComponent('NameTag', {selector});
     }
 
     static async patchGuild() {
-        const selector = `div.${Reflection.resolve('container', 'guildIcon', 'selected', 'unread').className}:not(:first-child)`;
-        this.Guild = await ReactComponents.getComponent('Guild', {selector}, m => m.prototype.renderBadge);
+        const { selector } = Reflection.resolve('listItem', 'guildSeparator', 'selected', 'friendsOnline');
+        this.Guild = await ReactComponents.getComponent('Guild', {selector}, m => m.displayName === 'Guild');
 
         this.unpatchGuild = MonkeyPatch('BD:ReactComponents', this.Guild.component.prototype).after('render', (component, args, retVal) => {
             const { guild } = component.props;
@@ -505,7 +532,7 @@ export class ReactAutoPatcher {
         ReactComponents.componentAliases.GuildVoiceChannel = 'VoiceChannel';
 
         const { selector } = Reflection.resolve('containerDefault', 'actionIcon');
-        this.GuildVoiceChannel = await ReactComponents.getComponent('GuildVoiceChannel', {selector}, c => c.prototype.handleVoiceConnect);
+        this.GuildVoiceChannel = await ReactComponents.getComponent('GuildVoiceChannel', {selector}, c => c.prototype.renderVoiceUsers);
 
         this.unpatchGuildVoiceChannel = MonkeyPatch('BD:ReactComponents', this.GuildVoiceChannel.component.prototype).after('render', this._afterChannelRender);
 

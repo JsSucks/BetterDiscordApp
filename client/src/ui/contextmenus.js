@@ -84,7 +84,7 @@ export class DiscordContextMenu {
     }
 
     static renderCm(component, args, retVal, res) {
-        if (!retVal.props || !res.props) return;
+        if (!retVal.props || !retVal.props.style || !res.props) return;
         const { target } = component.props;
         const { top, left } = retVal.props.style;
         if (!target || !top || !left) return;

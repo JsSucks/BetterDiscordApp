@@ -34,9 +34,11 @@
                             <div class="bd-spinner7" />
                         </div>
                         <div class="bd-searchHint">{{searchHint}}</div>
-                        <div class="bd-fancySearch" :class="{'bd-disabled': loadingOnline, 'bd-active': loadingOnline || (onlineThemes && onlineThemes.docs)}">
-                            <input type="text" class="bd-textInput" placeholder="Search" @keydown.enter="searchInput" @keyup.stop :value="onlineThemes.filters.sterm"/>
-                        </div>
+                        <form @submit.prevent="refreshOnline">
+                            <div class="bd-fancySearch" :class="{'bd-disabled': loadingOnline, 'bd-active': loadingOnline || (onlineThemes && onlineThemes.docs)}">
+                                <input type="text" class="bd-textInput" placeholder="Search" v-model="onlineThemes.filters.sterm" :disabled="loadingOnline" @input="search" @keyup.stop/>
+                            </div>
+                        </form>
                     </div>
                     <div class="bd-flex bd-flexRow" v-if="onlineThemes && onlineThemes.docs && onlineThemes.docs.length">
                         <div class="bd-searchSort bd-flex bd-flexGrow">
@@ -48,11 +50,13 @@
                         </div>
                     </div>
                 </div>
-                <ScrollerWrap class="bd-onlinePhBody" v-if="!loadingOnline && onlineThemes" :scrollend="scrollend">
-                    <RemoteCard v-if="onlineThemes && onlineThemes.docs" v-for="theme in onlineThemes.docs" :key="theme.id" :item="theme" :tagClicked="searchByTag"/>
-                    <div class="bd-spinnerContainer">
-                        <div v-if="loadingMore" class="bd-spinner7"/>
-                    </div>
+                <ScrollerWrap class="bd-onlinePhBody" @scrollend="scrollend">
+                    <template v-if="!loadingOnline && onlineThemes">
+                        <RemoteCard v-if="onlineThemes && onlineThemes.docs" v-for="theme in onlineThemes.docs" :key="theme.id" :item="theme" @tagclicked="searchByTag"/>
+                        <div class="bd-spinnerContainer">
+                            <div v-if="loadingMore" class="bd-spinner7"/>
+                        </div>
+                    </template>
                 </ScrollerWrap>
             </div>
         </div>
@@ -93,7 +97,8 @@
                 },
                 loadingOnline: false,
                 loadingMore: false,
-                searchHint: ''
+                searchHint: '',
+                searchTimeout: null
             };
         },
         components: {
@@ -108,6 +113,7 @@
             },
             async showOnline() {
                 this.local = false;
+                if (!this.onlineThemes.pagination.total) await this.refreshOnline();
             },
             async refreshLocal() {
                 await this.ThemeManager.refreshThemes();
@@ -154,11 +160,6 @@
                     dont_clone
                 });
             },
-            searchInput(e) {
-                if (this.loadingOnline || this.loadingMore) return;
-                this.onlineThemes.filters.sterm = e.target.value;
-                this.refreshOnline();
-            },
             async scrollend(e) {
                 if (this.onlineThemes.pagination.page >= this.onlineThemes.pagination.pages) return;
                 if (this.loadingOnline || this.loadingMore) return;
@@ -190,6 +191,10 @@
                     this.onlineThemes.filters.ascending = false;
                 }
                 this.refreshOnline();
+            },
+            async search() {
+                clearTimeout(this.searchTimeout);
+                this.searchTimeout = setTimeout(this.refreshOnline, 1000);
             },
             async searchByTag(tag) {
                 if (this.loadingOnline || this.loadingMore) return;

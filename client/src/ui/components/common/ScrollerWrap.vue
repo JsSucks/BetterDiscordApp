@@ -18,12 +18,11 @@
 
 <script>
     export default {
-        props: ['dark', 'scrollend'],
+        props: ['dark'],
         methods: {
             onscroll(e) {
-                if (!this.scrollend) return;
                 const { offsetHeight, scrollTop, scrollHeight } = e.target;
-                if (offsetHeight + scrollTop >= scrollHeight) this.scrollend(e);
+                if (offsetHeight + scrollTop >= scrollHeight) this.$emit('scrollend', e);
             }
         }
     }

@@ -62,7 +62,7 @@
             SettingsWrapper
         },
         methods: {
-            showConnectWindow() { 
+            showConnectWindow() {
                 if (this.connecting) return;
                 this.connecting = true;
                 const x = (window.screenX + window.outerWidth / 2) - 520 / 2;
