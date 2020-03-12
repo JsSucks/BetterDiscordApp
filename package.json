@@ -16,7 +16,7 @@
   },
   "private": false,
   "dependencies": {
-    "asar": "^1.0.0",
+    "asar": "^3.0.0",
     "axios": "^0.18.0",
     "chokidar": "^2.1.2",
     "csp-parse": "github:macropodhq/csp-parse",
