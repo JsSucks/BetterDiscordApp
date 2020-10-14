@@ -24,7 +24,7 @@
     "fs-extra": "^7.0.1",
     "keytar": "4.4.1",
     "nedb": "^1.8.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "original-fs": "^1.0.0",
     "semver": "^5.6.0",
     "tar-fs": "^2.0.0"
