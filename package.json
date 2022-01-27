@@ -22,7 +22,7 @@
     "csp-parse": "github:macropodhq/csp-parse",
     "deepmerge": "^3.2.0",
     "fs-extra": "^7.0.1",
-    "keytar": "4.4.1",
+    "keytar": "7.1.0",
     "nedb": "^1.8.0",
     "node-sass": "^4.11.0",
     "original-fs": "^1.0.0",
