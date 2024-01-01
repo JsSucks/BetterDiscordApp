@@ -17,7 +17,7 @@
   "private": false,
   "dependencies": {
     "asar": "^1.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "chokidar": "^2.1.2",
     "csp-parse": "github:macropodhq/csp-parse",
     "deepmerge": "^3.2.0",
