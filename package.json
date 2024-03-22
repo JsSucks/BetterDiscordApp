@@ -18,13 +18,13 @@
   "dependencies": {
     "asar": "^1.0.0",
     "axios": "^0.18.0",
-    "chokidar": "^2.1.2",
+    "chokidar": "^3.0.0",
     "csp-parse": "github:macropodhq/csp-parse",
     "deepmerge": "^3.2.0",
     "fs-extra": "^7.0.1",
     "keytar": "4.4.1",
     "nedb": "^1.8.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^5.0.0",
     "original-fs": "^1.0.0",
     "semver": "^5.6.0",
     "tar-fs": "^2.0.0"
